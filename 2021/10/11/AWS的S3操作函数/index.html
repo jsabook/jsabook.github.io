@@ -48,21 +48,21 @@
   };
 </script>
 
-  <meta name="description" content="connect Blog 🏠 jsabook  Email 📧 wjshuai   license 文章内容使用 WTFPL 许可证书，请任意放心使用，转载墙内请去掉本站信息，谢谢 WTFPL © Do What the Fuck You Want to Public License">
-<meta property="og:type" content="website">
-<meta property="og:title" content="关于咱">
-<meta property="og:url" content="http://yoursite.com/about.html">
+  <meta name="description" content="文件排序 1234567891011def list_s3_by_prefix(bucket, prefix, filter_func&#x3D;None):    print(f&quot;list_s3_by_prefix bucket: &amp;#123;bucket&amp;#125;, prefix: &amp;#123;prefix&amp;#125;&quot;)    s3_bucket &#x3D; boto3.resource(&#39;s3&#39;).Buc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AWS的S3操作函数">
+<meta property="og:url" content="http://yoursite.com/2021/10/11/AWS%E7%9A%84S3%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0/index.html">
 <meta property="og:site_name" content="Qier&#39;s blog">
-<meta property="og:description" content="connect Blog 🏠 jsabook  Email 📧 wjshuai   license 文章内容使用 WTFPL 许可证书，请任意放心使用，转载墙内请去掉本站信息，谢谢 WTFPL © Do What the Fuck You Want to Public License">
+<meta property="og:description" content="文件排序 1234567891011def list_s3_by_prefix(bucket, prefix, filter_func&#x3D;None):    print(f&quot;list_s3_by_prefix bucket: &amp;#123;bucket&amp;#125;, prefix: &amp;#123;prefix&amp;#125;&quot;)    s3_bucket &#x3D; boto3.resource(&#39;s3&#39;).Buc">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-09-12T16:00:00.000Z">
+<meta property="article:published_time" content="2021-10-11T06:58:37.676Z">
 <meta property="article:modified_time" content="2021-10-11T06:58:37.676Z">
 <meta property="article:author" content="qier">
 <meta property="article:tag" content="Docker">
 <meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/about">
+<link rel="canonical" href="http://yoursite.com/2021/10/11/AWS%E7%9A%84S3%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0/">
 
 
 <script id="page-configurations">
@@ -70,12 +70,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false
+    isPost: true
   };
 </script>
 
-  <title>关于咱 | Qier's blog
-  </title>
+  <title>AWS的S3操作函数 | Qier's blog</title>
   
 
 
@@ -168,54 +167,119 @@
       <div class="main-inner">
         <div class="content-wrap">
           
-  
-  
 
           <div class="content">
             
 
   <div class="posts-expand">
-    
-    
-    
-    <div class="post-block" lang="zh-CN">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/10/11/AWS%E7%9A%84S3%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/avatar.png">
+      <meta itemprop="name" content="qier">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Qier's blog">
+    </span>
       <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          AWS的S3操作函数
+        </h2>
 
-<h2 class="post-title" itemprop="name headline">关于咱
-</h2>
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
 
-<div class="post-meta">
+              <time title="创建时间：2021-10-11 2021-10-11T14:58:37+08:00" itemprop="dateCreated datePublished" datetime="2021-10-11T14:58:37+08:00">2021-10-11</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/10/11/AWS%E7%9A%84S3%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/10/11/AWS的S3操作函数/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><strong>文件排序</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">list_s3_by_prefix</span><span class="params">(bucket, prefix, filter_func=None)</span>:</span></span><br><span class="line">    print(<span class="string">f"list_s3_by_prefix bucket: <span class="subst">&#123;bucket&#125;</span>, prefix: <span class="subst">&#123;prefix&#125;</span>"</span>)</span><br><span class="line">    s3_bucket = boto3.resource(<span class="string">'s3'</span>).Bucket(bucket)</span><br><span class="line">    <span class="keyword">if</span> filter_func <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        key_list = [s.key <span class="keyword">for</span> s <span class="keyword">in</span> s3_bucket.objects.filter(Prefix=prefix)]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        key_list = [s.key <span class="keyword">for</span> s <span class="keyword">in</span> s3_bucket.objects.filter(</span><br><span class="line">            Prefix=prefix) <span class="keyword">if</span> filter_func(s.key)]</span><br><span class="line"></span><br><span class="line">    print(<span class="string">"list_s3_by_prefix return:"</span>, key_list)</span><br><span class="line">    <span class="keyword">return</span> key_list</span><br></pre></td></tr></table></figure>
+
+<p><strong>文件拷贝到s3</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">s3_copy</span><span class="params">(bucket, from_key, to_key)</span>:</span></span><br><span class="line">    s3_bucket = boto3.resource(<span class="string">'s3'</span>).Bucket(bucket)</span><br><span class="line">    copy_source = &#123;</span><br><span class="line">        <span class="string">'Bucket'</span>: bucket,</span><br><span class="line">        <span class="string">'Key'</span>: from_key</span><br><span class="line">    &#125;</span><br><span class="line">    s3_bucket.copy(copy_source, to_key)</span><br><span class="line">    print(<span class="string">"copied s3://&#123;&#125;/&#123;&#125; to s3://&#123;&#125;/&#123;&#125;"</span>.format(bucket, from_key, bucket, to_key))</span><br></pre></td></tr></table></figure>
+
+<p><strong>文件同步到本地</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sync_s3</span><span class="params">(file_name_list, s3_folder, local_folder)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> f <span class="keyword">in</span> file_name_list:</span><br><span class="line">        print(<span class="string">"file preparation: download src key &#123;&#125; to dst key &#123;&#125;"</span>.format(os.path.join(</span><br><span class="line">            s3_folder, f), os.path.join(local_folder, f)))</span><br><span class="line">        s3client.download_file(bucket, os.path.join(</span><br><span class="line">            s3_folder, f), os.path.join(local_folder, f))</span><br></pre></td></tr></table></figure>
+
+<p><strong>上传单个文件</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">write_to_s3</span><span class="params">(filename, bucket, key)</span>:</span></span><br><span class="line">    print(<span class="string">"upload s3://&#123;&#125;/&#123;&#125;"</span>.format(bucket, key))</span><br><span class="line">    <span class="keyword">with</span> open(filename, <span class="string">'rb'</span>) <span class="keyword">as</span> f:  <span class="comment"># Read in binary mode</span></span><br><span class="line">        <span class="comment"># return s3client.upload_fileobj(f, bucket, key)</span></span><br><span class="line">        <span class="keyword">return</span> s3client.put_object(</span><br><span class="line">            ACL=<span class="string">'bucket-owner-full-control'</span>,</span><br><span class="line">            Bucket=bucket,</span><br><span class="line">            Key=key,</span><br><span class="line">            Body=f</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/10/11/Pycharm%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%A0%81/" rel="prev" title="Pycharm远程调试服务器代码">
+      <i class="fa fa-chevron-left"></i> Pycharm远程调试服务器代码
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
-</div>
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
-          <h2 id="connect"><a href="#connect" class="headerlink" title="connect"></a>connect</h2><ul>
-<li><p><strong>Blog</strong> 🏠 <a href="https://jsabook.github.io/" target="_blank" rel="noopener">jsabook</a></p>
-</li>
-<li><p><strong>Email</strong> 📧 <a href="mailto:wujiashuaizfq@gmail.com">wjshuai</a></p>
-</li>
-</ul>
-<h2 id="license"><a href="#license" class="headerlink" title="license"></a>license</h2><ul>
-<li>文章内容使用 WTFPL 许可证书，请任意放心使用，转载墙内请去掉本站信息，谢谢</li>
-<li>WTFPL © Do What the Fuck You Want to Public License</li>
-</ul>
-
-      </div>
-      
-      
-      
-    </div>
-    
-
-    
-    
-    
   </div>
 
 
@@ -274,7 +338,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#connect"><span class="nav-number">1.</span> <span class="nav-text">connect</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#license"><span class="nav-number">2.</span> <span class="nav-text">license</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -417,9 +480,9 @@
       DISQUS.reset({
         reload: true,
         config: {page: {
-            url: "http://yoursite.com/about.html",
-            identifier: "about.html",
-            title: "关于咱"
+            url: "http://yoursite.com/2021/10/11/AWS%E7%9A%84S3%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0/",
+            identifier: "2021/10/11/AWS的S3操作函数/",
+            title: "AWS的S3操作函数"
           }
         }
       });
