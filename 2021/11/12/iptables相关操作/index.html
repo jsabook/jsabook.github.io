@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico">
+  <link rel="mask-icon" href="/favicon.ico" color="#222">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"buttons","active":null,"storage":true,"lazyload":true,"nav":{"disqus":{"text":"Load Disqus","order":-1}}},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":false,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="iptables 是 Linux 防火墙工作在用户空间的管理工具，是 netfilter&#x2F;iptablesIP 信息包过滤系统是一部分，用来设置、维护和检查 Linux 内核的 IP 数据包过滤规则。  iptables由两部分组成，一部分是ip另外一部分就是tables。因此iptables就是通过表的形式对ip进行各种操作。 iptables的重点是五链四表。 四表五链：链就是位置：共有五个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iptables相关操作">
+<meta property="og:url" content="http://yoursite.com/2021/11/12/iptables%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:site_name" content="Qier&#39;s blog">
+<meta property="og:description" content="iptables 是 Linux 防火墙工作在用户空间的管理工具，是 netfilter&#x2F;iptablesIP 信息包过滤系统是一部分，用来设置、维护和检查 Linux 内核的 IP 数据包过滤规则。  iptables由两部分组成，一部分是ip另外一部分就是tables。因此iptables就是通过表的形式对ip进行各种操作。 iptables的重点是五链四表。 四表五链：链就是位置：共有五个">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/iptables-Page-1-2drawio.svg">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/iptables-%E4%BA%94%E8%A1%A8%E5%9B%9B%E9%93%BEdrawio.svg">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/iptables-%E7%A4%BA%E6%84%8F%E5%9B%BEdrawio.svg">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/iptables-Optiondrawio.svg">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211112214242489.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211112215324542.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211112215806952.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/iptables-%E6%9F%A5%E8%AF%A2%E8%A7%84%E5%88%992drawio.svg">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211113054542183.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211113054621095.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211113060033937.png">
+<meta property="article:published_time" content="2021-11-12T22:15:54.351Z">
+<meta property="article:modified_time" content="2021-11-12T22:15:54.351Z">
+<meta property="article:author" content="qier">
+<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/iptables-Page-1-2drawio.svg">
+
+<link rel="canonical" href="http://yoursite.com/2021/11/12/iptables%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>iptables相关操作 | Qier's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Qier's blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Qier's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-desktop"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-friends">
+
+    <a href="/friends.html" rel="section"><i class="fa fa-fw fa-link"></i>Friends</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about.html" rel="section"><i class="fa fa-fw fa-user-circle-o"></i>About</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/11/12/iptables%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/avatar.png">
+      <meta itemprop="name" content="qier">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Qier's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          iptables相关操作
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-11-13 2021-11-13T06:15:54+08:00" itemprop="dateCreated datePublished" datetime="2021-11-13T06:15:54+08:00">2021-11-13</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/11/12/iptables%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/11/12/iptables相关操作/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>iptables 是 Linux 防火墙工作在用户空间的管理工具，是 <code>netfilter/iptables</code>IP 信息包过滤系统是一部分，用来设置、维护和检查 Linux 内核的 IP 数据包过滤规则。</p>
+</blockquote>
+<p>iptables由两部分组成，一部分是ip另外一部分就是tables。因此iptables就是通过表的形式对ip进行各种操作。</p>
+<p>iptables的重点是<strong>五链四表</strong>。</p>
+<p><strong>四表五链</strong>：<br>链就是位置：共有五个 进路由(    PREROUTING)、进系统(INPUT) 、转发(FORWARD)、出系统(OUTPUT)、出路由(POSTROUTING)；<br>表就是存储的规则；数据包到了该链处，会去对应表中查询设置的规则，然后决定是否放行、丢弃、转发还是修改等等操作。</p>
+<p><strong>四表</strong></p>
+<ul>
+<li><p>raw表，待学习</p>
+</li>
+<li><p>mangle表，操作系统级别的表，主要应用在修改数据包、流量整形、给数据包打标识，默认的规则链有：<code>INPUT</code>，<code>OUTPUT</code>、 <code>forward</code>，<code>POSTROUTING</code>，<code>PREROUTING</code></p>
+</li>
+<li><p>filter表，过滤表，对进入的不符合条件的流量过滤。对不符合规则输出流量也进行过滤；</p>
+</li>
+<li><p>nat表，对目的地址、目的端口、源地址源端口进行修改；</p>
+</li>
+</ul>
+<p><strong>五链</strong></p>
+<ul>
+<li>INPUT</li>
+<li>OUTPUT</li>
+<li>FPRWARD</li>
+<li>POSTROUTING</li>
+<li>PREROUTING</li>
+</ul>
+<h1 id="五链"><a href="#五链" class="headerlink" title="五链"></a>五链</h1><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/iptables-Page-1-2drawio.svg" alt="iptables-Page-1-2drawio"></p>
+<img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/iptables-%E4%BA%94%E8%A1%A8%E5%9B%9B%E9%93%BEdrawio.svg" alt="iptables-五表四链drawio" style="zoom:80%;" />
+
+<ol>
+<li>当一个数据包进入网卡时，它首先进入 <code>PREROUTING</code> 链，内核根据数据包目的 IP 判断是否需要转送出去。</li>
+<li>如果数据包就是进入本机的，它就会沿着图向下移动，到达 <code>INPUT</code> 链。数据包到了 INPUT 链后，任何进程都会收到它。</li>
+<li>本机上运行的程序可以发送数据包，这些数据包会经过 <code>OUTPUT</code> 链，然后到达<code>POSTROUTING</code> 链输出。</li>
+<li>如果数据包是要转发出去的，且内核允许转发，数据包就会如图所示向右移动，经过 <code>FORWARD</code> 链，然后到达 <code>POSTROUTING</code> 链输出。</li>
+</ol>
+<p><strong>小结</strong></p>
+<p>整体数据包分两类：1、发给防火墙本身的数据包 ；2、需要经过防火墙的数据包.</p>
+<p>数据包的流程：数据包进入到链中之后，会根据此时的状态去对应的表中查询对应的规则。</p>
+<p><strong>匹配流程示意图</strong></p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/iptables-%E7%A4%BA%E6%84%8F%E5%9B%BEdrawio.svg" alt="iptables-示意图drawio"></p>
+<p><strong>iptables语法</strong></p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/iptables-Optiondrawio.svg" alt="iptables-Optiondrawio"></p>
+<p>这张图描述了iptables的相关语法命令。</p>
+<h1 id="四表"><a href="#四表" class="headerlink" title="四表"></a>四表</h1><h2 id="filter表"><a href="#filter表" class="headerlink" title="filter表"></a>filter表</h2><p><strong>查看规则</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -L -n</span><br></pre></td></tr></table></figure>
+
+<p>可以看到结果</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211112214242489.png" alt="image-20211112214242489"></p>
+<p><strong>添加规则</strong></p>
+<p>追加规则，将所有进入流量的80端口的流量丢弃掉。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -A INPUT -j DROP -p tcp --dport 80</span><br></pre></td></tr></table></figure>
+
+<p>追加规则，将出口到某个<strong>192.168.0.144</strong>的流量全部丢弃</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -A OUTPUT -j DROP -p tcp -d 192.168.0.144</span><br></pre></td></tr></table></figure>
+
+<p>查看iptables表</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211112215324542.png" alt="image-20211112215324542"></p>
+<p><strong>删除规则</strong></p>
+<p>将设置的第一条规则删除掉。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -D INPUT 1</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="nat表"><a href="#nat表" class="headerlink" title="nat表"></a>nat表</h2><p>查看nat 表</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211112215806952.png" alt="image-20211112215806952"></p>
+<h1 id="查询规则"><a href="#查询规则" class="headerlink" title="查询规则"></a>查询规则</h1><p>如图所示</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/iptables-%E6%9F%A5%E8%AF%A2%E8%A7%84%E5%88%992drawio.svg" alt="iptables-查询规则2drawio"></p>
+<p><strong>查询规则</strong></p>
+<p>-L 列出规则，在L之前还可以添加其他参数，如下所示：</p>
+<ul>
+<li>v：显示详细信息，包括每条规则匹配的包数和匹配字节号；</li>
+<li>x：在v的基础上，禁止自动单位换算(K、M)</li>
+<li>n：只显示IP地址与端口号码，不显示服务名称</li>
+</ul>
+<p>用详细方法列出filter表的的所有规则，只显示IP地址与端口号：</p>
+<p><strong>第一种</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root@wjshuai:~<span class="comment"># iptables -t filter -vnL INPUT</span></span><br><span class="line">Chain INPUT (policy ACCEPT 0 packets, 0 bytes)</span><br><span class="line"> pkts bytes target     prot opt <span class="keyword">in</span>     out     <span class="built_in">source</span>               destination         </span><br><span class="line">   35  2100 DROP       tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp dpt:80</span><br><span class="line"><span class="comment"># Warning: iptables-legacy tables present, use iptables-legacy to see them</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>第二种</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root@wjshuai:~<span class="comment"># iptables -t filter -v -n -L  INPUT</span></span><br><span class="line">Chain INPUT (policy ACCEPT 0 packets, 0 bytes)</span><br><span class="line"> pkts bytes target     prot opt <span class="keyword">in</span>     out     <span class="built_in">source</span>               destination         </span><br><span class="line">   35  2100 DROP       tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp dpt:80</span><br><span class="line"><span class="comment"># Warning: iptables-legacy tables present, use iptables-legacy to see them</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="匹配规则"><a href="#匹配规则" class="headerlink" title="匹配规则"></a>匹配规则</h1><h2 id="按网络接口匹配"><a href="#按网络接口匹配" class="headerlink" title="按网络接口匹配"></a>按网络接口匹配</h2><p><strong>-i，匹配数据进入的网络接口</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-i eth0 匹配是否从网络接口eth0进入</span><br><span class="line">-i ppp0 匹配是否从网络接口ppp0进入</span><br></pre></td></tr></table></figure>
+
+<p><strong>-o，匹配数据流出的网络接口</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-o eth0 匹配是否从网络接口eth0出去</span><br><span class="line">-o ppp0 匹配是否从网络接口ppp0出去</span><br></pre></td></tr></table></figure>
+
+<h2 id="按照地址进行匹配"><a href="#按照地址进行匹配" class="headerlink" title="按照地址进行匹配"></a>按照地址进行匹配</h2><p><strong>-s，匹配来源地址</strong></p>
+<p>可以是IP、NET、Domain也可以为空(任何)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-s 192.168.0.1 匹配来自192.168.0.1的数据包</span><br><span class="line">-s 192.168.1.0&#x2F;24 匹配来自192.168.1.0&#x2F;24网络段的数据包</span><br></pre></td></tr></table></figure>
+
+<p><strong>-d，匹配目的地址</strong></p>
+<p>可以是IP、NET、Domain也可以为空(任何)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-d 202.106.0.20 匹配去往202.106.0.20的数据包</span><br><span class="line">-d 202.106.0.0&#x2F;16 匹配去往202.106.0.0&#x2F;16网络段的数据包</span><br><span class="line">-d www.adc.com 匹配前往域名www.abc.com的数据包</span><br></pre></td></tr></table></figure>
+
+<h2 id="按照协议类型进行匹配"><a href="#按照协议类型进行匹配" class="headerlink" title="按照协议类型进行匹配"></a>按照协议类型进行匹配</h2><p><strong>-p,匹配协议类型</strong></p>
+<p>可以是任何的网络协议</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-p tcp</span><br><span class="line">-p udp</span><br><span class="line">-p icmp</span><br></pre></td></tr></table></figure>
+
+<h2 id="按照端口进行匹配"><a href="#按照端口进行匹配" class="headerlink" title="按照端口进行匹配"></a>按照端口进行匹配</h2><p><strong>–sport，匹配源端口</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">--sport 1000 匹配源端口是1000的数据包</span><br><span class="line">--sport 1000:3000 匹配源端口是1000到3000的数据包(包含1000与3000)</span><br></pre></td></tr></table></figure>
+
+<p><strong>–dport，匹配目的端口</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">--dport 80</span><br><span class="line">--dport 1000:6000</span><br></pre></td></tr></table></figure>
+
+<p><strong>ps</strong>:如果需要匹配端口那就需要规则中必须有<strong>-p</strong>参数。</p>
+<h2 id="附加匹配模块"><a href="#附加匹配模块" class="headerlink" title="附加匹配模块"></a>附加匹配模块</h2><h3 id="按包状态匹配"><a href="#按包状态匹配" class="headerlink" title="按包状态匹配"></a>按包状态匹配</h3><p><strong>state</strong></p>
+<p>-m state –state 状态</p>
+<p><strong>状态</strong>：</p>
+<ul>
+<li>NEW,有别于tcp的syn</li>
+<li>ESTABLISHED,连接状态</li>
+</ul>
+<p><strong>例子</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipttables -A INPUT -m state --state NEW.ESTABLISHED -j ACCEPT</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="按来源MAC匹配"><a href="#按来源MAC匹配" class="headerlink" title="按来源MAC匹配"></a>按来源MAC匹配</h3><p><strong>mac</strong></p>
+<p>-m mac –mac-source MAC</p>
+<p><strong>例如</strong></p>
+<p>阻断来自某MAC地址的数据包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A FORWARD -m mac --mac-source xx:xx:xx:xx:xx:xx -j DROP</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="按包速率匹配"><a href="#按包速率匹配" class="headerlink" title="按包速率匹配"></a>按包速率匹配</h3><p><strong>limit</strong></p>
+<p>用一定的速率去匹配数据包，而不是去限制数据包。</p>
+<h3 id="多端口匹配"><a href="#多端口匹配" class="headerlink" title="多端口匹配"></a>多端口匹配</h3><p><strong>multiport</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -p tcp -m multiports --ports 21,22,23	-j DROP</span><br></pre></td></tr></table></figure>
+
+<p><strong>ps</strong>:如果需要匹配端口那就需要规则中必须有<strong>-p</strong>参数。</p>
+<h1 id="target"><a href="#target" class="headerlink" title="target"></a>target</h1><p>动作，处理方式，按照规则匹配到流量后，对该流量进行的动作。有如下处理方式：</p>
+<ul>
+<li>ACCEPT</li>
+<li>DROP</li>
+<li>SNAT</li>
+<li>DNAT</li>
+<li>MASQUERADE</li>
+</ul>
+<h2 id="ACCEPT"><a href="#ACCEPT" class="headerlink" title="ACCEPT"></a>ACCEPT</h2><p>接受数据流量</p>
+<h2 id="DROP"><a href="#DROP" class="headerlink" title="DROP"></a>DROP</h2><p>丢弃数据流量</p>
+<h2 id="SNAT"><a href="#SNAT" class="headerlink" title="SNAT"></a>SNAT</h2><p>源地址转换，<strong>nat</strong>表的<strong>POSTROUTING</strong>链</p>
+<p>例如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 将内网192.168.0.0&#x2F;24源地址修改为1.1.1.1</span><br><span class="line">iptables -t nat -A POSTROUTING -s 192.168.0.0&#x2F;24 -j SNAT --to 1.1.1.1</span><br></pre></td></tr></table></figure>
+
+<h2 id="DNAT"><a href="#DNAT" class="headerlink" title="DNAT"></a><strong>DNAT</strong></h2><p>目的地址转换，DNAT支持    转换为单IP，也支持转换到IP地址池</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 从ppp0接口进来的要访问TCP&#x2F;80端口的数据包目的地址修改为192.168.0.1</span><br><span class="line">iptables -t nat -A PREROUTING -i ppp0 -p tcp --dport 80 -j DNAT --to 192.168.0.1</span><br></pre></td></tr></table></figure>
+
+<h1 id="转发流量"><a href="#转发流量" class="headerlink" title="转发流量"></a>转发流量</h1><p>使用iptables的转发流量功能前，需要先开启转发功能</p>
+<p><strong>开启转发功能</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sed -i &#39;s&#x2F;net.ipv4.ip_forward &#x3D; 0&#x2F;net.ipv4.ip_forward &#x3D; 1&#x2F;g&#39; &#x2F;etc&#x2F;sysctl.conf</span><br><span class="line">sysctl -p</span><br></pre></td></tr></table></figure>
+
+<p><strong>清除下所有默认的iptables表</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">iptables -F</span><br><span class="line">iptables -t nat -F</span><br><span class="line">service iptables save</span><br></pre></td></tr></table></figure>
+
+<h2 id="SNAT策略"><a href="#SNAT策略" class="headerlink" title="SNAT策略"></a><strong>SNAT策略</strong></h2><p><strong>策略概述</strong></p>
+<p>SNAT策略的典型应用环境</p>
+<ul>
+<li>局域网主机共享单个公网IP地址接入Internet</li>
+</ul>
+<p>SNAT策略的原理</p>
+<p>源地址转换，Source Network Address Translation</p>
+<ul>
+<li>修改数据包的源地址</li>
+</ul>
+<p><strong>SNAT未使用前</strong></p>
+<p>如果SNAT没有使用的话，那么就会像下图以下，无法进行通信。</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211113054542183.png" alt="image-20211113054542183"></p>
+<p><strong>SNAT使用后</strong></p>
+<p>可以进行相互通信了</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211113054621095.png" alt="image-20211113054621095"></p>
+<p><strong>SNAT 规则编写</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# iptables -t nat -A POSTROUTING -s A.A.A.0&#x2F;24 -o eth0 -j SNAT --to-source D.D.D.D</span><br></pre></td></tr></table></figure>
+
+<p><strong>SNAT效果</strong></p>
+<p>如果SNAT设置成功，那么就会实现以下效果</p>
+<ul>
+<li><p>在局域网主机 A.A.A.A 中能够访问外网的Web服务器 C.C.C.C</p>
+</li>
+<li><p>查看Web主机 C.C.C.C 的访问日志，记录的来访者应是网关主机的外网IP地址 D.D.D.D</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># less /var/log/httpd/access_log</span></span><br><span class="line">……</span><br><span class="line">D.D.D.D - - [26/May/2011:15:26:23 +0800] <span class="string">"GET / HTTP/1.1"</span> 200 28 <span class="string">"-"</span> <span class="string">"Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0; SLCC2;</span></span><br><span class="line"><span class="string"> .NET CLR 2.0.50727; Media Center PC 6.0)"</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="DNAT策略"><a href="#DNAT策略" class="headerlink" title="DNAT策略"></a>DNAT策略</h2><p><strong>DNAT</strong>的典型应用环境：在Internet中发布内网服务器。</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211113060033937.png" alt="image-20211113060033937"></p>
+<p><strong>策略编写</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# iptables -t nat -A PREROUTING -i eth0 -d D.D.D.D </span><br><span class="line">-p tcp --dport 80 -j DNAT --to-destination A.A.A.A</span><br></pre></td></tr></table></figure>
+
+<p><strong>验证DNAT</strong></p>
+<p>如何验证，很简单只要实现以下方式就算验证成功。</p>
+<ul>
+<li><p>在外网客户机 C.C.C.C 中能够访问位于企业内网的Web服务，访问地址为 <a href="http://D.D.D.D/" target="_blank" rel="noopener">http://D.D.D.D/</a></p>
+</li>
+<li><p>查看Web服务器 A.A.A.A 的访问日志，记录了外网客户机的IP地址 C.C.C.C</p>
+</li>
+</ul>
+<h2 id="流量转发"><a href="#流量转发" class="headerlink" title="流量转发"></a>流量转发</h2><p><strong>转发TCP流量</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iptables -t nat -A PREROUTING -p tcp --dport [源端口号] -j DNAT --to-destination [目标IP:目标端口号]</span><br><span class="line">iptables -t nat -A POSTROUTING -p tcp -d [目标IP] --dport [目标端口号] -j SNAT --to-source [中转服务器IP]</span><br></pre></td></tr></table></figure>
+
+<p><strong>转发UDP流量</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iptables -t nat -A PREROUTING -p udp --dport [源端口号] -j DNAT --to-destination [目标IP:目标端口号]</span><br><span class="line">iptables -t nat -A POSTROUTING -p udp -d [目标IP] --dport [目标端口号] -j SNAT --to-source [中转服务器IP]</span><br></pre></td></tr></table></figure>
+
+<p><strong>PS</strong>：执行完毕后，必须进行保存 请使用<strong>service iptables save</strong> 进行保存。</p>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ol>
+<li>2020/05. iptables系列教程（二）| iptables语法规则[EB/OL]. 2020/05[2021/11]. <a href="https://bbs.huaweicloud.com/blogs/detail/165033" target="_blank" rel="noopener">https://bbs.huaweicloud.com/blogs/detail/165033</a>.</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/11/12/pycharm%E5%BC%80%E5%8F%91aws%E7%9A%84Lambda/" rel="prev" title="pycharm开发aws的Lambda">
+      <i class="fa fa-chevron-left"></i> pycharm开发aws的Lambda
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/11/12/howtousedocsify/" rel="next" title="howtousedocsify">
+      howtousedocsify <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#五链"><span class="nav-number">1.</span> <span class="nav-text">五链</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四表"><span class="nav-number">2.</span> <span class="nav-text">四表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#filter表"><span class="nav-number">2.1.</span> <span class="nav-text">filter表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nat表"><span class="nav-number">2.2.</span> <span class="nav-text">nat表</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查询规则"><span class="nav-number">3.</span> <span class="nav-text">查询规则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#匹配规则"><span class="nav-number">4.</span> <span class="nav-text">匹配规则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#按网络接口匹配"><span class="nav-number">4.1.</span> <span class="nav-text">按网络接口匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按照地址进行匹配"><span class="nav-number">4.2.</span> <span class="nav-text">按照地址进行匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按照协议类型进行匹配"><span class="nav-number">4.3.</span> <span class="nav-text">按照协议类型进行匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按照端口进行匹配"><span class="nav-number">4.4.</span> <span class="nav-text">按照端口进行匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附加匹配模块"><span class="nav-number">4.5.</span> <span class="nav-text">附加匹配模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#按包状态匹配"><span class="nav-number">4.5.1.</span> <span class="nav-text">按包状态匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#按来源MAC匹配"><span class="nav-number">4.5.2.</span> <span class="nav-text">按来源MAC匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#按包速率匹配"><span class="nav-number">4.5.3.</span> <span class="nav-text">按包速率匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多端口匹配"><span class="nav-number">4.5.4.</span> <span class="nav-text">多端口匹配</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#target"><span class="nav-number">5.</span> <span class="nav-text">target</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ACCEPT"><span class="nav-number">5.1.</span> <span class="nav-text">ACCEPT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DROP"><span class="nav-number">5.2.</span> <span class="nav-text">DROP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SNAT"><span class="nav-number">5.3.</span> <span class="nav-text">SNAT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DNAT"><span class="nav-number">5.4.</span> <span class="nav-text">DNAT</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#转发流量"><span class="nav-number">6.</span> <span class="nav-text">转发流量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SNAT策略"><span class="nav-number">6.1.</span> <span class="nav-text">SNAT策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DNAT策略"><span class="nav-number">6.2.</span> <span class="nav-text">DNAT策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流量转发"><span class="nav-number">6.3.</span> <span class="nav-text">流量转发</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">7.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="qier"
+      src="/avatar.png">
+  <p class="site-author-name" itemprop="name">qier</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jsabook/" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jsabook&#x2F;" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wujiashuaizfq@gmail.com" title="E-Mail → mailto:wujiashuaizfq@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-fw fa-rss"></i>RSS</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qier</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">24k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">39 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://muzi.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: {page: {
+            url: "http://yoursite.com/2021/11/12/iptables%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/",
+            identifier: "2021/11/12/iptables相关操作/",
+            title: "iptables相关操作"
+          }
+        }
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://muzi.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
