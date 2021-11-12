@@ -51,13 +51,6 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/2021/11/12/webdav%E6%9C%8D%E5%8A%A1%E8%AE%BE%E7%BD%AE/</loc>
-    
-    <lastmod>2021-11-12</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/2021/11/12/%E4%BD%BF%E7%94%A8Github_action%E5%AE%9E%E7%8E%B0%E6%9C%AC%E5%9C%B0%E6%97%A0%E9%9C%80%E5%AE%89%E8%A3%85hexo/</loc>
     
     <lastmod>2021-11-12</lastmod>
@@ -78,6 +71,13 @@
     
   </url>
   
+  <url>
+    <loc>http://yoursite.com/2021/10/09/webdav%E6%9C%8D%E5%8A%A1%E8%AE%BE%E7%BD%AE/</loc>
+    
+    <lastmod>2021-10-13</lastmod>
+    
+  </url>
+  
 
   <url>
     <loc>http://yoursite.com/</loc>
@@ -87,6 +87,27 @@
   </url>
 
   
+  <url>
+    <loc>http://yoursite.com/tags/webdav/</loc>
+    <lastmod>2021-11-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/tags/Linux/</loc>
+    <lastmod>2021-11-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
 
+  
+  <url>
+    <loc>http://yoursite.com/categories/%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2021-11-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
   
 </urlset>
