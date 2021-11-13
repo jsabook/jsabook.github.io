@@ -48,24 +48,35 @@
   };
 </script>
 
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="Pycharm是非常方便的非常强大的IDE编程工具，那么我们能不能使用Pycharm进行服务器代码的开发与调试。  Pycharm 远程调试服务器代码，这里使用的方法是先将远程服务器的代码目录挂载到本地，再通过Pycharm调用远程python解析器进行编程。最后实现操作服务器代码就想操作本地代码进行调试一样。这样子既可以利用远程服务器强大的计算能力，也可以像编程本地代码这么方便的进行编程。实现">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2021/09/12/hello-world/index.html">
+<meta property="og:title" content="Pycharm远程调试服务器代码">
+<meta property="og:url" content="http://yoursite.com/2021/10/09/Pycharm%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%A0%81/index.html">
 <meta property="og:site_name" content="Qier&#39;s blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="Pycharm是非常方便的非常强大的IDE编程工具，那么我们能不能使用Pycharm进行服务器代码的开发与调试。  Pycharm 远程调试服务器代码，这里使用的方法是先将远程服务器的代码目录挂载到本地，再通过Pycharm调用远程python解析器进行编程。最后实现操作服务器代码就想操作本地代码进行调试一样。这样子既可以利用远程服务器强大的计算能力，也可以像编程本地代码这么方便的进行编程。实现">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="c:%5CUsers%5CAdministrator%5CDesktop%5Cmyblog%5Cmyblog%5Csource_posts~%5Cimg%5Cimage-20210913045736937.png">
-<meta property="og:image" content="http://yoursite.com/2021/09/12/hello-world/img/image-20210913045746655.png">
-<meta property="article:published_time" content="2021-09-12T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-09-12T16:00:00.000Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211009233513922.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211009232513414.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211009234012939.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211009234059552.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211009234144469.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211009234328798.png">
+<meta property="og:image" content="c:/Users/ECCOM/AppData/Roaming/Typora/typora-user-images/image-20211009234828661.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211009235006684.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211009235133329.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211009235439812.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211009235520338.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211009235645416.png">
+<meta property="og:image" content="c:/Users/ECCOM/AppData/Roaming/Typora/typora-user-images/image-20211009235713046.png">
+<meta property="article:published_time" content="2021-10-09T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-10-09T16:00:00.000Z">
 <meta property="article:author" content="qier">
-<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="aws">
 <meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="c:%5CUsers%5CAdministrator%5CDesktop%5Cmyblog%5Cmyblog%5Csource_posts~%5Cimg%5Cimage-20210913045736937.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211009233513922.png">
 
-<link rel="canonical" href="http://yoursite.com/2021/09/12/hello-world/">
+<link rel="canonical" href="http://yoursite.com/2021/10/09/Pycharm%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%A0%81/">
 
 
 <script id="page-configurations">
@@ -77,7 +88,7 @@
   };
 </script>
 
-  <title>Hello World | Qier's blog</title>
+  <title>Pycharm远程调试服务器代码 | Qier's blog</title>
   
 
 
@@ -179,7 +190,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/09/12/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/10/09/Pycharm%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%A0%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/avatar.png">
@@ -192,7 +203,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          Hello World
+          Pycharm远程调试服务器代码
         </h2>
 
         <div class="post-meta">
@@ -202,7 +213,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-09-13 2021-09-13T00:00:00+08:00" itemprop="dateCreated datePublished" datetime="2021-09-13T00:00:00+08:00">2021-09-13</time>
+              <time title="创建时间：2021-10-10 2021-10-10T00:00:00+08:00" itemprop="dateCreated datePublished" datetime="2021-10-10T00:00:00+08:00">2021-10-10</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -210,8 +221,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/helloworld/" itemprop="url" rel="index">
-                    <span itemprop="name">helloworld</span>
+                  <a href="/categories/%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">编程</span>
                   </a>
                 </span>
             </span>
@@ -225,8 +236,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2021/09/12/hello-world/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/09/12/hello-world/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2021/10/09/Pycharm%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%A0%81/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/10/09/Pycharm远程调试服务器代码/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -236,14 +247,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>359</span>
+              <span>1.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -255,22 +266,60 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+        <blockquote>
+<p>Pycharm是非常方便的非常强大的IDE编程工具，那么我们能不能使用Pycharm进行服务器代码的开发与调试。</p>
+</blockquote>
+<p>Pycharm 远程调试服务器代码，这里使用的方法是先将远程服务器的代码目录挂载到本地，再通过Pycharm调用远程python解析器进行编程。最后实现操作服务器代码就想操作本地代码进行调试一样。这样子既可以利用远程服务器强大的计算能力，也可以像编程本地代码这么方便的进行编程。实现效果</p>
+<p>放图TODO</p>
+<p>因此一共需要通过3个步骤完成：</p>
+<ul>
+<li><p>第一个步骤，在远程服务器上确定代码文件夹</p>
+</li>
+<li><p>第二个步骤，挂载远程代码文件夹目录到本地；</p>
+</li>
+<li><p>第三个步骤，通过Pycharm远程调用python解析器进行编程；</p>
+</li>
+</ul>
+<h2 id="代码文件夹确定"><a href="#代码文件夹确定" class="headerlink" title="代码文件夹确定"></a>代码文件夹确定</h2><p>我这里选择了一台Centos服务器，因为Linux操作系统默认是安装了ssh服务器，如果是Windows则需要手动安装<code>ssh-server</code>。</p>
+<p>这里在home目录下创建了<code>remote_dir</code>作为远程代码文件夹</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir &#x2F;home&#x2F;remote_dir</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-<p><img src="C:%5CUsers%5CAdministrator%5CDesktop%5Cmyblog%5Cmyblog%5Csource_posts~%5Cimg%5Cimage-20210913045736937.png" alt="image-20210913045736937"></p>
-<p>测试</p>
-<p><img src="img/image-20210913045746655.png" alt="image-20210913045746655"></p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211009233513922.png" alt="image-20211009233513922"></p>
+<p>可以看到文件夹已经创建成功了。目标路径<code>/home/remote_dir</code></p>
+<h1 id="挂载目录"><a href="#挂载目录" class="headerlink" title="挂载目录"></a>挂载目录</h1><p>挂载远程代码文件夹的方法有很多，常见的有：</p>
+<ul>
+<li>通过rclone进行挂载；</li>
+<li>通过第三方图形化工具，例如RaiDrive;</li>
+</ul>
+<p>这篇文章，讲述通过RaiDrive进行挂载，因为是在Windows操作系统下进行的，因此图形化比较方便。</p>
+<h2 id="下载RaiDrive"><a href="#下载RaiDrive" class="headerlink" title="下载RaiDrive"></a><strong>下载RaiDrive</strong></h2><p>进入RaiDrive官网:<a href="https://www.raidrive.com/" target="_blank" rel="noopener">https://www.raidrive.com/</a>，下载安装包。</p>
+<p>安装完毕，如图所示</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211009232513414.png" alt="image-20211009232513414"></p>
+<h2 id="挂载远程目录"><a href="#挂载远程目录" class="headerlink" title="挂载远程目录"></a>挂载远程目录</h2><p>这里为了安全起见，没有选择密码作为登录凭证，而是选择了密钥登陆。</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211009234012939.png" alt="image-20211009234012939"></p>
+<p>填写完毕之后点击OK即可。</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211009234059552.png" alt="image-20211009234059552"></p>
+<p>就会显示已经连接上了。在文件驱动器查看，发现虚拟文件盘已经挂载上了。</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211009234144469.png" alt="image-20211009234144469"></p>
+<p><strong>测试挂载</strong></p>
+<p>这里在虚拟文件夹中创建一个文件<code>test_file.txt</code>，发现已经在远程服务器创建成功。</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211009234328798.png" alt="image-20211009234328798"></p>
+<h1 id="Pycharm调用远程python"><a href="#Pycharm调用远程python" class="headerlink" title="Pycharm调用远程python"></a>Pycharm调用远程python</h1><p>这里pycharm 创建一个远程的python解析器源，这样子就可以了。</p>
+<p>File-&gt;setting-&gt;python interpreter -&gt;add-&gt;ssh interpreter</p>
+<p><img src="C:/Users/ECCOM/AppData/Roaming/Typora/typora-user-images/image-20211009234828661.png" alt="image-20211009234828661"></p>
+<p>这样子到了创建远程python解析器的界面了。填入对应的内容即可。选择主机与用户名</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211009235006684.png" alt=""></p>
+<p>这里我服务器设置的是密钥登陆，如果是密码登录则选择密码即可。</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211009235133329.png" alt="image-20211009235133329"></p>
+<p>选择服务器的python解析器，因为一个服务器上可以有多个python解析器，因此需要手动选择python解析器。</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211009235439812.png" alt="image-20211009235439812"></p>
+<p>已经设置成功</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211009235520338.png" alt="image-20211009235520338"></p>
+<p>这里测试一下在pycharm操作这个解析器，安装包能否安装成功。</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211009235645416.png" alt="image-20211009235645416"></p>
+<p>在服务器上查看，发现安装成功。因此可以得出结论，在本地pycharm操作远程python解析器就想在本地pycharm操作本地python解析器一样方便。</p>
+<p><img src="C:/Users/ECCOM/AppData/Roaming/Typora/typora-user-images/image-20211009235713046.png" alt="image-20211009235713046"></p>
+<h2 id="pycharm创建项目"><a href="#pycharm创建项目" class="headerlink" title="pycharm创建项目"></a>pycharm创建项目</h2><p>这里在挂载的虚拟盘中创建项目，使用的是远程的python解析器。</p>
 
     </div>
 
@@ -279,6 +328,11 @@
     
 
       <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/aws/" rel="tag"><i class="fa fa-tag"></i> aws</a>
+              <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+          </div>
 
         
 
@@ -286,12 +340,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/09/12/howtousedocsify/" rel="prev" title="如何使用docsify编写文档">
-      <i class="fa fa-chevron-left"></i> 如何使用docsify编写文档
+    <a href="/2021/10/09/webdav%E6%9C%8D%E5%8A%A1%E8%AE%BE%E7%BD%AE/" rel="prev" title="webdav服务设置">
+      <i class="fa fa-chevron-left"></i> webdav服务设置
     </a></div>
       <div class="post-nav-item">
-    <a href="/2021/10/09/webdav%E6%9C%8D%E5%8A%A1%E8%AE%BE%E7%BD%AE/" rel="next" title="webdav服务设置">
-      webdav服务设置 <i class="fa fa-chevron-right"></i>
+    <a href="/2021/10/10/AWS%E7%9A%84S3%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0/" rel="next" title="AWS相关函数">
+      AWS相关函数 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -359,7 +413,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码文件夹确定"><span class="nav-number">1.</span> <span class="nav-text">代码文件夹确定</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#挂载目录"><span class="nav-number"></span> <span class="nav-text">挂载目录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#下载RaiDrive"><span class="nav-number">1.</span> <span class="nav-text">下载RaiDrive</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#挂载远程目录"><span class="nav-number">2.</span> <span class="nav-text">挂载远程目录</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pycharm调用远程python"><span class="nav-number"></span> <span class="nav-text">Pycharm调用远程python</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#pycharm创建项目"><span class="nav-number">1.</span> <span class="nav-text">pycharm创建项目</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -510,9 +564,9 @@
       DISQUS.reset({
         reload: true,
         config: {page: {
-            url: "http://yoursite.com/2021/09/12/hello-world/",
-            identifier: "2021/09/12/hello-world/",
-            title: "Hello World"
+            url: "http://yoursite.com/2021/10/09/Pycharm%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%A0%81/",
+            identifier: "2021/10/09/Pycharm远程调试服务器代码/",
+            title: "Pycharm远程调试服务器代码"
           }
         }
       });
