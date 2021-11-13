@@ -18,8 +18,8 @@
   
   <entry>
     <title>iptables相关操作</title>
-    <link href="http://yoursite.com/2021/11/11/iptables%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/"/>
-    <id>http://yoursite.com/2021/11/11/iptables%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/</id>
+    <link href="http://yoursite.com/2021/11/11/iptablesOpration/"/>
+    <id>http://yoursite.com/2021/11/11/iptablesOpration/</id>
     <published>2021-11-11T16:00:00.000Z</published>
     <updated>2021-11-11T16:00:00.000Z</updated>
     
@@ -82,8 +82,8 @@
   
   <entry>
     <title>pycharm开发aws的Lambda</title>
-    <link href="http://yoursite.com/2021/10/25/pycharm%E5%BC%80%E5%8F%91aws%E7%9A%84Lambda/"/>
-    <id>http://yoursite.com/2021/10/25/pycharm%E5%BC%80%E5%8F%91aws%E7%9A%84Lambda/</id>
+    <link href="http://yoursite.com/2021/10/25/CodeLambdaOfAWSUsePycharm/"/>
+    <id>http://yoursite.com/2021/10/25/CodeLambdaOfAWSUsePycharm/</id>
     <published>2021-10-25T16:00:00.000Z</published>
     <updated>2021-10-25T16:00:00.000Z</updated>
     
@@ -113,8 +113,8 @@
   
   <entry>
     <title>AWS相关函数</title>
-    <link href="http://yoursite.com/2021/10/10/AWS%E7%9A%84S3%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0/"/>
-    <id>http://yoursite.com/2021/10/10/AWS%E7%9A%84S3%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0/</id>
+    <link href="http://yoursite.com/2021/10/10/AWS%E7%9A%84S3OFunctionPration/"/>
+    <id>http://yoursite.com/2021/10/10/AWS%E7%9A%84S3OFunctionPration/</id>
     <published>2021-10-10T16:00:00.000Z</published>
     <updated>2021-10-10T16:00:00.000Z</updated>
     
@@ -145,8 +145,8 @@
   
   <entry>
     <title>Pycharm远程调试服务器代码</title>
-    <link href="http://yoursite.com/2021/10/09/Pycharm%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%A0%81/"/>
-    <id>http://yoursite.com/2021/10/09/Pycharm%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%A0%81/</id>
+    <link href="http://yoursite.com/2021/10/09/PycharmCodeRemoteCode/"/>
+    <id>http://yoursite.com/2021/10/09/PycharmCodeRemoteCode/</id>
     <published>2021-10-09T16:00:00.000Z</published>
     <updated>2021-10-09T16:00:00.000Z</updated>
     
@@ -177,8 +177,8 @@
   
   <entry>
     <title>webdav服务设置</title>
-    <link href="http://yoursite.com/2021/10/09/webdav%E6%9C%8D%E5%8A%A1%E8%AE%BE%E7%BD%AE/"/>
-    <id>http://yoursite.com/2021/10/09/webdav%E6%9C%8D%E5%8A%A1%E8%AE%BE%E7%BD%AE/</id>
+    <link href="http://yoursite.com/2021/10/09/webdavSercieSetting/"/>
+    <id>http://yoursite.com/2021/10/09/webdavSercieSetting/</id>
     <published>2021-10-09T16:00:00.000Z</published>
     <updated>2021-10-13T16:00:00.000Z</updated>
     
@@ -266,8 +266,8 @@
   
   <entry>
     <title>使用Github_action实现本地无需安装hexo</title>
-    <link href="http://yoursite.com/2021/09/12/%E4%BD%BF%E7%94%A8Github_action%E5%AE%9E%E7%8E%B0%E6%9C%AC%E5%9C%B0%E6%97%A0%E9%9C%80%E5%AE%89%E8%A3%85hexo/"/>
-    <id>http://yoursite.com/2021/09/12/%E4%BD%BF%E7%94%A8Github_action%E5%AE%9E%E7%8E%B0%E6%9C%AC%E5%9C%B0%E6%97%A0%E9%9C%80%E5%AE%89%E8%A3%85hexo/</id>
+    <link href="http://yoursite.com/2021/09/12/useTheGithub_action/"/>
+    <id>http://yoursite.com/2021/09/12/useTheGithub_action/</id>
     <published>2021-09-12T16:00:00.000Z</published>
     <updated>2021-09-12T16:00:00.000Z</updated>
     
