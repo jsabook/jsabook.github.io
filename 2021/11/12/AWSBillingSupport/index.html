@@ -48,17 +48,25 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Qier&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/categories/%E5%8D%9A%E5%AE%A2%E6%9E%B6%E6%9E%84/index.html">
+  <meta name="description" content="AWS Cost Anomaly Detection官方提供了一个很简单的异常支出检测机制—— AWS Cost Anomaly Detection 可以实现以下两个功能：  成本监控，如果成本超出的设定的阈值。即当前成本-原始成本&gt;阈值，例如阈值为10美元，昨天原始成本为5美元，今天增加到了25美元。则25-5&gt;10，因此则会被监控到。监控到之后就会发送信息到提醒订阅。 检测历史记录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AWS账单提醒梳理">
+<meta property="og:url" content="http://yoursite.com/2021/11/12/AWSBillingSupport/index.html">
 <meta property="og:site_name" content="Qier&#39;s blog">
+<meta property="og:description" content="AWS Cost Anomaly Detection官方提供了一个很简单的异常支出检测机制—— AWS Cost Anomaly Detection 可以实现以下两个功能：  成本监控，如果成本超出的设定的阈值。即当前成本-原始成本&gt;阈值，例如阈值为10美元，昨天原始成本为5美元，今天增加到了25美元。则25-5&gt;10，因此则会被监控到。监控到之后就会发送信息到提醒订阅。 检测历史记录">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211113190815989.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211113191050963.png">
+<meta property="article:published_time" content="2021-11-12T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-11-12T16:00:00.000Z">
 <meta property="article:author" content="qier">
-<meta property="article:tag" content="Docker">
-<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="AWS">
+<meta property="article:tag" content="云计算">
+<meta property="article:tag" content="Billing">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211113190815989.png">
 
-<link rel="canonical" href="http://yoursite.com/categories/%E5%8D%9A%E5%AE%A2%E6%9E%B6%E6%9E%84/">
+<link rel="canonical" href="http://yoursite.com/2021/11/12/AWSBillingSupport/">
 
 
 <script id="page-configurations">
@@ -66,11 +74,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false
+    isPost: true
   };
 </script>
 
-  <title>分类: 博客架构 | Qier's blog</title>
+  <title>AWS账单提醒梳理 | Qier's blog</title>
   
 
 
@@ -167,54 +175,149 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">博客架构
-          <small>分类</small>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/11/12/AWSBillingSupport/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/avatar.png">
+      <meta itemprop="name" content="qier">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Qier's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          AWS账单提醒梳理
         </h2>
-      </div>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-11-13 2021-11-13T00:00:00+08:00" itemprop="dateCreated datePublished" datetime="2021-11-13T00:00:00+08:00">2021-11-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AWS/" itemprop="url" rel="index">
+                    <span itemprop="name">AWS</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/11/12/AWSBillingSupport/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/11/12/AWSBillingSupport/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>397</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h2 class="collection-header">2021</h2>
+        <h1 id="AWS-Cost-Anomaly-Detection"><a href="#AWS-Cost-Anomaly-Detection" class="headerlink" title="AWS Cost Anomaly Detection"></a>AWS Cost Anomaly Detection</h1><p>官方提供了一个很简单的异常支出检测机制—— <strong>AWS Cost Anomaly Detection</strong></p>
+<p>可以实现以下两个功能：</p>
+<ul>
+<li>成本监控，如果成本超出的设定的阈值。即当前成本-原始成本&gt;阈值，例如阈值为10美元，昨天原始成本为5美元，今天增加到了25美元。则25-5&gt;10，因此则会被监控到。监控到之后就会发送信息到提醒订阅。</li>
+<li>检测历史记录值，会根据成本监控对历史重大事件进行记录。默认情况下，您可以查看过去 90 天内检测到的异常。您可以按 <strong>Severity（严重性）</strong>、<strong>Assessment（评估）</strong>、<strong>Service（服务）</strong>、<strong>Account ID（账户 ID）</strong>、<strong>Usage type（使用类型）</strong>、<strong>Region（区域）</strong>或 <strong>Monitor type（监控类型）</strong>进行搜索。</li>
+</ul>
+<h2 id="创建监控"><a href="#创建监控" class="headerlink" title="创建监控"></a>创建监控</h2><p>这里选择AWS服务，会单独检测AWS的每一项服务</p>
+  <img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211113190815989.png" alt="image-20211113190815989" style="zoom:67%;"  />
+
+<h2 id="设置提醒订阅"><a href="#设置提醒订阅" class="headerlink" title="设置提醒订阅"></a>设置提醒订阅</h2><p>提醒订阅中设置阈值。</p>
+<img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211113191050963.png" alt="image-20211113191050963" style="zoom:67%;" />
+
+
+
+<h1 id="自定义异常检测服务"><a href="#自定义异常检测服务" class="headerlink" title="自定义异常检测服务"></a>自定义异常检测服务</h1>
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-11-13T00:00:00+08:00"
-              content="2021-11-13">
-          11-13
-        </time>
-      </div>
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/AWS/" rel="tag"><i class="fa fa-tag"></i> AWS</a>
+              <a href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/" rel="tag"><i class="fa fa-tag"></i> 云计算</a>
+              <a href="/tags/Billing/" rel="tag"><i class="fa fa-tag"></i> Billing</a>
+          </div>
 
-      <h3 class="post-title">
-          <a class="post-title-link" href="/2021/11/12/FixTheHexoGenrateTime/" itemprop="url">
-            <span itemprop="name">修理CI导致的hexo博客生成时间错误</span>
-          </a>
-      </h3>
+        
 
-    </header>
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/11/12/FixTheHexoGenrateTime/" rel="prev" title="修理CI导致的hexo博客生成时间错误">
+      <i class="fa fa-chevron-left"></i> 修理CI导致的hexo博客生成时间错误
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/11/14/VirtualPrivateNetworkINAWS/" rel="next" title="AWS常用VPN技术介绍与实践">
+      AWS常用VPN技术介绍与实践 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
+  
+  
+  
 
-    </div>
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>
           
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -262,6 +365,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#AWS-Cost-Anomaly-Detection"><span class="nav-number">1.</span> <span class="nav-text">AWS Cost Anomaly Detection</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建监控"><span class="nav-number">1.1.</span> <span class="nav-text">创建监控</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置提醒订阅"><span class="nav-number">1.2.</span> <span class="nav-text">设置提醒订阅</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自定义异常检测服务"><span class="nav-number">2.</span> <span class="nav-text">自定义异常检测服务</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -405,6 +509,26 @@
   }
   // defer loading until the whole page loading is completed
   window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: {page: {
+            url: "http://yoursite.com/2021/11/12/AWSBillingSupport/",
+            identifier: "2021/11/12/AWSBillingSupport/",
+            title: "AWS账单提醒梳理"
+          }
+        }
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://muzi.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
 </script>
 
 </body>
