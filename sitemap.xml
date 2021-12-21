@@ -2,15 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://yoursite.com/2021/12/21/AddArticlePassword/</loc>
-    
-    <lastmod>2021-12-21</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/about.html</loc>
     
     <lastmod>2021-12-21</lastmod>
@@ -77,6 +68,15 @@
     <loc>http://yoursite.com/2021/11/30/HTTPSLearn/</loc>
     
     <lastmod>2021-11-30</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2021/11/23/AddArticlePassword/</loc>
+    
+    <lastmod>2021-11-23</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -244,13 +244,6 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/tags/%E6%9E%B6%E6%9E%84/</loc>
-    <lastmod>2021-12-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/tags/%E5%8D%9A%E5%AE%A2/</loc>
     <lastmod>2021-12-21</lastmod>
     <changefreq>weekly</changefreq>
@@ -259,6 +252,13 @@
   
   <url>
     <loc>http://yoursite.com/tags/%E5%AE%89%E5%85%A8/</loc>
+    <lastmod>2021-12-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/tags/%E6%9E%B6%E6%9E%84/</loc>
     <lastmod>2021-12-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -338,6 +338,13 @@
   
   <url>
     <loc>http://yoursite.com/categories/%E7%BC%96%E7%A8%8B/</loc>
+    <lastmod>2021-12-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/categories/Hexo/</loc>
     <lastmod>2021-12-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
