@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2021-12-20T16:00:00.000Z</updated>
+  <updated>2021-12-21T06:50:27.768Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,58 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>terraformerinstaller</title>
+    <link href="http://yoursite.com/2021/12/21/terraformerinstaller/"/>
+    <id>http://yoursite.com/2021/12/21/terraformerinstaller/</id>
+    <published>2021-12-21T06:50:27.768Z</published>
+    <updated>2021-12-21T06:50:27.768Z</updated>
+    
+    <content type="html"><![CDATA[<hr><p><a href="https://gitee.com/mirrors/Terraformer#installation" target="_blank" rel="noopener">https://gitee.com/mirrors/Terraformer#installation</a><br><a href="https://github.com/GoogleCloudPlatform/terraformer" target="_blank" rel="noopener">https://github.com/GoogleCloudPlatform/terraformer</a></p><hr><p><a href="https://gitee.com/mirrors/Terraformer#installation" target="_blank" rel="noopener">https://gitee.com/mirrors/Terraformer#installation</a> <a href="https://github.com/GoogleCloudPlatform/terraformer" target="_blank" rel="noopener">https://github.com/GoogleCloudPlatform/terraformer</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;hr&gt;
+&lt;p&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>AddArticlePassword</title>
+    <link href="http://yoursite.com/2021/12/21/AddArticlePassword/"/>
+    <id>http://yoursite.com/2021/12/21/AddArticlePassword/</id>
+    <published>2021-12-21T06:50:27.768Z</published>
+    <updated>2021-12-21T06:50:27.768Z</updated>
+    
+    <content type="html"><![CDATA[<hr><p><a href="https://gitee.com/mirrors/Terraformer#installation" target="_blank" rel="noopener">https://gitee.com/mirrors/Terraformer#installation</a><br><a href="https://github.com/GoogleCloudPlatform/terraformer" target="_blank" rel="noopener">https://github.com/GoogleCloudPlatform/terraformer</a></p><hr><p>在《使用Github_action实现本地无需安装hexo》这篇博客中，讲述了如何利用Action做博客部署自动化。这里来讲述如何利用Action来进行博客的加密。一般情况下，如果想要对hexo博客进行加密需要以下步骤：</p><ul><li>电脑安装加密插件；</li><li>博客编写，设置密码</li><li>对博客进行重新渲染；</li><li>对博客进行部署</li></ul><p>整个过程如这篇文章所示：<a href="https://zhuanlan.zhihu.com/p/113235573" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/113235573</a></p><p>利用github action进行操作，只需要进行2步骤</p><ul><li>对<strong>package.json</strong>文件进行修改</li><li>博客编写，设置密码</li><li>push博客</li></ul><p>下面进行操作</p><p><strong>对package.json文件进行修改</strong></p><p>增加<strong>“hexo-blog-encrypt”: “^3.1.6”</strong></p><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211125111712962.png" alt="image-20211125111712962"></p><p><strong>博客编写，设置密码</strong></p><p>修改文章信息头如下</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">title: Hello World</span><br><span class="line">password: muyiio</span><br></pre></td></tr></table></figure><p><strong>push博客</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m &quot;fix&quot;</span><br><span class="line">git push</span><br></pre></td></tr></table></figure><p><strong>实现效果</strong></p><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211125111911654.png" alt="image-20211125111911654"></p><p><strong>参考文章</strong></p><p><a href="https://zhuanlan.zhihu.com/p/113235573" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/113235573</a></p><p><strong>项目地址</strong></p><p><a href="https://github.com/D0n9X1n/hexo-blog-encrypt" target="_blank" rel="noopener">https://github.com/D0n9X1n/hexo-blog-encrypt</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;hr&gt;
+&lt;p&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>资源汇总</title>
@@ -169,37 +221,6 @@
   </entry>
   
   <entry>
-    <title>Hexo 静态博客增加密码</title>
-    <link href="http://yoursite.com/2021/11/23/AddArticlePassword/"/>
-    <id>http://yoursite.com/2021/11/23/AddArticlePassword/</id>
-    <published>2021-11-23T16:00:00.000Z</published>
-    <updated>2021-11-23T16:00:00.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>在《使用Github_action实现本地无需安装hexo》这篇博客中，讲述了如何利用Action做博客部署自动化。这里来讲述如何利用Action来进行博客的加密。一般情况下，如果想要对hexo博客进行加密需要以下步骤：</p><ul><li>电脑安装加密插件；</li><li>博客编写，设置密码</li><li>对博客进行重新渲染；</li><li>对博客进行部署</li></ul><p>整个过程如这篇文章所示：<a href="https://zhuanlan.zhihu.com/p/113235573" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/113235573</a></p><p>利用github action进行操作，只需要进行2步骤</p><ul><li>对<strong>package.json</strong>文件进行修改</li><li>博客编写，设置密码</li><li>push博客</li></ul><p>下面进行操作</p><p><strong>对package.json文件进行修改</strong></p><p>增加<strong>“hexo-blog-encrypt”: “^3.1.6”</strong></p><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211125111712962.png" alt="image-20211125111712962"></p><p><strong>博客编写，设置密码</strong></p><p>修改文章信息头如下</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">title: Hello World</span><br><span class="line">password: muyiio</span><br></pre></td></tr></table></figure><p><strong>push博客</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m &quot;fix&quot;</span><br><span class="line">git push</span><br></pre></td></tr></table></figure><p><strong>实现效果</strong></p><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211125111911654.png" alt="image-20211125111911654"></p><p><strong>参考文章</strong></p><p><a href="https://zhuanlan.zhihu.com/p/113235573" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/113235573</a></p><p><strong>项目地址</strong></p><p><a href="https://github.com/D0n9X1n/hexo-blog-encrypt" target="_blank" rel="noopener">https://github.com/D0n9X1n/hexo-blog-encrypt</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;在《使用Github_action实现本地无需安装hexo
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Hexo" scheme="http://yoursite.com/categories/Hexo/"/>
-    
-    
-      <category term="博客" scheme="http://yoursite.com/tags/%E5%8D%9A%E5%AE%A2/"/>
-    
-      <category term="安全" scheme="http://yoursite.com/tags/%E5%AE%89%E5%85%A8/"/>
-    
-  </entry>
-  
-  <entry>
     <title>试用jemdoc</title>
     <link href="http://yoursite.com/2021/11/19/UsingJemdocToGenfile/"/>
     <id>http://yoursite.com/2021/11/19/UsingJemdocToGenfile/</id>
@@ -257,39 +278,6 @@
       <category term="AWS" scheme="http://yoursite.com/tags/AWS/"/>
     
       <category term="VPN" scheme="http://yoursite.com/tags/VPN/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>AWS账单提醒梳理</title>
-    <link href="http://yoursite.com/2021/11/12/AWSBillingSupport/"/>
-    <id>http://yoursite.com/2021/11/12/AWSBillingSupport/</id>
-    <published>2021-11-12T16:00:00.000Z</published>
-    <updated>2021-11-12T16:00:00.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="AWS-Cost-Anomaly-Detection"><a href="#AWS-Cost-Anomaly-Detection" class="headerlink" title="AWS Cost Anomaly Detection"></a>AWS Cost Anomaly Detection</h1><p>官方提供了一个很简单的异常支出检测机制—— <strong>AWS Cost Anomaly Detection</strong></p><p>可以实现以下两个功能：</p><ul><li>成本监控，如果成本超出的设定的阈值。即当前成本-原始成本&gt;阈值，例如阈值为10美元，昨天原始成本为5美元，今天增加到了25美元。则25-5&gt;10，因此则会被监控到。监控到之后就会发送信息到提醒订阅。</li><li>检测历史记录值，会根据成本监控对历史重大事件进行记录。默认情况下，您可以查看过去 90 天内检测到的异常。您可以按 <strong>Severity（严重性）</strong>、<strong>Assessment（评估）</strong>、<strong>Service（服务）</strong>、<strong>Account ID（账户 ID）</strong>、<strong>Usage type（使用类型）</strong>、<strong>Region（区域）</strong>或 <strong>Monitor type（监控类型）</strong>进行搜索。</li></ul><h2 id="创建监控"><a href="#创建监控" class="headerlink" title="创建监控"></a>创建监控</h2><p>这里选择AWS服务，会单独检测AWS的每一项服务</p>  <img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211113190815989.png" alt="image-20211113190815989" style="zoom:67%;"  /><h2 id="设置提醒订阅"><a href="#设置提醒订阅" class="headerlink" title="设置提醒订阅"></a>设置提醒订阅</h2><p>提醒订阅中设置阈值。</p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20211113191050963.png" alt="image-20211113191050963" style="zoom:67%;" /><h1 id="自定义异常检测服务"><a href="#自定义异常检测服务" class="headerlink" title="自定义异常检测服务"></a>自定义异常检测服务</h1>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1
-        
-      
-    
-    </summary>
-    
-    
-      <category term="AWS" scheme="http://yoursite.com/categories/AWS/"/>
-    
-    
-      <category term="AWS" scheme="http://yoursite.com/tags/AWS/"/>
-    
-      <category term="云计算" scheme="http://yoursite.com/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/"/>
-    
-      <category term="Billing" scheme="http://yoursite.com/tags/Billing/"/>
     
   </entry>
   
