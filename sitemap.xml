@@ -2,15 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://yoursite.com/2021/12/21/terraformerinstaller/</loc>
-    
-    <lastmod>2021-12-21</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/2021/12/21/AddArticlePassword/</loc>
     
     <lastmod>2021-12-21</lastmod>
@@ -30,6 +21,15 @@
   
   <url>
     <loc>http://yoursite.com/2021/12/20/resourcesummary/</loc>
+    
+    <lastmod>2021-12-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2021/12/20/terraformerinstaller/</loc>
     
     <lastmod>2021-12-20</lastmod>
     
@@ -230,6 +230,20 @@
   </url>
   
   <url>
+    <loc>http://yoursite.com/tags/aws/</loc>
+    <lastmod>2021-12-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/tags/Linux/</loc>
+    <lastmod>2021-12-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/tags/%E6%9E%B6%E6%9E%84/</loc>
     <lastmod>2021-12-21</lastmod>
     <changefreq>weekly</changefreq>
@@ -251,21 +265,7 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/tags/aws/</loc>
-    <lastmod>2021-12-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/tags/log/</loc>
-    <lastmod>2021-12-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/tags/Linux/</loc>
     <lastmod>2021-12-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -307,6 +307,13 @@
   </url>
   
   <url>
+    <loc>http://yoursite.com/tags/terraform/</loc>
+    <lastmod>2021-12-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/tags/Cloud/</loc>
     <lastmod>2021-12-21</lastmod>
     <changefreq>weekly</changefreq>
@@ -330,6 +337,13 @@
   </url>
   
   <url>
+    <loc>http://yoursite.com/categories/%E7%BC%96%E7%A8%8B/</loc>
+    <lastmod>2021-12-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/categories/%E5%8D%9A%E5%AE%A2%E6%9E%B6%E6%9E%84/</loc>
     <lastmod>2021-12-21</lastmod>
     <changefreq>weekly</changefreq>
@@ -338,13 +352,6 @@
   
   <url>
     <loc>http://yoursite.com/categories/HTTPS/</loc>
-    <lastmod>2021-12-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/categories/%E7%BC%96%E7%A8%8B/</loc>
     <lastmod>2021-12-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -394,6 +401,13 @@
   
   <url>
     <loc>http://yoursite.com/categories/%E8%B5%84%E6%BA%90/</loc>
+    <lastmod>2021-12-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/categories/%E8%BD%AC%E8%BD%BD/</loc>
     <lastmod>2021-12-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
