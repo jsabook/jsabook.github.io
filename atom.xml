@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2021-12-21T16:00:00.000Z</updated>
+  <updated>2021-12-27T16:00:00.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>浏览器可复制技巧</title>
+    <link href="http://yoursite.com/2021/12/27/webtexteditor/"/>
+    <id>http://yoursite.com/2021/12/27/webtexteditor/</id>
+    <published>2021-12-27T16:00:00.000Z</published>
+    <updated>2021-12-27T16:00:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>第一种</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">document.body.contentEditable&#x3D;true</span><br></pre></td></tr></table></figure><p><strong>第二种</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">document.body.innerText</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;strong&gt;第一种&lt;/strong&gt;&lt;/p&gt;
+&lt;fig
+        
+      
+    
+    </summary>
+    
+    
+      <category term="小计" scheme="http://yoursite.com/categories/%E5%B0%8F%E8%AE%A1/"/>
+    
+    
+      <category term="web" scheme="http://yoursite.com/tags/web/"/>
+    
+  </entry>
   
   <entry>
     <title>资源汇总</title>
@@ -254,38 +284,6 @@
     
       <category term="jemdoc" scheme="http://yoursite.com/categories/jemdoc/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>AWS常用VPN技术介绍与实践</title>
-    <link href="http://yoursite.com/2021/11/14/VirtualPrivateNetworkINAWS/"/>
-    <id>http://yoursite.com/2021/11/14/VirtualPrivateNetworkINAWS/</id>
-    <published>2021-11-14T16:00:00.000Z</published>
-    <updated>2021-11-14T16:00:00.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>在AWS中提供了几种方式的VPN技术，分别是：</p><ul><li>软件层面的VPN技术；</li><li>硬件层面的VPN技术；</li><li>专线层面的VPN技术；</li></ul><p>下面</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;在AWS中提供了几种方式的VPN技术，分别是：&lt;/p&gt;
-&lt;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="VPN" scheme="http://yoursite.com/categories/VPN/"/>
-    
-    
-      <category term="AWS" scheme="http://yoursite.com/tags/AWS/"/>
-    
-      <category term="VPN" scheme="http://yoursite.com/tags/VPN/"/>
     
   </entry>
   
