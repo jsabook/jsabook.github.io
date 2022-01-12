@@ -23,7 +23,7 @@
     <published>2022-01-04T16:00:00.000Z</published>
     <updated>2022-01-04T16:00:00.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="python日志模块"><a href="#python日志模块" class="headerlink" title="python日志模块"></a>python日志模块</h1><h2 id="loguru"><a href="#loguru" class="headerlink" title="loguru"></a>loguru</h2><p>简单的python日志模块——<code>loguru</code></p><p>如何使用loguru？<a href="https://www.jianshu.com/p/2945634fe349" target="_blank" rel="noopener">使用loguru记录日志</a></p>]]></content>
+    <content type="html"><![CDATA[<h1 id="python日志模块"><a href="#python日志模块" class="headerlink" title="python日志模块"></a>python日志模块</h1><h2 id="loguru"><a href="#loguru" class="headerlink" title="loguru"></a>loguru</h2><p>简单的python日志模块——<code>loguru</code></p><p>如何使用loguru？<a href="https://www.jianshu.com/p/2945634fe349" target="_blank" rel="noopener">使用loguru记录日志</a></p><h1 id="安全模块"><a href="#安全模块" class="headerlink" title="安全模块"></a>安全模块</h1><h2 id="单点登录"><a href="#单点登录" class="headerlink" title="单点登录"></a>单点登录</h2><p>(不要用JWT替代session管理（上）：全面了解Token,JWT,OAuth,SAML,SSO)[<a href="https://zhuanlan.zhihu.com/p/38942172]" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/38942172]</a></p>]]></content>
     
     <summary type="html">
     
