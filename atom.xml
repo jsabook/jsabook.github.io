@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2022-02-25T08:16:44.360Z</updated>
+  <updated>2022-02-28T05:45:24.407Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -18,10 +18,10 @@
   
   <entry>
     <title>Summary</title>
-    <link href="http://yoursite.com/2022/02/25/Summary/"/>
-    <id>http://yoursite.com/2022/02/25/Summary/</id>
-    <published>2022-02-25T08:16:44.360Z</published>
-    <updated>2022-02-25T08:16:44.360Z</updated>
+    <link href="http://yoursite.com/2022/02/28/Summary/"/>
+    <id>http://yoursite.com/2022/02/28/Summary/</id>
+    <published>2022-02-28T05:45:24.407Z</published>
+    <updated>2022-02-28T05:45:24.407Z</updated>
     
     <summary type="html">
     
@@ -36,9 +36,9 @@
     <link href="http://yoursite.com/2022/02/16/SSMUse/"/>
     <id>http://yoursite.com/2022/02/16/SSMUse/</id>
     <published>2022-02-16T16:00:00.000Z</published>
-    <updated>2022-02-16T16:00:00.000Z</updated>
+    <updated>2022-02-27T16:00:00.000Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="创建EC2-STS的Role"><a href="#创建EC2-STS的Role" class="headerlink" title="创建EC2_STS的Role"></a>创建EC2_STS的Role</h2><img src="img/image-20220217142732870.png" alt="image-20220217142732870" style="zoom: 67%;" /><h1 id="将Role-Attach到EC2"><a href="#将Role-Attach到EC2" class="headerlink" title="将Role Attach到EC2"></a>将Role Attach到EC2</h1>]]></content>
+    <content type="html"><![CDATA[<h1 id="创建Role所需的的Policy"><a href="#创建Role所需的的Policy" class="headerlink" title="创建Role所需的的Policy"></a>创建Role所需的的Policy</h1><h2 id="创建Role-选定EC2。"><a href="#创建Role-选定EC2。" class="headerlink" title="创建Role,选定EC2。"></a><strong>创建Role,选定EC2。</strong></h2><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220228110527044.png" alt="image-20220228110527044"></p><h2 id="选定策略"><a href="#选定策略" class="headerlink" title="选定策略"></a><strong>选定策略</strong></h2><p>关于策略说明</p><p>基础策略：<strong>AmazonSSMManagedInstanceCore</strong></p><p>其他策略：</p><ul><li><strong>AmazonSSMDirectoryServiceAccess</strong>：将 Windows Server 的 Amazon EC2 实例加入 Microsoft AD 目录时才需要。</li><li><strong>CloudWatchAgentServerPolicy</strong>：仅当计划在实例上安装和运行 CloudWatch 代理以读取实例上的指标和日志数据并将其写入 Amazon CloudWatch 时才需要。</li></ul><p>这里选择<strong>AmazonSSMManagedInstanceCore</strong>策略即可。</p><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220228110900103.png" alt="image-20220228110900103"></p><h2 id="名称设置，然后创建角色"><a href="#名称设置，然后创建角色" class="headerlink" title="名称设置，然后创建角色"></a>名称设置，然后创建角色</h2><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220228111304095.png" alt="image-20220228111304095"></p><h1 id="将Role-Attach到EC2"><a href="#将Role-Attach到EC2" class="headerlink" title="将Role Attach到EC2"></a>将Role Attach到EC2</h1><p>选择修改IAM角色</p><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220228112047277.png" alt="image-20220228112047277"></p><h1 id="SSM-运行"><a href="#SSM-运行" class="headerlink" title="SSM 运行"></a>SSM 运行</h1><h2 id="运行脚本"><a href="#运行脚本" class="headerlink" title="运行脚本"></a>运行脚本</h2><p><strong>选择SSM的运行命令</strong></p><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220228112200468.png" alt="image-20220228112200468"></p><p><strong>选择Shell脚本运行</strong></p><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220228112334472.png" alt="image-20220228112334472"></p><p><strong>运行命令</strong></p><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220228113101896.png" alt="image-20220228113101896"></p><p><strong>写入命令</strong></p><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220228113207080.png" alt="image-20220228113207080"></p><p><strong>目标选择</strong></p><p>这里选择手动选择实例</p><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220228113332954.png" alt="image-20220228113332954"></p><p><strong>运行命令，查看结果</strong></p><h2 id="会话管理器"><a href="#会话管理器" class="headerlink" title="会话管理器"></a>会话管理器</h2><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220228134314065.png" alt="image-20220228134314065"></p><p><strong>连接使用</strong></p><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220228134418778.png" alt="image-20220228134418778"></p>]]></content>
     
     <summary type="html">
     
@@ -46,7 +46,7 @@
       
         
         
-          &lt;h2 id=&quot;创建EC2-STS的Role&quot;&gt;&lt;a
+          &lt;h1 id=&quot;创建Role所需的的Policy&quot;&gt;&lt;a
         
       
     
