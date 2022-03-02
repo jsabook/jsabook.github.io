@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2022-03-01T02:33:30.991Z</updated>
+  <updated>2022-03-02T02:33:34.974Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -18,16 +18,47 @@
   
   <entry>
     <title>Summary</title>
-    <link href="http://yoursite.com/2022/03/01/Summary/"/>
-    <id>http://yoursite.com/2022/03/01/Summary/</id>
-    <published>2022-03-01T02:33:30.991Z</published>
-    <updated>2022-03-01T02:33:30.991Z</updated>
+    <link href="http://yoursite.com/2022/03/02/Summary/"/>
+    <id>http://yoursite.com/2022/03/02/Summary/</id>
+    <published>2022-03-02T02:33:34.974Z</published>
+    <updated>2022-03-02T02:33:34.974Z</updated>
     
     <summary type="html">
     
     </summary>
     
     
+    
+  </entry>
+  
+  <entry>
+    <title>Gitlab CICD</title>
+    <link href="http://yoursite.com/2022/02/28/GitlabCICD/"/>
+    <id>http://yoursite.com/2022/02/28/GitlabCICD/</id>
+    <published>2022-02-28T16:00:00.000Z</published>
+    <updated>2022-02-28T16:00:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="关键词"><a href="#关键词" class="headerlink" title="关键词"></a>关键词</h1><h3 id="Pipeline"><a href="#Pipeline" class="headerlink" title="Pipeline"></a><strong>Pipeline</strong></h3><p>Pipeline执行的过程就是一次执行Stage中的列表流程的阶段。</p><h3 id="Stages"><a href="#Stages" class="headerlink" title="Stages"></a><strong>Stages</strong></h3><p>默认的Stage</p><p>Gitlab的Pipeline有一个默认的Stages流程，如果ci文件中没有存在的Stages阶段，则会使用官方提供的Stages阶段。Gitlab CICD的pipeline有一个默认的stages即下列阶段。</p><ul><li>.pre</li><li>build</li><li>test</li><li>deploy</li></ul><p>多个任务可以分配给同一个Stage。而分配给同一个Stage的任务是并行执行的。</p><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220301110307460.png" alt="image-20220301110307460"></p><p>其中的job3与jib4按照理论就是并行执行的。</p><p>可以定义自己的stages流程。如下图</p><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220301110823693.png" alt="image-20220301110823693"></p><p>如图所示job3与job4都分配给了stage3.</p><p>运行结果</p><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220301110856746.png" alt="image-20220301110856746"></p><p><strong>Script</strong></p><p>所有的job都需要有这么一个关键词。script就是执行Linux命令</p><p>下图显示了如何使用script执行Linux命令</p><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220301111235615.png" alt="image-20220301111235615"></p><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220301111306218.png" alt="image-20220301111306218"></p><p><strong>retry</strong></p><p>运行失败，重新运行几遍.一般取值为3</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">test:</span><br><span class="line">  script: respc</span><br><span class="line">  retry: 2</span><br></pre></td></tr></table></figure><p>或者指定失败原因，当这个失败原因的时候才回去触发重试机制</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">test:</span><br><span class="line">  script: respc</span><br><span class="line">  retry: </span><br><span class="line">    max: 2</span><br><span class="line">    when: runner_system_failure</span><br></pre></td></tr></table></figure><p>失败原因 列表 todo</p><p><strong>when</strong></p><p>发生故障或者经过故障仍然能够运行的作业</p><p><strong>only</strong></p><p>指定分支，only/except 是规定当前job的可见状态，一个项目有很多分支，tag，我们的流水线，为了对特定的分支，特定的tag执行不同的job，这里就要使用only和except 在任务上加上这一段代码，就表明当前任务只有在master分支可以运行。</p><h3 id="cache"><a href="#cache" class="headerlink" title="cache"></a><strong>cache</strong></h3><p>缓存是将当前工作环境目录中的一些文件，一些文件夹存储起来，用于在各个任务初始化的时候恢复。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cache:</span><br><span class="line">  key: hello-vue-cache</span><br><span class="line">  path:</span><br><span class="line">    - node_modules</span><br></pre></td></tr></table></figure><p>在其他任务启动的时候就会恢复这个缓存目录，并不会讲缓存目录删除掉。如果没有缓存，则等待任务结束会将产生的文件删除掉。</p><h3 id="image"><a href="#image" class="headerlink" title="image"></a>image</h3><p>image 是全局关键词可以在全局层面设置image镜像之后，在单独的job任务中也设置镜像。由于每个服务是单独的，也和前面的cache关键词对应起来。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;关键词&quot;&gt;&lt;a href=&quot;#关键词&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="gitlab" scheme="http://yoursite.com/categories/gitlab/"/>
+    
+    
+      <category term="gitlab" scheme="http://yoursite.com/tags/gitlab/"/>
+    
+      <category term="CICD" scheme="http://yoursite.com/tags/CICD/"/>
     
   </entry>
   
@@ -267,33 +298,6 @@
     
     
       <category term="web" scheme="http://yoursite.com/tags/web/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>资源汇总</title>
-    <link href="http://yoursite.com/2021/12/20/resourcesummary/"/>
-    <id>http://yoursite.com/2021/12/20/resourcesummary/</id>
-    <published>2021-12-20T16:00:00.000Z</published>
-    <updated>2022-01-25T16:00:00.000Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="sublime-text-教程"><a href="#sublime-text-教程" class="headerlink" title="sublime text 教程"></a>sublime text 教程</h2><p>sublime text3 字体大小的设置方法 <a href="https://blog.csdn.net/csdn_chenli/article/details/68060943" target="_blank" rel="noopener">https://blog.csdn.net/csdn_chenli/article/details/68060943</a></p><p>SublimeText3中使用terminal终端 <a href="https://www.codenong.com/cs105923270/" target="_blank" rel="noopener">https://www.codenong.com/cs105923270/</a></p><p>sublime text 3安装过程、语言汉化、基本插件安装、重要快捷键汇总 <a href="https://blog.csdn.net/qq_36595013/article/details/83039267" target="_blank" rel="noopener">https://blog.csdn.net/qq_36595013/article/details/83039267</a></p><p>有哪些炫酷的sublime text3 主题？ <a href="https://www.zhihu.com/question/46266742" target="_blank" rel="noopener">https://www.zhihu.com/question/46266742</a></p><p>sublime text 教程 <a href="https://www.w3cschool.cn/sublimetext/" target="_blank" rel="noopener">https://www.w3cschool.cn/sublimetext/</a> </p><h2 id="资源网站-amp-破解软件"><a href="#资源网站-amp-破解软件" class="headerlink" title="资源网站&amp;破解软件"></a>资源网站&amp;破解软件</h2><p>视频资源网站</p><p>乐于分享 <a href="https://masuit.com/" target="_blank" rel="noopener">https://masuit.com/</a></p><p>果核剥壳 <a href="https://www.ghxi.com/" target="_blank" rel="noopener">https://www.ghxi.com/</a></p><p>阿刚同学 <a href="https://www.isharepc.com/" target="_blank" rel="noopener">https://www.isharepc.com/</a></p><h2 id="视频网站"><a href="#视频网站" class="headerlink" title="视频网站"></a>视频网站</h2><p>天下无鱼 <a href="https://shikey.com/" target="_blank" rel="noopener">https://shikey.com/</a></p><p>乐于分享 <a href="https://masuit.com/" target="_blank" rel="noopener">https://masuit.com/</a></p><h2 id="AWS-教程"><a href="#AWS-教程" class="headerlink" title="AWS 教程"></a><strong>AWS 教程</strong></h2><p><a href="http://www.cloudbin.cn/?cat=135" target="_blank" rel="noopener"><a href="http://www.cloudbin.cn/" target="_blank" rel="noopener">IT Lab Service – Bing哥的博客</a></a></p><p><a href="https://study.163.com/course/introduction/1209592940.htm" target="_blank" rel="noopener">sap视频教程</a></p><p><a href="https://www.iloveaws.cn/" target="_blank" rel="noopener">aws爱好者</a></p><p><a href="https://iteablue.com/" target="_blank" rel="noopener">挨踢茶馆</a></p><p><a href="https://www.youtube.com/channel/UCazV3A3_1-Mtd6E_auw_ifg" target="_blank" rel="noopener">小马技术</a></p><p><a href="https://zh.quish.tv/top-70-aws-architect-interview-questions" target="_blank" rel="noopener">2019 年 70 大 AWS 架构师面试问题和答案</a></p><h1 id="博客记录"><a href="#博客记录" class="headerlink" title="博客记录"></a>博客记录</h1><p><a href="https://phenix3443.github.io/notebook/" target="_blank" rel="noopener">phenix3443的博客</a></p><p><a href="http://masikkk.com/" target="_blank" rel="noopener">小马的笔记</a></p><p><a href="https://zhuleichina.github.io/" target="_blank" rel="noopener">ZhuLei Blog</a></p><h1 id="Linux-记录"><a href="#Linux-记录" class="headerlink" title="Linux 记录"></a>Linux 记录</h1><p><a href="https://blog.csdn.net/qq_33633013/article/details/108469982" target="_blank" rel="noopener">安装Mysql客户端</a></p><p><a href="https://blog.wjzhe.ml/testdocsify/#/" target="_blank" rel="noopener">Linux整理</a></p><h1 id="K8s记录"><a href="#K8s记录" class="headerlink" title="K8s记录"></a>K8s记录</h1><p><strong>如何pvc绑定到pv</strong>？<a href="https://kubernetes.io/zh/docs/tasks/configure-pod-container/configure-persistent-volume-storage/" target="_blank" rel="noopener">配置 Pod 以使用 PersistentVolume 作为存储</a></p><h1 id="Java-Spring"><a href="#Java-Spring" class="headerlink" title="Java Spring"></a>Java Spring</h1><p><a href="https://www.cnblogs.com/wmyskxz/p/8820371.html" target="_blank" rel="noopener">Spring快速介绍五讲</a></p><h1 id="软件适配"><a href="#软件适配" class="headerlink" title="软件适配"></a>软件适配</h1><p><strong>云盘软件</strong></p><p>filebrowser——最简单的云盘软件，适合快速搭建，局域网内传输文件，<a href="https://filebrowser.org/" target="_blank" rel="noopener">https://filebrowser.org/</a></p><h1 id="DevOps"><a href="#DevOps" class="headerlink" title="DevOps"></a>DevOps</h1><p><a href="https://www.bilibili.com/video/BV18y4y1S7VC" target="_blank" rel="noopener">GitLab的cicd自动发布构建流程-哔哩哔哩</a></p><p><a href="https://www.bilibili.com/video/BV1Wf4y1p7Xo" target="_blank" rel="noopener">GitLab CI/CD系列教程</a></p><p><a href="https://juejin.cn/post/6933408931154755591" target="_blank" rel="noopener">.gitlab-ci.yml关键词完整解析（一）</a></p><p><a href="https://juejin.cn/post/6933408878361051143" target="_blank" rel="noopener">.gitlab-ci.yml关键词完整解析（二）</a></p><h1 id="Terraform相关脚本"><a href="#Terraform相关脚本" class="headerlink" title="Terraform相关脚本"></a>Terraform相关脚本</h1>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;sublime-text-教程&quot;&gt;&lt;a
-        
-      
-    
-    </summary>
-    
-    
-      <category term="资源" scheme="http://yoursite.com/categories/%E8%B5%84%E6%BA%90/"/>
-    
     
   </entry>
   
