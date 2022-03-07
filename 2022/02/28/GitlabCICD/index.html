@@ -239,14 +239,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>897</span>
+              <span>1.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -297,6 +297,21 @@
 
 <p>在其他任务启动的时候就会恢复这个缓存目录，并不会讲缓存目录删除掉。如果没有缓存，则等待任务结束会将产生的文件删除掉。</p>
 <h3 id="image"><a href="#image" class="headerlink" title="image"></a>image</h3><p>image 是全局关键词可以在全局层面设置image镜像之后，在单独的job任务中也设置镜像。由于每个服务是单独的，也和前面的cache关键词对应起来。</p>
+<h1 id="注入变量"><a href="#注入变量" class="headerlink" title="注入变量"></a>注入变量</h1><ul>
+<li>gitlab-ci.yml中自己定义</li>
+<li>pipeline中预定义的变量<ul>
+<li>在这个网址中进行查询<a href="https://docs.gitlab.com/ee/ci/variables/predefined_variables.html" target="_blank" rel="noopener">https://docs.gitlab.com/ee/ci/variables/predefined_variables.html</a></li>
+</ul>
+</li>
+<li>在项目中设置变量</li>
+</ul>
+<p><strong>gitlab-ci.yml中自己定义</strong></p>
+<p>全局变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">variables:</span><br><span class="line">  MT_VAR: &quot;All jobs can use this variable&#96;s value&quot;</span><br><span class="line">logs_var:</span><br><span class="line">  script:</span><br><span class="line">    - echo $MT_VAR</span><br><span class="line">job_deploy:</span><br><span class="line">  variables:</span><br><span class="line">    imgname: &quot;name2&quot;</span><br><span class="line">    containername: &quot;name1&quot;</span><br><span class="line">  script:</span><br><span class="line">    - docker build -t $imgname</span><br></pre></td></tr></table></figure>
+
+<p>如何查看pipeline中预定义的变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">get_all_var:</span><br><span class="line">  scropt:</span><br><span class="line">    - export</span><br></pre></td></tr></table></figure>
+
 
     </div>
 
@@ -321,8 +336,8 @@
       <i class="fa fa-chevron-left"></i> AWS使用SSM
     </a></div>
       <div class="post-nav-item">
-    <a href="/2022/03/02/Summary/" rel="next" title="Summary">
-      Summary <i class="fa fa-chevron-right"></i>
+    <a href="/2022/03/02/SIEMonAmazonOpenSearchService/" rel="next" title="SIEM on Amazon OpenSearch Service">
+      SIEM on Amazon OpenSearch Service <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -391,7 +406,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#关键词"><span class="nav-number">1.</span> <span class="nav-text">关键词</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Pipeline"><span class="nav-number">1.0.1.</span> <span class="nav-text">Pipeline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stages"><span class="nav-number">1.0.2.</span> <span class="nav-text">Stages</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cache"><span class="nav-number">1.0.3.</span> <span class="nav-text">cache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#image"><span class="nav-number">1.0.4.</span> <span class="nav-text">image</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#关键词"><span class="nav-number">1.</span> <span class="nav-text">关键词</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Pipeline"><span class="nav-number">1.0.1.</span> <span class="nav-text">Pipeline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stages"><span class="nav-number">1.0.2.</span> <span class="nav-text">Stages</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cache"><span class="nav-number">1.0.3.</span> <span class="nav-text">cache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#image"><span class="nav-number">1.0.4.</span> <span class="nav-text">image</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注入变量"><span class="nav-number">2.</span> <span class="nav-text">注入变量</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -406,16 +421,16 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">33</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -465,13 +480,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">58k</span>
+    <span title="站点总字数">60k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:37</span>
+    <span title="站点阅读时长">1:39</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动
   </div>

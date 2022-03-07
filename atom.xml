@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2022-03-02T02:33:34.974Z</updated>
+  <updated>2022-03-07T04:53:30.725Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -18,10 +18,10 @@
   
   <entry>
     <title>Summary</title>
-    <link href="http://yoursite.com/2022/03/02/Summary/"/>
-    <id>http://yoursite.com/2022/03/02/Summary/</id>
-    <published>2022-03-02T02:33:34.974Z</published>
-    <updated>2022-03-02T02:33:34.974Z</updated>
+    <link href="http://yoursite.com/2022/03/07/Summary/"/>
+    <id>http://yoursite.com/2022/03/07/Summary/</id>
+    <published>2022-03-07T04:53:30.725Z</published>
+    <updated>2022-03-07T04:53:30.725Z</updated>
     
     <summary type="html">
     
@@ -32,13 +32,71 @@
   </entry>
   
   <entry>
+    <title>Cloudendure原理</title>
+    <link href="http://yoursite.com/2022/03/06/CloudendureOfAws/"/>
+    <id>http://yoursite.com/2022/03/06/CloudendureOfAws/</id>
+    <published>2022-03-06T16:00:00.000Z</published>
+    <updated>2022-03-06T16:00:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="迁移初始化流程"><a href="#迁移初始化流程" class="headerlink" title="迁移初始化流程"></a>迁移初始化流程</h1><p>cloudendure进行初始化同步时候所经历的操作。初始化需要进行哪些操作，如下图所示：<br><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/20210307023723369.png" alt="在这里插入图片描述"></p><p>一共分为两部分。即cloudendure 对接公网迁移与对接内网迁移同步</p><h2 id="公网迁移"><a href="#公网迁移" class="headerlink" title="公网迁移"></a>公网迁移</h2><p>源主机与cloudendure console 进行交互,cloudendure console告诉aws,相关<br><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/20210307023837869.png" alt="在这里插入图片描述"></p><h2 id="客户私有网络"><a href="#客户私有网络" class="headerlink" title="客户私有网络"></a>客户私有网络</h2><h3 id="客户私有网络对接aws私有网络"><a href="#客户私有网络对接aws私有网络" class="headerlink" title="客户私有网络对接aws私有网络"></a>客户私有网络对接aws私有网络</h3><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/2021030702400835.png" alt=""></p><h3 id="客户私有网络对接aws公有网络（红色线）"><a href="#客户私有网络对接aws公有网络（红色线）" class="headerlink" title="客户私有网络对接aws公有网络（红色线）"></a>客户私有网络对接aws公有网络（红色线）</h3><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/20210307024051932.png" alt="在这里插入图片描述"></p><h1 id="Cloudendure使用"><a href="#Cloudendure使用" class="headerlink" title="Cloudendure使用"></a>Cloudendure使用</h1><p>在IDC环境中，将SSM Agent安装到对应主机，并通过Cloudendure进行迁移。迁移完毕之后使用SSM进行连接克隆机，对克隆机进行操作</p><h1 id="Window环境"><a href="#Window环境" class="headerlink" title="Window环境"></a>Window环境</h1><h2 id="安装SSM-agent"><a href="#安装SSM-agent" class="headerlink" title="安装SSM agent"></a>安装SSM agent</h2><p>在本地IDC环境中，给主机安装SSM Agent<br><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/20210319143139432.png" alt="在这里插入图片描述"></p><p>将软件上传上去，双击执行安装</p><h2 id="进行Cloudendure迁移"><a href="#进行Cloudendure迁移" class="headerlink" title="进行Cloudendure迁移"></a>进行Cloudendure迁移</h2><p>选择role<br><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/20210319143231995.png" alt="在这里插入图片描述"></p><p>role附加的策略<br><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/20210319143240481.png" alt=""></p><p>等待迁移成功<br><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/20210319143249889.png" alt="在这里插入图片描述"></p><h2 id="Cloudendure-Test测试"><a href="#Cloudendure-Test测试" class="headerlink" title="Cloudendure Test测试"></a>Cloudendure Test测试</h2><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/202103191433000.png" alt="在这里插入图片描述"></p><p>克隆机迁移成功<br><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/20210319143328821.png" alt="在这里插入图片描述"></p><h2 id="使用SSM-连接克隆机"><a href="#使用SSM-连接克隆机" class="headerlink" title="使用SSM 连接克隆机"></a>使用SSM 连接克隆机</h2><p>这里使用SSM连接克隆机，执行一个简单的Powershell命令</p><p>选择AWS-RunPowershell命令</p><p>设置命令参数</p><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/20210319143340189.png" alt="在这里插入图片描述"></p><p>选择实例</p><p>![[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传<img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/2021031914335886.png" alt=""></p><p>输出</p><p>![[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传<img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/20210319143417132.png" alt=""></p><h1 id="Linux环境"><a href="#Linux环境" class="headerlink" title="Linux环境"></a>Linux环境</h1><h2 id="安装SSM-Agent"><a href="#安装SSM-Agent" class="headerlink" title="安装SSM Agent"></a>安装SSM Agent</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://s3.cn-north-1.amazonaws.com.cn/amazon-ssm-cn-north-1/latest/linux_amd64/amazon-ssm-agent.rpm</span><br><span class="line">rpm -ivh amazon-ssm-agent.rpm</span><br><span class="line">systemctl <span class="built_in">enable</span> amazon-ssm-agent</span><br></pre></td></tr></table></figure><h2 id="进行迁移"><a href="#进行迁移" class="headerlink" title="进行迁移"></a>进行迁移</h2><p>迁移的时候需要进行设置，选择IAM <img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/20210319143430293.png" alt="在这里插入图片描述"><br>IAM需要具备SSM权限<br><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/20210319143442653.png" alt="在这里插入图片描述"></p><p>开始迁移<br><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/20210319143500889.png" alt="在这里插入图片描述"></p><p>等待迁移完毕<br><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/20210319143523638.png" alt="在这里插入图片描述"></p><h2 id="使用SSM进行连接"><a href="#使用SSM进行连接" class="headerlink" title="使用SSM进行连接"></a>使用SSM进行连接</h2><p>使用SSM进行连接，进行简单的测试。</p><p>选择AWS-RunShellScript操作，编写命令参数</p><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/20210319143534251.png" alt="在这里插入图片描述"></p><p>选择实例</p><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/2021031914354231.png" alt="在这里插入图片描述"></p><p>运行命令，查看输出<br><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/20210319143605629.png" alt="在这里插入图片描述"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;迁移初始化流程&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+    
+      <category term="迁移" scheme="http://yoursite.com/categories/%E8%BF%81%E7%A7%BB/"/>
+    
+    
+      <category term="AWS" scheme="http://yoursite.com/tags/AWS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SIEM on Amazon OpenSearch Service</title>
+    <link href="http://yoursite.com/2022/03/02/SIEMonAmazonOpenSearchService/"/>
+    <id>http://yoursite.com/2022/03/02/SIEMonAmazonOpenSearchService/</id>
+    <published>2022-03-02T16:00:00.000Z</published>
+    <updated>2022-03-02T16:00:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h1><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220303100505518.png" alt="image-20220303100505518"></p><p>核心代码是中间的ETL Lambda，通过这个Lambda来对各种日志进行ETL处理。</p><h1 id="支持日志"><a href="#支持日志" class="headerlink" title="支持日志"></a>支持日志</h1><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220303102525168.png" alt="image-20220303102525168"></p><p><strong>dashboard</strong>展示</p><p><a href="https://github.com/aws-samples/siem-on-amazon-opensearch-service/blob/main/docs/dashboard.md" target="_blank" rel="noopener">dashboard展示</a></p><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220303102547395.png" alt="image-20220303102547395"></p><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220303102605583.png" alt="image-20220303102605583"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;架构&quot;&gt;&lt;a href=&quot;#架构&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="SIEM" scheme="http://yoursite.com/categories/SIEM/"/>
+    
+    
+      <category term="AWS 日志分析" scheme="http://yoursite.com/tags/AWS-%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Gitlab CICD</title>
     <link href="http://yoursite.com/2022/02/28/GitlabCICD/"/>
     <id>http://yoursite.com/2022/02/28/GitlabCICD/</id>
     <published>2022-02-28T16:00:00.000Z</published>
     <updated>2022-02-28T16:00:00.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="关键词"><a href="#关键词" class="headerlink" title="关键词"></a>关键词</h1><h3 id="Pipeline"><a href="#Pipeline" class="headerlink" title="Pipeline"></a><strong>Pipeline</strong></h3><p>Pipeline执行的过程就是一次执行Stage中的列表流程的阶段。</p><h3 id="Stages"><a href="#Stages" class="headerlink" title="Stages"></a><strong>Stages</strong></h3><p>默认的Stage</p><p>Gitlab的Pipeline有一个默认的Stages流程，如果ci文件中没有存在的Stages阶段，则会使用官方提供的Stages阶段。Gitlab CICD的pipeline有一个默认的stages即下列阶段。</p><ul><li>.pre</li><li>build</li><li>test</li><li>deploy</li></ul><p>多个任务可以分配给同一个Stage。而分配给同一个Stage的任务是并行执行的。</p><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220301110307460.png" alt="image-20220301110307460"></p><p>其中的job3与jib4按照理论就是并行执行的。</p><p>可以定义自己的stages流程。如下图</p><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220301110823693.png" alt="image-20220301110823693"></p><p>如图所示job3与job4都分配给了stage3.</p><p>运行结果</p><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220301110856746.png" alt="image-20220301110856746"></p><p><strong>Script</strong></p><p>所有的job都需要有这么一个关键词。script就是执行Linux命令</p><p>下图显示了如何使用script执行Linux命令</p><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220301111235615.png" alt="image-20220301111235615"></p><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220301111306218.png" alt="image-20220301111306218"></p><p><strong>retry</strong></p><p>运行失败，重新运行几遍.一般取值为3</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">test:</span><br><span class="line">  script: respc</span><br><span class="line">  retry: 2</span><br></pre></td></tr></table></figure><p>或者指定失败原因，当这个失败原因的时候才回去触发重试机制</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">test:</span><br><span class="line">  script: respc</span><br><span class="line">  retry: </span><br><span class="line">    max: 2</span><br><span class="line">    when: runner_system_failure</span><br></pre></td></tr></table></figure><p>失败原因 列表 todo</p><p><strong>when</strong></p><p>发生故障或者经过故障仍然能够运行的作业</p><p><strong>only</strong></p><p>指定分支，only/except 是规定当前job的可见状态，一个项目有很多分支，tag，我们的流水线，为了对特定的分支，特定的tag执行不同的job，这里就要使用only和except 在任务上加上这一段代码，就表明当前任务只有在master分支可以运行。</p><h3 id="cache"><a href="#cache" class="headerlink" title="cache"></a><strong>cache</strong></h3><p>缓存是将当前工作环境目录中的一些文件，一些文件夹存储起来，用于在各个任务初始化的时候恢复。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cache:</span><br><span class="line">  key: hello-vue-cache</span><br><span class="line">  path:</span><br><span class="line">    - node_modules</span><br></pre></td></tr></table></figure><p>在其他任务启动的时候就会恢复这个缓存目录，并不会讲缓存目录删除掉。如果没有缓存，则等待任务结束会将产生的文件删除掉。</p><h3 id="image"><a href="#image" class="headerlink" title="image"></a>image</h3><p>image 是全局关键词可以在全局层面设置image镜像之后，在单独的job任务中也设置镜像。由于每个服务是单独的，也和前面的cache关键词对应起来。</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="关键词"><a href="#关键词" class="headerlink" title="关键词"></a>关键词</h1><h3 id="Pipeline"><a href="#Pipeline" class="headerlink" title="Pipeline"></a><strong>Pipeline</strong></h3><p>Pipeline执行的过程就是一次执行Stage中的列表流程的阶段。</p><h3 id="Stages"><a href="#Stages" class="headerlink" title="Stages"></a><strong>Stages</strong></h3><p>默认的Stage</p><p>Gitlab的Pipeline有一个默认的Stages流程，如果ci文件中没有存在的Stages阶段，则会使用官方提供的Stages阶段。Gitlab CICD的pipeline有一个默认的stages即下列阶段。</p><ul><li>.pre</li><li>build</li><li>test</li><li>deploy</li></ul><p>多个任务可以分配给同一个Stage。而分配给同一个Stage的任务是并行执行的。</p><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220301110307460.png" alt="image-20220301110307460"></p><p>其中的job3与jib4按照理论就是并行执行的。</p><p>可以定义自己的stages流程。如下图</p><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220301110823693.png" alt="image-20220301110823693"></p><p>如图所示job3与job4都分配给了stage3.</p><p>运行结果</p><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220301110856746.png" alt="image-20220301110856746"></p><p><strong>Script</strong></p><p>所有的job都需要有这么一个关键词。script就是执行Linux命令</p><p>下图显示了如何使用script执行Linux命令</p><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220301111235615.png" alt="image-20220301111235615"></p><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220301111306218.png" alt="image-20220301111306218"></p><p><strong>retry</strong></p><p>运行失败，重新运行几遍.一般取值为3</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">test:</span><br><span class="line">  script: respc</span><br><span class="line">  retry: 2</span><br></pre></td></tr></table></figure><p>或者指定失败原因，当这个失败原因的时候才回去触发重试机制</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">test:</span><br><span class="line">  script: respc</span><br><span class="line">  retry: </span><br><span class="line">    max: 2</span><br><span class="line">    when: runner_system_failure</span><br></pre></td></tr></table></figure><p>失败原因 列表 todo</p><p><strong>when</strong></p><p>发生故障或者经过故障仍然能够运行的作业</p><p><strong>only</strong></p><p>指定分支，only/except 是规定当前job的可见状态，一个项目有很多分支，tag，我们的流水线，为了对特定的分支，特定的tag执行不同的job，这里就要使用only和except 在任务上加上这一段代码，就表明当前任务只有在master分支可以运行。</p><h3 id="cache"><a href="#cache" class="headerlink" title="cache"></a><strong>cache</strong></h3><p>缓存是将当前工作环境目录中的一些文件，一些文件夹存储起来，用于在各个任务初始化的时候恢复。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cache:</span><br><span class="line">  key: hello-vue-cache</span><br><span class="line">  path:</span><br><span class="line">    - node_modules</span><br></pre></td></tr></table></figure><p>在其他任务启动的时候就会恢复这个缓存目录，并不会讲缓存目录删除掉。如果没有缓存，则等待任务结束会将产生的文件删除掉。</p><h3 id="image"><a href="#image" class="headerlink" title="image"></a>image</h3><p>image 是全局关键词可以在全局层面设置image镜像之后，在单独的job任务中也设置镜像。由于每个服务是单独的，也和前面的cache关键词对应起来。</p><h1 id="注入变量"><a href="#注入变量" class="headerlink" title="注入变量"></a>注入变量</h1><ul><li>gitlab-ci.yml中自己定义</li><li>pipeline中预定义的变量<ul><li>在这个网址中进行查询<a href="https://docs.gitlab.com/ee/ci/variables/predefined_variables.html" target="_blank" rel="noopener">https://docs.gitlab.com/ee/ci/variables/predefined_variables.html</a></li></ul></li><li>在项目中设置变量</li></ul><p><strong>gitlab-ci.yml中自己定义</strong></p><p>全局变量</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">variables:</span><br><span class="line">  MT_VAR: &quot;All jobs can use this variable&#96;s value&quot;</span><br><span class="line">logs_var:</span><br><span class="line">  script:</span><br><span class="line">    - echo $MT_VAR</span><br><span class="line">job_deploy:</span><br><span class="line">  variables:</span><br><span class="line">    imgname: &quot;name2&quot;</span><br><span class="line">    containername: &quot;name1&quot;</span><br><span class="line">  script:</span><br><span class="line">    - docker build -t $imgname</span><br></pre></td></tr></table></figure><p>如何查看pipeline中预定义的变量</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">get_all_var:</span><br><span class="line">  scropt:</span><br><span class="line">    - export</span><br></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
@@ -239,65 +297,6 @@
       <category term="Route" scheme="http://yoursite.com/tags/Route/"/>
     
       <category term="DNS" scheme="http://yoursite.com/tags/DNS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>python记录</title>
-    <link href="http://yoursite.com/2022/01/04/pythonsummary/"/>
-    <id>http://yoursite.com/2022/01/04/pythonsummary/</id>
-    <published>2022-01-04T16:00:00.000Z</published>
-    <updated>2022-01-04T16:00:00.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="python日志模块"><a href="#python日志模块" class="headerlink" title="python日志模块"></a>python日志模块</h1><h2 id="loguru"><a href="#loguru" class="headerlink" title="loguru"></a>loguru</h2><p>简单的python日志模块——<code>loguru</code></p><p>如何使用loguru？<a href="https://www.jianshu.com/p/2945634fe349" target="_blank" rel="noopener">使用loguru记录日志</a></p><h1 id="安全模块"><a href="#安全模块" class="headerlink" title="安全模块"></a>安全模块</h1><h2 id="单点登录"><a href="#单点登录" class="headerlink" title="单点登录"></a>单点登录</h2><p>(不要用JWT替代session管理（上）：全面了解Token,JWT,OAuth,SAML,SSO)[<a href="https://zhuanlan.zhihu.com/p/38942172]" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/38942172]</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;python日志模块&quot;&gt;&lt;a
-        
-      
-    
-    </summary>
-    
-    
-      <category term="小记" scheme="http://yoursite.com/categories/%E5%B0%8F%E8%AE%B0/"/>
-    
-    
-      <category term="python" scheme="http://yoursite.com/tags/python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>浏览器可复制技巧</title>
-    <link href="http://yoursite.com/2021/12/27/webtexteditor/"/>
-    <id>http://yoursite.com/2021/12/27/webtexteditor/</id>
-    <published>2021-12-27T16:00:00.000Z</published>
-    <updated>2021-12-27T16:00:00.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><strong>第一种</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">document.body.contentEditable&#x3D;true</span><br></pre></td></tr></table></figure><p><strong>第二种</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">document.body.innerText</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;&lt;strong&gt;第一种&lt;/strong&gt;&lt;/p&gt;
-&lt;fig
-        
-      
-    
-    </summary>
-    
-    
-      <category term="小计" scheme="http://yoursite.com/categories/%E5%B0%8F%E8%AE%A1/"/>
-    
-    
-      <category term="web" scheme="http://yoursite.com/tags/web/"/>
     
   </entry>
   
