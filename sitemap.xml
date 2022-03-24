@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/googledf6b780e9cc99c32.html</loc>
+    <loc>http://yoursite.com/2022/03/24/UseOpenVPN/</loc>
     
     <lastmod>2022-03-24</lastmod>
     
@@ -20,7 +20,7 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/2022/03/24/UseOpenVPN/</loc>
+    <loc>http://yoursite.com/2022/03/24/installCloudwathagent/</loc>
     
     <lastmod>2022-03-24</lastmod>
     
@@ -641,6 +641,13 @@
   
   <url>
     <loc>http://yoursite.com/categories/%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2022-03-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/categories/Cloudwatch/</loc>
     <lastmod>2022-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
