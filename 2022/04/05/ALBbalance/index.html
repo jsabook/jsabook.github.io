@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico">
+  <link rel="mask-icon" href="/favicon.ico" color="#222">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"buttons","active":null,"storage":true,"lazyload":true,"nav":{"disqus":{"text":"Load Disqus","order":-1}}},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":false,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="ALB负载均衡Part1 AWS ALB介绍ALB全称为Application Load Balancer，是AWS Elastic Load Balancing的一种。 ALB工作原理Application Load Balancer 在应用程序层正常工作，该层是开放系统互连 (OSI) 模型的第 7 层。负载均衡器收到请求后，将按照优先级顺序评估侦听器规则以确定应用哪个规则，然后从目标组中选择">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AWS ALB负载均衡">
+<meta property="og:url" content="http://yoursite.com/2022/04/05/ALBbalance/index.html">
+<meta property="og:site_name" content="Qier&#39;s blog">
+<meta property="og:description" content="ALB负载均衡Part1 AWS ALB介绍ALB全称为Application Load Balancer，是AWS Elastic Load Balancing的一种。 ALB工作原理Application Load Balancer 在应用程序层正常工作，该层是开放系统互连 (OSI) 模型的第 7 层。负载均衡器收到请求后，将按照优先级顺序评估侦听器规则以确定应用哪个规则，然后从目标组中选择">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405214053861.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405214158370.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405214408258.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405214537236.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405214645641.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405214712929.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405215548240.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405215821313.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405214829109.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405214950454.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405215012077.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405220012731.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405221347361.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405221358408.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405220624810.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405220732793.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405220823711.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405220946235.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405221020586.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405221120138.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405221633072.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405221703945.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405222054658.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405222129756.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406010756355.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406010816653.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406011312797.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406011445860.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406014556009.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406015522649.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406015535658.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406015820921.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406014046173.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406014124888.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406020101041.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406020144666.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406020221584.png">
+<meta property="og:image" content="http://yoursite.com/2022/04/05/ALBbalance/images-ALB%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/image-20220406020501241.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406021530401.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406021612612.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406022118864.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406022005423.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406022356427.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406022529216.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406022740304.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406022843968.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406023531357.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406023739857.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406023804895.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406023922000.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406024015520.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406024043744.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406024105623.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406024244882.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406024401239.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406104955591.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406110211724.png">
+<meta property="article:published_time" content="2022-04-05T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-04-05T16:00:00.000Z">
+<meta property="article:author" content="qier">
+<meta property="article:tag" content="AWS">
+<meta property="article:tag" content="AWS Network">
+<meta property="article:tag" content="转载 张小燕">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405214053861.png">
+
+<link rel="canonical" href="http://yoursite.com/2022/04/05/ALBbalance/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>AWS ALB负载均衡 | Qier's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Qier's blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Qier's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">Qier's blog</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-desktop"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-friends">
+
+    <a href="/friends.html" rel="section"><i class="fa fa-fw fa-link"></i>Friends</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about.html" rel="section"><i class="fa fa-fw fa-user-circle-o"></i>About</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/04/05/ALBbalance/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/avatar.png">
+      <meta itemprop="name" content="qier">
+      <meta itemprop="description" content="Qier's blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Qier's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          AWS ALB负载均衡
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-04-06 2022-04-06T00:00:00+08:00" itemprop="dateCreated datePublished" datetime="2022-04-06T00:00:00+08:00">2022-04-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AC%E8%BD%BD/" itemprop="url" rel="index">
+                    <span itemprop="name">转载</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2022/04/05/ALBbalance/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2022/04/05/ALBbalance/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>9 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="ALB负载均衡"><a href="#ALB负载均衡" class="headerlink" title="ALB负载均衡"></a>ALB负载均衡</h1><h2 id="Part1-AWS-ALB介绍"><a href="#Part1-AWS-ALB介绍" class="headerlink" title="Part1 AWS ALB介绍"></a>Part1 AWS ALB介绍</h2><p>ALB全称为Application Load Balancer，是AWS Elastic Load Balancing的一种。</p>
+<p><strong>ALB工作原理</strong><br>Application Load Balancer 在应用程序层正常工作，该层是开放系统互连 (OSI) 模型的第 7 层。负载均衡器收到请求后，将按照优先级顺序评估侦听器规则以确定应用哪个规则，然后从目标组中选择规则操作目标。可以配置侦听器规则，以根据应用程序流量的内容，将请求路由至不同的目标组。每个目标组的路由都是单独进行的，即使某个目标已在多个目标组中注册。可以配置目标组级别使用的路由算法。默认路由算法为轮询路由算法；或者，可以指定最少未完成请求路由算法。</p>
+<p>可以根据需求变化在负载均衡器中添加和删除目标，而不会中断应用程序的整体请求流。Elastic Load Balancing 根据传输到应用程序的流量随时间的变化对负载均衡器进行扩展。Elastic Load Balancing 能够自动扩展来处理绝大部分工作负载。</p>
+<p>您可以配置运行状况检查，这些检查可用来监控注册目标的运行状况，以便负载均衡器只能将请求发送到正常运行的目标。</p>
+<h2 id="Part2-实验内容"><a href="#Part2-实验内容" class="headerlink" title="Part2 实验内容"></a>Part2 实验内容</h2><ul>
+<li>网络环境：VPC设置2个公共子网，要求2个公共子网在不同的可用区，每个公共子网内各有1台EC2，EC2上有一个简单的http服务。</li>
+<li>负载均衡：要求创建一个负载均衡器，实现访问流量分配到2个EC2上。</li>
+<li>路由要求：要求通过域名访问负载均衡器，并且实现https的访问。</li>
+</ul>
+<h2 id="Part3-实验步骤"><a href="#Part3-实验步骤" class="headerlink" title="Part3 实验步骤"></a>Part3 实验步骤</h2><h3 id="1-网络环境搭建"><a href="#1-网络环境搭建" class="headerlink" title="1.网络环境搭建"></a>1.网络环境搭建</h3><p>该部分主要的工作就是在VPC的两个不同可用区的公共子网内创建EC2，并部署http服务。<br>顺序：创建VPC–&gt;创建IGW并关联VPC–&gt;创建子网–&gt;创建安全组–&gt;创建EC2–&gt;部署服务</p>
+<h4 id="1-1-创建VPC，不使用向导的方式创建"><a href="#1-1-创建VPC，不使用向导的方式创建" class="headerlink" title="1.1 创建VPC，不使用向导的方式创建"></a>1.1 创建VPC，不使用向导的方式创建</h4><p>点击“创建VPC”</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405214053861.png" alt="image-20220405214053861"></p>
+<p>VPC配置</p>
+<ul>
+<li>仅VPC</li>
+<li>名称：my-vpc-02</li>
+<li>IPv4 CIDR：10.0.0.0/22</li>
+</ul>
+<p>点击创建</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405214158370.png" alt="image-20220405214158370"></p>
+<h4 id="1-2-创建互联网网关"><a href="#1-2-创建互联网网关" class="headerlink" title="1.2 创建互联网网关"></a>1.2 创建互联网网关</h4><p>点击“创建互联网网关”</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405214408258.png" alt="image-20220405214408258"></p>
+<p>设置IGW的名称为：my-igw-02，点击创建</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405214537236.png" alt="image-20220405214537236"></p>
+<p>将创建的这个互联网网关关联到VPC上</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405214645641.png" alt="image-20220405214645641"></p>
+<p>选择创建的这个VPC，点击关联</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405214712929.png" alt="image-20220405214712929"></p>
+<p>在路由表页面选中my-vpc-02的路由表，并点击“编辑路由”</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405215548240.png" alt="image-20220405215548240"></p>
+<p>增加一条新的路由信息，将IGW加入路由表，点击“保存更改”</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405215821313.png" alt="image-20220405215821313"></p>
+<h4 id="1-3-创建子网"><a href="#1-3-创建子网" class="headerlink" title="1.3 创建子网"></a>1.3 创建子网</h4><p>在子网页面选择创建子网</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405214829109.png" alt="image-20220405214829109"></p>
+<p>子网的配置信息</p>
+<ul>
+<li>VPC选择my-vpc-02</li>
+<li>子网1<ul>
+<li>名称：my-net2-01</li>
+<li>可用区：us-east-1a</li>
+<li>IPv4 CIDR：10.0.1.0/24</li>
+</ul>
+</li>
+<li>子网2<ul>
+<li>名称：my-net2-02</li>
+<li>可用区：us-east-1b</li>
+<li>IPv4 CIDR：10.0.2.0/24</li>
+</ul>
+</li>
+</ul>
+<p>点击创建</p>
+<p>注：这里设置两个子网的可用区不同</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405214950454.png" alt="image-20220405214950454"></p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405215012077.png" alt="image-20220405215012077"></p>
+<h4 id="1-4-创建安全组"><a href="#1-4-创建安全组" class="headerlink" title="1.4 创建安全组"></a>1.4 创建安全组</h4><p>在安全组页面，点击“创建安全组”</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405220012731.png" alt="image-20220405220012731"></p>
+<p>安全组配置</p>
+<ul>
+<li><p>名称：my-sg-02</p>
+</li>
+<li><p>描述：open 22 80 443 5000</p>
+</li>
+<li><p>VPC：选则my-vpc-02</p>
+</li>
+<li><p>入站规则</p>
+<ul>
+<li>TCP 22 0.0.0.0/0</li>
+<li>TCP 80 0.0.0.0/0</li>
+<li>TCP 443 0.0.0.0/0</li>
+<li>TCP 5000 0.0.0.0/0</li>
+</ul>
+<p>配置完成之后点击创建</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405221347361.png" alt="image-20220405221347361"></p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405221358408.png" alt="image-20220405221358408"></p>
+</li>
+</ul>
+<h4 id="1-5-创建EC2"><a href="#1-5-创建EC2" class="headerlink" title="1.5 创建EC2"></a>1.5 创建EC2</h4><h5 id="1-5-1-第一台"><a href="#1-5-1-第一台" class="headerlink" title="1.5.1 第一台"></a>1.5.1 第一台</h5><p>点击“启动新实例”</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405220624810.png" alt="image-20220405220624810"></p>
+<p>AMI选中centos7</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405220732793.png" alt="image-20220405220732793"></p>
+<p>类型选择含免费套餐的这个，点击下一步</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405220823711.png" alt="image-20220405220823711"></p>
+<p>EC2的网络配置：</p>
+<ul>
+<li>VPC：my-vpc-02</li>
+<li>子网：us-east-1a</li>
+<li>自动分配公有IP：禁用</li>
+</ul>
+<p>点击下一步</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405220946235.png" alt="image-20220405220946235"></p>
+<p>添加存储，保持默认，点击下一步</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405221020586.png" alt="image-20220405221020586"></p>
+<p>标签设置，Name：test-net2-01，点击下一步</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405221120138.png" alt="image-20220405221120138"></p>
+<p>安全组配置，选择现有的安全组，选择my-sg-02，点击审核和启动</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405221633072.png" alt="image-20220405221633072"></p>
+<p>审核完成之后点击启动</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405221703945.png" alt="image-20220405221703945"></p>
+<p>密钥对，如果没有就新建，输入密钥对的名称；如果有，就使用现有的密钥对。</p>
+<h5 id="1-5-2-第二台"><a href="#1-5-2-第二台" class="headerlink" title="1.5.2 第二台"></a>1.5.2 第二台</h5><p>大部分配置都与第一台相同</p>
+<p>不同的配置如下</p>
+<ul>
+<li>子网设置与第一台不同，子网选择us-east-1b</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405222054658.png" alt="image-20220405222054658"></p>
+<ul>
+<li>标签设置为Name：test-net2-02</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220405222129756.png" alt="image-20220405222129756"></p>
+<h4 id="1-6-创建弹性IP"><a href="#1-6-创建弹性IP" class="headerlink" title="1.6 创建弹性IP"></a>1.6 创建弹性IP</h4><ol>
+<li>在弹性IP页面，点击“分配弹性IP”</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406010756355.png" alt="image-20220406010756355"></p>
+<ol start="2">
+<li>直接点击分配即可</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406010816653.png" alt="image-20220406010816653"></p>
+<ol start="3">
+<li>将弹性IP分配到刚创建的EC2上</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406011312797.png" alt="image-20220406011312797"></p>
+<p>选择对应的EC2，选择IP，点击分配</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406011445860.png" alt="image-20220406011445860"></p>
+<ol start="4">
+<li>重复1、2、3步骤，给另一个EC2(test-net2-02)也分配弹性IP</li>
+</ol>
+<h3 id="2-EC2部署简单应用"><a href="#2-EC2部署简单应用" class="headerlink" title="2.EC2部署简单应用"></a>2.EC2部署简单应用</h3><p>SSH上EC2，以下均以test-net2-01实例为例进行展示（test-net2-01实例上配置基本相同）</p>
+<p>修改EC2的hostname，一台改成test-net2-01，另一台test-net2-02</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#修改hostname</span></span><br><span class="line">[centos@ip-10-0-1-59 ~]$ sudo -i</span><br><span class="line">[root@ip-10-0-1-59 ~]<span class="comment"># hostnamectl set-hostname test-net2-01</span></span><br><span class="line">[root@ip-10-0-1-59 ~]<span class="comment"># exit</span></span><br><span class="line"><span class="built_in">logout</span></span><br><span class="line">[centos@ip-10-0-1-59 ~]$ sudo -i</span><br></pre></td></tr></table></figure>
+
+<p>安装pip包管理工具</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#安装pip包管理工具</span></span><br><span class="line">[root@<span class="built_in">test</span>-net2-01 ~]<span class="comment"># yum install -y wget</span></span><br><span class="line">[root@<span class="built_in">test</span>-net2-01 ~]<span class="comment"># wget https://bootstrap.pypa.io/pip/2.7/get-pip.py</span></span><br><span class="line">[root@<span class="built_in">test</span>-net2-01 ~]<span class="comment"># sudo python get-pip.py</span></span><br><span class="line">[root@<span class="built_in">test</span>-net2-01 ~]<span class="comment"># pip -V</span></span><br><span class="line">pip 20.3.4 from /usr/lib/python2.7/site-packages/pip (python 2.7)</span><br></pre></td></tr></table></figure>
+
+<p>安装flask模块</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#安装flask模块</span></span><br><span class="line">[root@<span class="built_in">test</span>-net2-01 ~]<span class="comment"># pip install flask</span></span><br></pre></td></tr></table></figure>
+
+<p>编写脚本文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@<span class="built_in">test</span>-net2-01 ~]<span class="comment"># vi http_test</span></span><br></pre></td></tr></table></figure>
+
+<p>将以下内容复制到脚本文件中</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment">#coding=utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Response</span><br><span class="line"><span class="keyword">import</span> socket,json</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_hostname</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># 获取本机计算机名称</span></span><br><span class="line">    hostname = socket.gethostname()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">"hostname"</span>:hostname&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route("/")</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    result = get_hostname()</span><br><span class="line">    <span class="keyword">return</span> Response(json.dumps(result),  mimetype=<span class="string">'application/json'</span>)</span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</span><br><span class="line">    app.run(host=<span class="string">'0.0.0.0'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>保存后退出</p>
+<p>后台运行脚本文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@<span class="built_in">test</span>-net2-01 ~]<span class="comment"># nohup python http_test &gt; nohup.log 2&gt;&amp;1 &amp;</span></span><br><span class="line">[1] 9315</span><br></pre></td></tr></table></figure>
+
+<p>测试5000端口上的服务</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@<span class="built_in">test</span>-net2-01 ~]<span class="comment"># curl 127.0.0.1:5000</span></span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-01"</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-创建ALB负载均衡器"><a href="#3-创建ALB负载均衡器" class="headerlink" title="3.创建ALB负载均衡器"></a>3.创建ALB负载均衡器</h3><h4 id="3-1-创建目标组"><a href="#3-1-创建目标组" class="headerlink" title="3.1 创建目标组"></a>3.1 创建目标组</h4><p>在目标群组页面点击“创建目标组”</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406014556009.png" alt="image-20220406014556009"></p>
+<p>创建目标组，配置设置</p>
+<ul>
+<li>目标类型：实例</li>
+<li>目标组名称：my-targer-02</li>
+<li>协议：HTTP：5000（<font color=red>！此处不能修改成别的，一定要是HTTP协议</font>）<ul>
+<li>端口为5000，是因为EC2上对应的服务在5000端口</li>
+</ul>
+</li>
+<li>VPC：my-vpc-02</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406015522649.png" alt="image-20220406015522649"></p>
+<p>点击下一步</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406015535658.png" alt="image-20220406015535658"></p>
+<p>将两个实例添加为目标，点击创建目标组</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406015820921.png" alt="image-20220406015820921"></p>
+<h4 id="3-2-创建ALB负载均衡器"><a href="#3-2-创建ALB负载均衡器" class="headerlink" title="3.2 创建ALB负载均衡器"></a>3.2 创建ALB负载均衡器</h4><p>在负载均衡器页面，点击“新建负载均衡器”</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406014046173.png" alt="image-20220406014046173"></p>
+<p>选择“Application Load Balancer”</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406014124888.png" alt="image-20220406014124888"></p>
+<p>ALB配置</p>
+<ul>
+<li>名称：my-alb-02</li>
+<li>VPC：my-vpc-02</li>
+<li>映射：选择有公共子网的可用区，选好可用区之后选择子网</li>
+<li>安全组：选择创建的my-sg-02</li>
+<li>侦听器和路由：创建2个侦听器，分别是80和5000端口，流量转发至my-target-02</li>
+</ul>
+<p>配置完成之后，点击创建负载均衡器</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406020101041.png" alt="image-20220406020101041"></p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406020144666.png" alt="image-20220406020144666"></p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406020221584.png" alt="image-20220406020221584"></p>
+<p><img src="images-ALB%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/image-20220406020501241.png" alt="image-20220406020501241"></p>
+<p>负载均衡器需要一定的配置时间，等待10分钟左右会创建完成</p>
+<h4 id="3-3-ALB测试"><a href="#3-3-ALB测试" class="headerlink" title="3.3 ALB测试"></a>3.3 ALB测试</h4><p>复制负载均衡器my-alb-02的DNS名称</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406021530401.png" alt="image-20220406021530401"></p>
+<p>在终端进行访问，可以看到有在进行负载均衡</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@<span class="built_in">test</span>-net2-01 ~]<span class="comment"># for i in $(seq 1 10); do curl http://my-alb-02-126796059.us-east-1.elb.amazonaws.com/ &amp;&amp;echo ""; done</span></span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-02"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-01"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-02"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-02"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-01"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-02"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-01"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-02"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-01"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-01"</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406021612612.png" alt="image-20220406021612612"></p>
+<h3 id="4-域名解析"><a href="#4-域名解析" class="headerlink" title="4.域名解析"></a>4.域名解析</h3><h4 id="4-1-获得免费域名"><a href="#4-1-获得免费域名" class="headerlink" title="4.1 获得免费域名"></a>4.1 获得免费域名</h4><p>获取途径<a href="https://my.freenom.com/clientarea.php" target="_blank" rel="noopener">Freenom</a></p>
+<p>本次实验使用的域名是modu2022.cf</p>
+<h4 id="4-2-Route-53-创建域"><a href="#4-2-Route-53-创建域" class="headerlink" title="4.2 Route 53 创建域"></a>4.2 Route 53 创建域</h4><h5 id="4-2-1-创建托管区域"><a href="#4-2-1-创建托管区域" class="headerlink" title="4.2.1 创建托管区域"></a>4.2.1 创建托管区域</h5><p>在Route 53的托管区域页面，点击“创建托管区域”</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406022118864.png" alt="image-20220406022118864"></p>
+<p>填入域名：modu2022.cf</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406022005423.png" alt="image-20220406022005423"></p>
+<h5 id="4-2-2-修改域名的名称服务器"><a href="#4-2-2-修改域名的名称服务器" class="headerlink" title="4.2.2 修改域名的名称服务器"></a>4.2.2 修改域名的名称服务器</h5><p>记录下托管区域modu2022.cf的名称服务器</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406022356427.png" alt="image-20220406022356427"></p>
+<p>将Freenom中对应域名的名称服务器改为上面的4个服务器</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406022529216.png" alt="image-20220406022529216"></p>
+<h5 id="4-2-3-创建记录"><a href="#4-2-3-创建记录" class="headerlink" title="4.2.3 创建记录"></a>4.2.3 创建记录</h5><p>点击“创建记录”</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406022740304.png" alt="image-20220406022740304"></p>
+<p>创建2条记录</p>
+<p>记录1和记录2除了“记录名称”之外的地方都一致</p>
+<p>记录1：</p>
+<ul>
+<li>类型：A</li>
+<li>流量路由至：别名<ul>
+<li>选择Application和Classic Load Balancer的别名</li>
+<li>选择美国东部us-east-1</li>
+<li>选择创建的alb-02</li>
+</ul>
+</li>
+</ul>
+<p>点击“创建记录”</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406022843968.png" alt="image-20220406022843968"></p>
+<h4 id="4-3-域名测试"><a href="#4-3-域名测试" class="headerlink" title="4.3 域名测试"></a>4.3 域名测试</h4><p>可以使用域名访问服务</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@<span class="built_in">test</span>-net2-01 ~]<span class="comment"># for i in $(seq 1 10); do curl http://modu2022.cf &amp;&amp;echo ""; done</span></span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-01"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-01"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-02"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-01"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-02"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-02"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-01"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-02"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-01"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-01"</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406023531357.png" alt="image-20220406023531357"></p>
+<h3 id="5-HTTPS访问"><a href="#5-HTTPS访问" class="headerlink" title="5.HTTPS访问"></a>5.HTTPS访问</h3><h4 id="5-1-创建证书"><a href="#5-1-创建证书" class="headerlink" title="5.1 创建证书"></a>5.1 创建证书</h4><p>使用AWS的ACM证书托管服务创建SSL证书</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406023739857.png" alt="image-20220406023739857"></p>
+<p>请求证书，点击下一步</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406023804895.png" alt="image-20220406023804895"></p>
+<p>填入域名，设置标签</p>
+<ul>
+<li>域名：modu2022.cf</li>
+<li>标签：Name：modu2022.cf</li>
+</ul>
+<p>点击请求</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406023922000.png" alt="image-20220406023922000"></p>
+<p>点击证书的链接，进入到证书设置中去</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406024015520.png" alt="image-20220406024015520"></p>
+<p>点击“在Route 53中创建记录”</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406024043744.png" alt="image-20220406024043744"></p>
+<p>点击“创建记录”</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406024105623.png" alt="image-20220406024105623"></p>
+<p>证书的状态为”已颁发”</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406024244882.png" alt="image-20220406024244882"></p>
+<h4 id="5-2-ALB添加侦听器"><a href="#5-2-ALB添加侦听器" class="headerlink" title="5.2 ALB添加侦听器"></a>5.2 ALB添加侦听器</h4><p>给my-alb-02新增侦听内容</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406024401239.png" alt="image-20220406024401239"></p>
+<p>侦听设置</p>
+<ul>
+<li>HTTPS协议，443端口</li>
+<li>操作：转发至</li>
+<li>目标组：my-target-02</li>
+<li>安全侦听器设置<ul>
+<li>安全策略：默认</li>
+<li>SSL证书：选择创建的证书modu2022.cf</li>
+</ul>
+</li>
+</ul>
+<p>配置完成之后点击“添加”</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406104955591.png" alt="image-20220406104955591"></p>
+<h4 id="5-3-访问测试"><a href="#5-3-访问测试" class="headerlink" title="5.3 访问测试"></a>5.3 访问测试</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@<span class="built_in">test</span>-net2-01 ~]<span class="comment"># for i in $(seq 1 10); do curl https://modu2022.cf &amp;&amp;echo ""; done</span></span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-02"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-02"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-01"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-02"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-02"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-01"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-01"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-02"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-01"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-01"</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406110211724.png" alt="image-20220406110211724"></p>
+<p>测试完成之后可以将2台EC2的弹性IP释放掉。</p>
+<h2 id="Part4-问题总结"><a href="#Part4-问题总结" class="headerlink" title="Part4 问题总结"></a>Part4 问题总结</h2><ol>
+<li><p>part3的3.1目标组配置的协议要是HTTP协议的5000端口。因为创建的ALB是对7层的流量进行负载均衡，所以协议要选择是7层协议。如果创建NLB，那么协议选择TCP的5000端口。</p>
+</li>
+<li><p>part3的5.2部分添加侦听器时的协议要选择HTTPS协议的443端口。</p>
+<p>注意：HTTP协议的443端口和HTTPS协议的443端口不是同一个。</p>
+</li>
+</ol>
+<h2 id="Part5-参考文献"><a href="#Part5-参考文献" class="headerlink" title="Part5 参考文献"></a>Part5 参考文献</h2><p><a href="https://docs.aws.amazon.com/zh_cn/elasticloadbalancing/latest/application/introduction.html" target="_blank" rel="noopener">AWS Application Load Balancer用户指南</a></p>
+<p><a href="https://docs.aws.amazon.com/zh_cn/Route53/latest/DeveloperGuide/migrate-dns-domain-inactive.html" target="_blank" rel="noopener">将Route 53作为非活动域的DNS服务</a></p>
+<p><a href="https://blog.csdn.net/kingov/article/details/101696040" target="_blank" rel="noopener">亚马逊云服务器AWS配置ssl https证书</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/AWS/" rel="tag"><i class="fa fa-tag"></i> AWS</a>
+              <a href="/tags/AWS-Network/" rel="tag"><i class="fa fa-tag"></i> AWS Network</a>
+              <a href="/tags/%E8%BD%AC%E8%BD%BD-%E5%BC%A0%E5%B0%8F%E7%87%95/" rel="tag"><i class="fa fa-tag"></i> 转载 张小燕</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/03/24/installCloudwathagent/" rel="prev" title="EC2安装CloudWatch Agent自定义监控指标">
+      <i class="fa fa-chevron-left"></i> EC2安装CloudWatch Agent自定义监控指标
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/06/ocrmarche/" rel="next" title="ocrmarche">
+      ocrmarche <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+      <script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=h1V0Nw_4vLcQcUBJgbm3Xq8qyT69xb1vgP4PmR_sO0Q&cl=ffffff&w=a"></script>
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ALB负载均衡"><span class="nav-number">1.</span> <span class="nav-text">ALB负载均衡</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Part1-AWS-ALB介绍"><span class="nav-number">1.1.</span> <span class="nav-text">Part1 AWS ALB介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part2-实验内容"><span class="nav-number">1.2.</span> <span class="nav-text">Part2 实验内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part3-实验步骤"><span class="nav-number">1.3.</span> <span class="nav-text">Part3 实验步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-网络环境搭建"><span class="nav-number">1.3.1.</span> <span class="nav-text">1.网络环境搭建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-EC2部署简单应用"><span class="nav-number">1.3.2.</span> <span class="nav-text">2.EC2部署简单应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-创建ALB负载均衡器"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.创建ALB负载均衡器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-域名解析"><span class="nav-number">1.3.4.</span> <span class="nav-text">4.域名解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-HTTPS访问"><span class="nav-number">1.3.5.</span> <span class="nav-text">5.HTTPS访问</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part4-问题总结"><span class="nav-number">1.4.</span> <span class="nav-text">Part4 问题总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part5-参考文献"><span class="nav-number">1.5.</span> <span class="nav-text">Part5 参考文献</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="qier"
+      src="/avatar.png">
+  <p class="site-author-name" itemprop="name">qier</p>
+  <div class="site-description" itemprop="description">Qier's blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jsabook/" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jsabook&#x2F;" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wujiashuaizfq@gmail.com" title="E-Mail → mailto:wujiashuaizfq@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-fw fa-rss"></i>RSS</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qier</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">93k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">2:36</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://muzi.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: {page: {
+            url: "http://yoursite.com/2022/04/05/ALBbalance/",
+            identifier: "2022/04/05/ALBbalance/",
+            title: "AWS ALB负载均衡"
+          }
+        }
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://muzi.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
