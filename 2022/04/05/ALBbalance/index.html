@@ -112,6 +112,20 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406024401239.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406104955591.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406110211724.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220407155954040.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220407160119701.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220407160315832.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220407160409715.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220407203509147.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220408111659212.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220408112122014.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220408113215099.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220408113452118.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220408113709930.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220408113752537.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220408115936587.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220408111521838.png">
+<meta property="og:image" content="http://yoursite.com/2022/04/05/ALBbalance/images-ALB%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%5Cimage-20220408121453351.png">
 <meta property="article:published_time" content="2022-04-05T16:00:00.000Z">
 <meta property="article:modified_time" content="2022-04-05T16:00:00.000Z">
 <meta property="article:author" content="qier">
@@ -294,14 +308,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>5.6k</span>
+              <span>6.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>9 分钟</span>
+              <span>11 分钟</span>
             </span>
 
         </div>
@@ -571,6 +585,58 @@
 
 <p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220406110211724.png" alt="image-20220406110211724"></p>
 <p>测试完成之后可以将2台EC2的弹性IP释放掉。</p>
+<h3 id="HTTPS访问（自建证书）"><a href="#HTTPS访问（自建证书）" class="headerlink" title="HTTPS访问（自建证书）"></a>HTTPS访问（自建证书）</h3><h4 id="申请免费证书"><a href="#申请免费证书" class="headerlink" title="申请免费证书"></a>申请免费证书</h4><p>笔者申请腾讯云的免费证书。</p>
+<p>在搜索框输入“SSL证书”，进入“我的证书”页面，点击“申请免费证书”</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220407155954040.png" alt="image-20220407155954040"></p>
+<p>选择证书类型，保持默认就行，点击“确定”</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220407160119701.png" alt="image-20220407160119701"></p>
+<p>“提交资料”这一步只需要按照要求填写内容即可，点击“下一步”</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220407160315832.png" alt="image-20220407160315832"></p>
+<p>验证方式选择推荐的DNS验证，点击“下一步”</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220407160409715.png" alt="image-20220407160409715"></p>
+<p>将腾讯云上域名验证的部分，添加到托管的记录中</p>
+<p>在托管域中新增一条CNAME类型的记录，把名称和值都填进去，点击创建记录</p>
+<p>记录创建完成之后，在腾讯云平台上进行域名验证</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220407203509147.png" alt="image-20220407203509147"></p>
+<p>等待证书颁发，过程可能需要2个小时</p>
+<p>okay，证书颁发完整之后，下载证书</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220408111659212.png" alt="image-20220408111659212"></p>
+<p>选择Nginx类型，下载</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220408112122014.png" alt="image-20220408112122014"></p>
+<h4 id="在ACM中导入证书"><a href="#在ACM中导入证书" class="headerlink" title="在ACM中导入证书"></a>在ACM中导入证书</h4><p>在ACM页面中选择，导入证书</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220408113215099.png" alt="image-20220408113215099"></p>
+<p>将下载下来证书的对应内容复制进去</p>
+<p>填写规则：</p>
+<ul>
+<li>对于 <strong>Certificate body</strong>（证书正文），粘贴要导入的 PEM 编码证书。它应以 <code>-----BEGIN CERTIFICATE-----</code> 开头并以 <code>-----END CERTIFICATE-----</code> 结尾。</li>
+<li>对于 <strong>Certificate private key（证书私有密钥）</strong>，粘贴证书的 PEM 编码的未加密私有密钥。它应以 <code>-----BEGIN PRIVATE KEY-----</code> 开头并以 <code>-----END PRIVATE KEY-----</code> 结尾。</li>
+<li>(可选) 对于 <strong>Certificate chain (证书链)</strong>，粘贴 PEM 编码的证书链。</li>
+</ul>
+<p>导入之后，点击“下一步”</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220408113452118.png" alt="image-20220408113452118"></p>
+<p>为证书添加标签，Name:modu2022.cg_SSL。标签不添加也可以。</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220408113709930.png" alt="image-20220408113709930"></p>
+<p>审核完成之后点击导入</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220408113752537.png" alt="image-20220408113752537"></p>
+<p>证书导入完毕</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220408115936587.png" alt="image-20220408115936587"></p>
+<h4 id="修改负载均衡器"><a href="#修改负载均衡器" class="headerlink" title="修改负载均衡器"></a>修改负载均衡器</h4><p>在负载均衡器中添加侦听器</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220408111521838.png" alt="image-20220408111521838"></p>
+<p>侦听器内容设置如下</p>
+<ul>
+<li>协议：HTTPS 443端口</li>
+<li>操作：转发<ul>
+<li>目标组：my-target-02</li>
+</ul>
+</li>
+<li>侦听器证书设置：“从ACM中”，选择新增的modu2022.cf证书</li>
+</ul>
+<p>点击添加</p>
+<p>测试访问</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@<span class="built_in">test</span>-net2-02 ~]<span class="comment"># for i in $(seq 1 10); do curl https://modu2022.cf &amp;&amp;echo ""; done</span></span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-02"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-01"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-01"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-02"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-02"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-02"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-01"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-01"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-02"</span>&#125;</span><br><span class="line">&#123;<span class="string">"hostname"</span>: <span class="string">"test-net2-01"</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="images-ALB%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%5Cimage-20220408121453351.png" alt="image-20220408121453351"></p>
+<p>okay，自建证书也实现了ALB的负载均衡。</p>
 <h2 id="Part4-问题总结"><a href="#Part4-问题总结" class="headerlink" title="Part4 问题总结"></a>Part4 问题总结</h2><ol>
 <li><p>part3的3.1目标组配置的协议要是HTTP协议的5000端口。因为创建的ALB是对7层的流量进行负载均衡，所以协议要选择是7层协议。如果创建NLB，那么协议选择TCP的5000端口。</p>
 </li>
@@ -606,7 +672,7 @@
       <i class="fa fa-chevron-left"></i> EC2安装CloudWatch Agent自定义监控指标
     </a></div>
       <div class="post-nav-item">
-    <a href="/2022/04/06/ocrmarche/" rel="next" title="ocrmarche">
+    <a href="/2022/04/08/ocrmarche/" rel="next" title="ocrmarche">
       ocrmarche <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
@@ -676,7 +742,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ALB负载均衡"><span class="nav-number">1.</span> <span class="nav-text">ALB负载均衡</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Part1-AWS-ALB介绍"><span class="nav-number">1.1.</span> <span class="nav-text">Part1 AWS ALB介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part2-实验内容"><span class="nav-number">1.2.</span> <span class="nav-text">Part2 实验内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part3-实验步骤"><span class="nav-number">1.3.</span> <span class="nav-text">Part3 实验步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-网络环境搭建"><span class="nav-number">1.3.1.</span> <span class="nav-text">1.网络环境搭建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-EC2部署简单应用"><span class="nav-number">1.3.2.</span> <span class="nav-text">2.EC2部署简单应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-创建ALB负载均衡器"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.创建ALB负载均衡器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-域名解析"><span class="nav-number">1.3.4.</span> <span class="nav-text">4.域名解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-HTTPS访问"><span class="nav-number">1.3.5.</span> <span class="nav-text">5.HTTPS访问</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part4-问题总结"><span class="nav-number">1.4.</span> <span class="nav-text">Part4 问题总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part5-参考文献"><span class="nav-number">1.5.</span> <span class="nav-text">Part5 参考文献</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ALB负载均衡"><span class="nav-number">1.</span> <span class="nav-text">ALB负载均衡</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Part1-AWS-ALB介绍"><span class="nav-number">1.1.</span> <span class="nav-text">Part1 AWS ALB介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part2-实验内容"><span class="nav-number">1.2.</span> <span class="nav-text">Part2 实验内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part3-实验步骤"><span class="nav-number">1.3.</span> <span class="nav-text">Part3 实验步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-网络环境搭建"><span class="nav-number">1.3.1.</span> <span class="nav-text">1.网络环境搭建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-EC2部署简单应用"><span class="nav-number">1.3.2.</span> <span class="nav-text">2.EC2部署简单应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-创建ALB负载均衡器"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.创建ALB负载均衡器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-域名解析"><span class="nav-number">1.3.4.</span> <span class="nav-text">4.域名解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-HTTPS访问"><span class="nav-number">1.3.5.</span> <span class="nav-text">5.HTTPS访问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTPS访问（自建证书）"><span class="nav-number">1.3.6.</span> <span class="nav-text">HTTPS访问（自建证书）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part4-问题总结"><span class="nav-number">1.4.</span> <span class="nav-text">Part4 问题总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part5-参考文献"><span class="nav-number">1.5.</span> <span class="nav-text">Part5 参考文献</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -750,13 +816,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">93k</span>
+    <span title="站点总字数">95k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">2:36</span>
+    <span title="站点阅读时长">2:38</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动
   </div>
