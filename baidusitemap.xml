@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://yoursite.com/2022/04/08/UseOpenVPN/</loc>
-    <lastmod>2022-04-08</lastmod>
+    <loc>http://yoursite.com/2022/04/14/UseOpenVPN/</loc>
+    <lastmod>2022-04-14</lastmod>
   </url>
   <url>
-    <loc>http://yoursite.com/2022/04/08/installCloudwathagentbywjshuai/</loc>
-    <lastmod>2022-04-08</lastmod>
+    <loc>http://yoursite.com/2022/04/14/installCloudwathagentbywjshuai/</loc>
+    <lastmod>2022-04-14</lastmod>
   </url>
   <url>
-    <loc>http://yoursite.com/2022/04/08/ocrmarche/</loc>
-    <lastmod>2022-04-08</lastmod>
+    <loc>http://yoursite.com/2022/04/14/ocrmarche/</loc>
+    <lastmod>2022-04-14</lastmod>
+  </url>
+  <url>
+    <loc>http://yoursite.com/2022/04/12/pemConnect/</loc>
+    <lastmod>2022-04-12</lastmod>
   </url>
   <url>
     <loc>http://yoursite.com/2022/04/05/ALBbalance/</loc>
+    <lastmod>2022-04-05</lastmod>
+  </url>
+  <url>
+    <loc>http://yoursite.com/2022/04/05/AWSOrganizations/</loc>
     <lastmod>2022-04-05</lastmod>
   </url>
   <url>
