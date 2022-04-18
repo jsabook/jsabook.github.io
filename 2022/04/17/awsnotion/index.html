@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico">
+  <link rel="mask-icon" href="/favicon.ico" color="#222">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"buttons","active":null,"storage":true,"lazyload":true,"nav":{"disqus":{"text":"Load Disqus","order":-1}}},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":false,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="创建资源额度限制创建资源需要注意以下要点： 如果是新账号，则有创建资源的限制，例如新账号可以使用的vcpu是有限制的。 以vCPU为例，EC2 vCPU 限制提高以 vCPU 值的形式提交。要请求提高，首先确定您的按需实例使用的 vCPU 数量。您可以使用 vCPU 限制计算器衡量您目前对基于 vCPU 的限制使用的 vCPU 数量，以确定要请求的适当服务限制提高。您可以从 vCPU 限制计算器中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AWS 注意事项">
+<meta property="og:url" content="http://yoursite.com/2022/04/17/awsnotion/index.html">
+<meta property="og:site_name" content="Qier&#39;s blog">
+<meta property="og:description" content="创建资源额度限制创建资源需要注意以下要点： 如果是新账号，则有创建资源的限制，例如新账号可以使用的vcpu是有限制的。 以vCPU为例，EC2 vCPU 限制提高以 vCPU 值的形式提交。要请求提高，首先确定您的按需实例使用的 vCPU 数量。您可以使用 vCPU 限制计算器衡量您目前对基于 vCPU 的限制使用的 vCPU 数量，以确定要请求的适当服务限制提高。您可以从 vCPU 限制计算器中">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-04-17T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-04-17T16:00:00.000Z">
+<meta property="article:author" content="qier">
+<meta property="article:tag" content="AWS">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2022/04/17/awsnotion/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>AWS 注意事项 | Qier's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Qier's blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Qier's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">Qier's blog</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-desktop"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-friends">
+
+    <a href="/friends.html" rel="section"><i class="fa fa-fw fa-link"></i>Friends</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about.html" rel="section"><i class="fa fa-fw fa-user-circle-o"></i>About</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/04/17/awsnotion/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/avatar.png">
+      <meta itemprop="name" content="qier">
+      <meta itemprop="description" content="Qier's blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Qier's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          AWS 注意事项
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-04-18 2022-04-18T00:00:00+08:00" itemprop="dateCreated datePublished" datetime="2022-04-18T00:00:00+08:00">2022-04-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AWS/" itemprop="url" rel="index">
+                    <span itemprop="name">AWS</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2022/04/17/awsnotion/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2022/04/17/awsnotion/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>766</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="创建资源"><a href="#创建资源" class="headerlink" title="创建资源"></a>创建资源</h2><h2 id="额度限制"><a href="#额度限制" class="headerlink" title="额度限制"></a>额度限制</h2><p>创建资源需要注意以下要点：</p>
+<p>如果是新账号，则有创建资源的限制，例如新账号可以使用的vcpu是有限制的。</p>
+<p>以vCPU为例，EC2 vCPU 限制提高以 vCPU 值的形式提交。要请求提高，首先确定您的按需实例使用的 vCPU 数量。您可以使用 vCPU 限制计算器衡量您目前对基于 vCPU 的限制使用的 vCPU 数量，以确定要请求的适当服务限制提高。您可以从 vCPU 限制计算器中直接创建服务限制请求。</p>
+<p><strong>解决方式</strong></p>
+<ol>
+<li>登录 <a href="https://console.aws.amazon.com/ec2/" target="_blank" rel="noopener">Amazon EC2 控制台</a>。</li>
+<li>选择您要请求提高 vCPU 的 <a href="https://docs.aws.amazon.com/general/latest/gr/ec2-service.html#ec2_region" target="_blank" rel="noopener">AWS 区域</a>。</li>
+<li>（可选）要查看您已经运行的实例，请从 <strong>EC2 控制面板</strong>的<strong>资源</strong>下选择<strong>正在运行的实例</strong>。</li>
+<li>选择<strong>限制</strong>，然后选择<strong>计算 vCPU 限制</strong>以访问 vCPU 限制计算器。</li>
+<li>选择<strong>添加实例类型</strong>。</li>
+<li>在<strong>实例类型</strong>下，从下拉菜单中选择可用的实例类型。</li>
+<li>在<strong>实例计数</strong>下，输入您想要的新实例（您在步骤 6 中选择的类型）数量。</li>
+<li>根据需要继续添加实例类型。</li>
+<li>查看<strong>限制计算</strong>。如果<strong>新限制</strong>超出<strong>当前限制</strong>，请选择<strong>请求提高限制</strong>以<a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-on-demand-instances.html#vcpu-limits-request-increase" target="_blank" rel="noopener">提交服务限制提高请求</a>。<strong>新限制</strong>字段中的值是您应请求的 vCPU 量。</li>
+</ol>
+<p><strong>每个服务限额查看</strong></p>
+<p>todo</p>
+<h2 id="备份制度"><a href="#备份制度" class="headerlink" title="备份制度"></a>备份制度</h2><p>创建的资源需要设置备份，备份机制如下所示</p>
+<p><strong>EC2</strong></p>
+<p>EC2需要备份快照机制，分为两种方式：</p>
+<ul>
+<li>环境应用变更，如果需要对应用进行改变，则需要在改变前进行临时的备份快照；</li>
+<li>日常备份机制，根据客户的RTO与RPO选择不同的备份机制<ul>
+<li>如果是分钟级别的RTO，推荐使用AWS Cloudendure</li>
+<li>如果是天级别的RTO，推荐使用EC2自带的生命周期备份机制</li>
+</ul>
+</li>
+</ul>
+<h1 id="创建web应用"><a href="#创建web应用" class="headerlink" title="创建web应用"></a>创建web应用</h1><p><strong>备案问题</strong></p>
+<p>如果使用的是国内的ELB应用，不通的话，可能是因为备案问题。国内的客户需要在aws上在进行一次备案，链接：<a href="https://www.nwcdcloud.cn/icp.pdf" target="_blank" rel="noopener">https://www.nwcdcloud.cn/icp.pdf</a></p>
+<p><strong>ddos攻击</strong></p>
+<p>需要最客户的web应用做一个简单的放ddos攻击。例如每分钟只允许同一个IP访问固定次数</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/AWS/" rel="tag"><i class="fa fa-tag"></i> AWS</a>
+              <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/12/pemConnect/" rel="prev" title="Centos7 密钥登录">
+      <i class="fa fa-chevron-left"></i> Centos7 密钥登录
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/18/ocrmarche/" rel="next" title="ocrmarche">
+      ocrmarche <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+      <script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=h1V0Nw_4vLcQcUBJgbm3Xq8qyT69xb1vgP4PmR_sO0Q&cl=ffffff&w=a"></script>
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建资源"><span class="nav-number">1.</span> <span class="nav-text">创建资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#额度限制"><span class="nav-number">2.</span> <span class="nav-text">额度限制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备份制度"><span class="nav-number">3.</span> <span class="nav-text">备份制度</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建web应用"><span class="nav-number"></span> <span class="nav-text">创建web应用</span></a></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="qier"
+      src="/avatar.png">
+  <p class="site-author-name" itemprop="name">qier</p>
+  <div class="site-description" itemprop="description">Qier's blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jsabook/" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jsabook&#x2F;" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wujiashuaizfq@gmail.com" title="E-Mail → mailto:wujiashuaizfq@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-fw fa-rss"></i>RSS</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qier</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">98k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">2:43</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://muzi.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: {page: {
+            url: "http://yoursite.com/2022/04/17/awsnotion/",
+            identifier: "2022/04/17/awsnotion/",
+            title: "AWS 注意事项"
+          }
+        }
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://muzi.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
