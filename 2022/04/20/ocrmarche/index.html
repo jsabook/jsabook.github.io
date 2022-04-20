@@ -48,21 +48,28 @@
   };
 </script>
 
-  <meta name="description" content="创建资源额度限制创建资源需要注意以下要点： 如果是新账号，则有创建资源的限制，例如新账号可以使用的vcpu是有限制的。 以vCPU为例，EC2 vCPU 限制提高以 vCPU 值的形式提交。要请求提高，首先确定您的按需实例使用的 vCPU 数量。您可以使用 vCPU 限制计算器衡量您目前对基于 vCPU 的限制使用的 vCPU 数量，以确定要请求的适当服务限制提高。您可以从 vCPU 限制计算器中">
+  <meta name="description" content="创建ECR仓库 查看推送命令  依次执行推送命令 1aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 629244530291.dkr.ecr.us-east-1.amazonaws.com  登录成功  打包镜像 1docker build -t ocrhand">
 <meta property="og:type" content="article">
-<meta property="og:title" content="AWS 注意事项">
-<meta property="og:url" content="http://yoursite.com/2022/04/17/awsnotion/index.html">
+<meta property="og:title" content="ocrmarche">
+<meta property="og:url" content="http://yoursite.com/2022/04/20/ocrmarche/index.html">
 <meta property="og:site_name" content="Qier&#39;s blog">
-<meta property="og:description" content="创建资源额度限制创建资源需要注意以下要点： 如果是新账号，则有创建资源的限制，例如新账号可以使用的vcpu是有限制的。 以vCPU为例，EC2 vCPU 限制提高以 vCPU 值的形式提交。要请求提高，首先确定您的按需实例使用的 vCPU 数量。您可以使用 vCPU 限制计算器衡量您目前对基于 vCPU 的限制使用的 vCPU 数量，以确定要请求的适当服务限制提高。您可以从 vCPU 限制计算器中">
+<meta property="og:description" content="创建ECR仓库 查看推送命令  依次执行推送命令 1aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 629244530291.dkr.ecr.us-east-1.amazonaws.com  登录成功  打包镜像 1docker build -t ocrhand">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-04-17T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-04-17T16:00:00.000Z">
+<meta property="og:image" content="http://yoursite.com/2022/04/20/ocrmarche/img/image-20220330202021887.png">
+<meta property="og:image" content="http://yoursite.com/2022/04/20/ocrmarche/img/image-20220330202049665.png">
+<meta property="og:image" content="http://yoursite.com/2022/04/20/ocrmarche/img/image-20220330202822297.png">
+<meta property="og:image" content="http://yoursite.com/2022/04/20/ocrmarche/img/image-20220330202857788.png">
+<meta property="og:image" content="http://yoursite.com/2022/04/20/ocrmarche/img/image-20220330202917632.png">
+<meta property="og:image" content="http://yoursite.com/2022/04/20/ocrmarche/img/image-20220330203210389.png">
+<meta property="article:published_time" content="2022-04-20T07:27:07.129Z">
+<meta property="article:modified_time" content="2022-04-20T07:27:07.129Z">
 <meta property="article:author" content="qier">
-<meta property="article:tag" content="AWS">
+<meta property="article:tag" content="Docker">
 <meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2022/04/20/ocrmarche/img/image-20220330202021887.png">
 
-<link rel="canonical" href="http://yoursite.com/2022/04/17/awsnotion/">
+<link rel="canonical" href="http://yoursite.com/2022/04/20/ocrmarche/">
 
 
 <script id="page-configurations">
@@ -74,7 +81,7 @@
   };
 </script>
 
-  <title>AWS 注意事项 | Qier's blog</title>
+  <title>ocrmarche | Qier's blog</title>
   
 
 
@@ -183,7 +190,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/04/17/awsnotion/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/04/20/ocrmarche/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/avatar.png">
@@ -196,7 +203,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          AWS 注意事项
+          ocrmarche
         </h2>
 
         <div class="post-meta">
@@ -206,18 +213,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2022-04-18 2022-04-18T00:00:00+08:00" itemprop="dateCreated datePublished" datetime="2022-04-18T00:00:00+08:00">2022-04-18</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/AWS/" itemprop="url" rel="index">
-                    <span itemprop="name">AWS</span>
-                  </a>
-                </span>
+              <time title="创建时间：2022-04-20 2022-04-20T15:27:07+08:00" itemprop="dateCreated datePublished" datetime="2022-04-20T15:27:07+08:00">2022-04-20</time>
             </span>
 
           
@@ -229,8 +225,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2022/04/17/awsnotion/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2022/04/17/awsnotion/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2022/04/20/ocrmarche/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2022/04/20/ocrmarche/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,14 +236,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1k</span>
+              <span>632</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>1 分钟</span>
             </span>
 
         </div>
@@ -259,62 +255,26 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="创建资源"><a href="#创建资源" class="headerlink" title="创建资源"></a>创建资源</h2><h2 id="额度限制"><a href="#额度限制" class="headerlink" title="额度限制"></a>额度限制</h2><p>创建资源需要注意以下要点：</p>
-<p>如果是新账号，则有创建资源的限制，例如新账号可以使用的vcpu是有限制的。</p>
-<p>以vCPU为例，EC2 vCPU 限制提高以 vCPU 值的形式提交。要请求提高，首先确定您的按需实例使用的 vCPU 数量。您可以使用 vCPU 限制计算器衡量您目前对基于 vCPU 的限制使用的 vCPU 数量，以确定要请求的适当服务限制提高。您可以从 vCPU 限制计算器中直接创建服务限制请求。</p>
-<p><strong>解决方式</strong></p>
-<ol>
-<li>登录 <a href="https://console.aws.amazon.com/ec2/" target="_blank" rel="noopener">Amazon EC2 控制台</a>。</li>
-<li>选择您要请求提高 vCPU 的 <a href="https://docs.aws.amazon.com/general/latest/gr/ec2-service.html#ec2_region" target="_blank" rel="noopener">AWS 区域</a>。</li>
-<li>（可选）要查看您已经运行的实例，请从 <strong>EC2 控制面板</strong>的<strong>资源</strong>下选择<strong>正在运行的实例</strong>。</li>
-<li>选择<strong>限制</strong>，然后选择<strong>计算 vCPU 限制</strong>以访问 vCPU 限制计算器。</li>
-<li>选择<strong>添加实例类型</strong>。</li>
-<li>在<strong>实例类型</strong>下，从下拉菜单中选择可用的实例类型。</li>
-<li>在<strong>实例计数</strong>下，输入您想要的新实例（您在步骤 6 中选择的类型）数量。</li>
-<li>根据需要继续添加实例类型。</li>
-<li>查看<strong>限制计算</strong>。如果<strong>新限制</strong>超出<strong>当前限制</strong>，请选择<strong>请求提高限制</strong>以<a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-on-demand-instances.html#vcpu-limits-request-increase" target="_blank" rel="noopener">提交服务限制提高请求</a>。<strong>新限制</strong>字段中的值是您应请求的 vCPU 量。</li>
-</ol>
-<p><strong>每个服务限额查看</strong></p>
-<p>todo</p>
-<h2 id="EC2启动失败"><a href="#EC2启动失败" class="headerlink" title="EC2启动失败"></a>EC2启动失败</h2><table>
-<thead>
-<tr>
-<th>名称</th>
-<th>链接</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>ec2未能通过两项检查</td>
-<td><a href="https://aws.amazon.com/tw/premiumsupport/knowledge-center/ec2-linux-status-check-failure/" target="_blank" rel="noopener">https://aws.amazon.com/tw/premiumsupport/knowledge-center/ec2-linux-status-check-failure/</a></td>
-</tr>
-<tr>
-<td>实例的状态检查和自动恢复</td>
-<td><a href="https://zhuanlan.zhihu.com/p/268762562" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/268762562</a></td>
-</tr>
-<tr>
-<td>常见故障排查</td>
-<td><a href="https://docs.amazonaws.cn/AWSEC2/latest/UserGuide/TroubleshootingInstances.html" target="_blank" rel="noopener">https://docs.amazonaws.cn/AWSEC2/latest/UserGuide/TroubleshootingInstances.html</a></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<h2 id="备份制度"><a href="#备份制度" class="headerlink" title="备份制度"></a>备份制度</h2><p>创建的资源需要设置备份，备份机制如下所示</p>
-<p><strong>EC2</strong></p>
-<p>EC2需要备份快照机制，分为两种方式：</p>
-<ul>
-<li>环境应用变更，如果需要对应用进行改变，则需要在改变前进行临时的备份快照；</li>
-<li>日常备份机制，根据客户的RTO与RPO选择不同的备份机制<ul>
-<li>如果是分钟级别的RTO，推荐使用AWS Cloudendure</li>
-<li>如果是天级别的RTO，推荐使用EC2自带的生命周期备份机制</li>
-</ul>
-</li>
-</ul>
-<h1 id="创建web应用"><a href="#创建web应用" class="headerlink" title="创建web应用"></a>创建web应用</h1><p><strong>备案问题</strong></p>
-<p>如果使用的是国内的ELB应用，不通的话，可能是因为备案问题。国内的客户需要在aws上在进行一次备案，链接：<a href="https://www.nwcdcloud.cn/icp.pdf" target="_blank" rel="noopener">https://www.nwcdcloud.cn/icp.pdf</a></p>
-<p><strong>ddos攻击</strong></p>
-<p>需要最客户的web应用做一个简单的放ddos攻击。例如每分钟只允许同一个IP访问固定次数</p>
+        <h1 id="创建ECR仓库"><a href="#创建ECR仓库" class="headerlink" title="创建ECR仓库"></a>创建ECR仓库</h1><p><img src="img/image-20220330202021887.png" alt="image-20220330202021887"></p>
+<p>查看推送命令</p>
+<p><img src="img/image-20220330202049665.png" alt="image-20220330202049665"></p>
+<p>依次执行推送命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 629244530291.dkr.ecr.us-east-1.amazonaws.com</span><br></pre></td></tr></table></figure>
+
+<p>登录成功</p>
+<p><img src="img/image-20220330202822297.png" alt="image-20220330202822297"></p>
+<p>打包镜像</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t ocrhandler .</span><br></pre></td></tr></table></figure>
+
+<p><img src="img/image-20220330202857788.png" alt="image-20220330202857788"></p>
+<p>标记</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker tag ocrhandler:latest 629244530291.dkr.ecr.us-east-1.amazonaws.com&#x2F;ocrhandler:latest</span><br></pre></td></tr></table></figure>
+
+<p><img src="img/image-20220330202917632.png" alt="image-20220330202917632"></p>
+<p>推送完毕</p>
+<p><img src="img/image-20220330203210389.png" alt="image-20220330203210389"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 629244530291.dkr.ecr.us-east-1.amazonaws.com &amp;&amp; docker build -t ocrhandler . &amp;&amp; docker tag ocrhandler:latest 629244530291.dkr.ecr.us-east-1.amazonaws.com&#x2F;ocrhandler:latest &amp;&amp; docker push 629244530291.dkr.ecr.us-east-1.amazonaws.com&#x2F;ocrhandler:latest</span><br></pre></td></tr></table></figure>
+
 
     </div>
 
@@ -323,11 +283,6 @@
     
 
       <footer class="post-footer">
-          
-          <div class="post-tags">
-              <a href="/tags/AWS/" rel="tag"><i class="fa fa-tag"></i> AWS</a>
-              <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
-          </div>
 
         
 
@@ -335,12 +290,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/04/12/pemConnect/" rel="prev" title="Centos7 密钥登录">
-      <i class="fa fa-chevron-left"></i> Centos7 密钥登录
+    <a href="/2022/04/17/awsnotion/" rel="prev" title="AWS 注意事项">
+      <i class="fa fa-chevron-left"></i> AWS 注意事项
     </a></div>
       <div class="post-nav-item">
-    <a href="/2022/04/20/ocrmarche/" rel="next" title="ocrmarche">
-      ocrmarche <i class="fa fa-chevron-right"></i>
+    <a href="/2022/04/20/installCloudwathagentbywjshuai/" rel="next" title="installCloudwathagentbywjshuai">
+      installCloudwathagentbywjshuai <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -409,7 +364,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建资源"><span class="nav-number">1.</span> <span class="nav-text">创建资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#额度限制"><span class="nav-number">2.</span> <span class="nav-text">额度限制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EC2启动失败"><span class="nav-number">3.</span> <span class="nav-text">EC2启动失败</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备份制度"><span class="nav-number">4.</span> <span class="nav-text">备份制度</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建web应用"><span class="nav-number"></span> <span class="nav-text">创建web应用</span></a></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#创建ECR仓库"><span class="nav-number">1.</span> <span class="nav-text">创建ECR仓库</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -569,9 +524,9 @@
       DISQUS.reset({
         reload: true,
         config: {page: {
-            url: "http://yoursite.com/2022/04/17/awsnotion/",
-            identifier: "2022/04/17/awsnotion/",
-            title: "AWS 注意事项"
+            url: "http://yoursite.com/2022/04/20/ocrmarche/",
+            identifier: "2022/04/20/ocrmarche/",
+            title: "ocrmarche"
           }
         }
       });

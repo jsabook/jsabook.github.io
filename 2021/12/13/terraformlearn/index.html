@@ -58,8 +58,13 @@
 <meta property="og:image" content="https://gitee.com/lonegunman/introduction-to-terraform-pic/raw/master/2020-11-16/1605496195438-image.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/terraform.drawio.svg">
 <meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/terraform.drawio-1.svg">
+<meta property="og:image" content="http://yoursite.com/2021/12/13/terraformlearn/img/image-20220420142955327.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/13/terraformlearn/img/image-20220420143158569.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/13/terraformlearn/img/image-20220420143302521.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/13/terraformlearn/img/image-20220420145547168.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/lonegunmanb/introduction-to-terraform-pic/master/2020-11-25/1606272727693-image.png">
 <meta property="article:published_time" content="2021-12-13T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-12-13T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-04-18T16:00:00.000Z">
 <meta property="article:author" content="qier">
 <meta property="article:tag" content="Cloud">
 <meta name="twitter:card" content="summary">
@@ -158,6 +163,11 @@
     <a href="/about.html" rel="section"><i class="fa fa-fw fa-user-circle-o"></i>About</a>
 
   </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-fw fa-fa fa-sitemap"></i>站点地图</a>
+
+  </li>
   </ul>
 
 </nav>
@@ -206,6 +216,13 @@
 
               <time title="创建时间：2021-12-14 2021-12-14T00:00:00+08:00" itemprop="dateCreated datePublished" datetime="2021-12-14T00:00:00+08:00">2021-12-14</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-04-19 2022-04-19T00:00:00+08:00" itemprop="dateModified" datetime="2022-04-19T00:00:00+08:00">2022-04-19</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -238,14 +255,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>17k</span>
+              <span>21k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>28 分钟</span>
+              <span>36 分钟</span>
             </span>
 
         </div>
@@ -529,7 +546,7 @@
 <h3 id="访问资源输出属性"><a href="#访问资源输出属性" class="headerlink" title="访问资源输出属性"></a>访问资源输出属性</h3><p>在表达式中引用资源属性的语法是<code>&lt;RESOURCE TYPE&gt;.&lt;NAME&gt;.&lt;ATTRIBUTE&gt;</code>。</p>
 <h2 id="数据源data"><a href="#数据源data" class="headerlink" title="数据源data"></a><strong>数据源data</strong></h2><p>数据源允许查询或计算一些数据以供其他地方使用。使用数据源可以使得Terraform代码使用在Terraform管理范围之外的一些信息，或者是读取其他Terraform代码保存的状态。每一种Provider都可以在定义一些资源类型的同时定义一些数据源。</p>
 <h3 id="使用数据源"><a href="#使用数据源" class="headerlink" title="使用数据源"></a>使用数据源</h3><p>数据源通过一种特殊的资源访问：data资源。数据源通过data块声明：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">data &quot;aws_ami&quot; &quot;example&quot; &#123;</span><br><span class="line">  most_recent &#x3D; true</span><br><span class="line"></span><br><span class="line">  owners &#x3D; [&quot;self&quot;]</span><br><span class="line">  tags &#x3D; &#123;</span><br><span class="line">    Name   &#x3D; &quot;app-server&quot;</span><br><span class="line">    Tested &#x3D; &quot;true&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">data &quot;aws_ami&quot; &quot;example&quot; &#123;</span><br><span class="line">  most_recent &#x3D; true</span><br><span class="line">  owners &#x3D; [&quot;self&quot;]</span><br><span class="line">  tags &#x3D; &#123;</span><br><span class="line">    Name   &#x3D; &quot;app-server&quot;</span><br><span class="line">    Tested &#x3D; &quot;true&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>一个data块请求Terraform从一个指定的数据源<code>aws_ami</code>读取指定数据并且把结果输出到Local Name为<code>example</code>的实例中。</p>
 <p><strong>查询条件</strong></p>
@@ -550,7 +567,150 @@
 
 <h2 id="表达式"><a href="#表达式" class="headerlink" title="表达式"></a>表达式</h2><p>todo</p>
 <h1 id="terraform-module"><a href="#terraform-module" class="headerlink" title="terraform module"></a>terraform module</h1><p>todo</p>
-<h1 id="terraform-command"><a href="#terraform-command" class="headerlink" title="terraform command"></a>terraform command</h1><p>todo</p>
+<h1 id="terraform-command"><a href="#terraform-command" class="headerlink" title="terraform command"></a>terraform command</h1><h2 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a><strong>环境变量</strong></h2><p>Terraform使用一系列的环境变量来定制化各方面的行为。如果只是想简单使用Terraform，我们并不需要设置这些环境变量。以下介绍常用的环境变量</p>
+<p><strong>TF_LOG</strong></p>
+<p>该环境变量可以设定Terraform内部日志的输出级别，例如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export TF_LOG=TRACE</span><br></pre></td></tr></table></figure>
+
+<p>Terraform日志级别有TRACE、DEBUG、INFO、WARN和ERROR。TRACE包含的信息最多也最冗长，如果TF_LOG被设定为这五级以外的值时Terraform会默认使用TRACE。</p>
+<p><strong>TF_LOG_PATH</strong></p>
+<p>该环境变量可以设定日志文件保存的位置。注意，如果TF_LOG_PATH被设置了，那么TF_LOG也必须被设置。举例来说，想要始终把日志输出到当前工作目录，我们可以这样：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export TF_LOG_PATH=./terraform.log</span><br></pre></td></tr></table></figure>
+
+<p><strong>TF_INPUT</strong></p>
+<p>该环境变量设置为”false”或”0”时，等同于运行terraform相关命令行命令时添加了参数-input=false。如果你想在自动化环境下避免Terraform通过命令行的交互式提示要求给定输入变量的值而是直接报错时(无default值的输入变量，无法通过任何途径获得值)可以设置该环境变量：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> TF_INPUT=0</span><br></pre></td></tr></table></figure>
+
+<p><strong>TF_VAR_name</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> TF_VAR_region=us-west-1</span><br><span class="line"><span class="built_in">export</span> TF_VAR_ami=ami-049d8641</span><br><span class="line"><span class="built_in">export</span> TF_VAR_alist=<span class="string">'[1,2,3]'</span></span><br><span class="line"><span class="built_in">export</span> TF_VAR_amap=<span class="string">'&#123; foo = "bar", baz = "qux" &#125;'</span></span><br></pre></td></tr></table></figure>
+
+<p>可以通过设置名为TF_VAR_name的环境变量来为名为”name”的输入变量赋值.</p>
+<p><strong>TF_CLI_ARGS以及TF_CLI_ARGS_name</strong></p>
+<p>TF_CLI_ARGS的值指定了附加给命令行的额外参数，这使得在自动化CI环境下可以轻松定制Terraform的默认行为。</p>
+<p>该参数的值会被直接插入在子命令后(例如plan)以及通过命令行指定的参数之前。这种做法确保了环境变量参数优先于通过命令行传递的参数。</p>
+<p>例如，执行这样的命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TF_CLI_ARGS=<span class="string">"-input=false"</span> </span><br><span class="line">terraform apply -force</span><br></pre></td></tr></table></figure>
+
+<p>它等价于手工执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">terraform apply -input=<span class="literal">false</span> -force</span><br></pre></td></tr></table></figure>
+
+<p>TF_CLI_ARGS变量影响所有的Terraform命令。如果你只想影响某个特定的子命令，可以使用TF_CLI_ARGS_name变量。例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TF_CLI_ARGS_plan=<span class="string">"-refresh=false"</span></span><br></pre></td></tr></table></figure>
+
+<p> 就只会针对plan子命令起作用。该环境变量的值会与通过命令行传入的参数一样被解析，你可以在值里使用单引号和双引号来定义字符串，多个参数之间以空格分隔。</p>
+<p><strong>TF_DATA_DIR</strong></p>
+<p>TF_DATA_DIR可以修改Terraform保存在每个工作目录下的数据的位置。一般来说，Terraform会把这些数据写入当前工作目录下的.terraform文件夹内，但这一位置可以通过设置TF_DATA_DIR来修改。</p>
+<p>大部分情况下我们不应该设置该变量，但有时我们不得不这样做，比如默认路径下我们无权写入数据时。</p>
+<p>该数据目录被用来保存下一次执行任意命令时需要读取的数据，所以必须被妥善保存，并确保所有的Terraform命令都可以一致地读写它，否则Terraform会找不到Provider插件、模块代码以及其他文件。</p>
+<p><strong>TF_IN_AUTOMATION</strong></p>
+<p>如果该变量被设置为非空值，Terraform会意识到自己运行在一个自动化环境下，从而调整自己的输出以避免给出关于该执行什么子命令的建议。这可以使得输出更加一致且减少非必要的信息量。</p>
+<p><strong>TF_REGISTRY_DISCOVERY_RETRY</strong></p>
+<p>该变量定义了尝试从registry拉取插件或模块代码遇到错误时的重试次数。</p>
+<p><strong>TF_REGISTRY_CLIENT_TIMEOUT</strong></p>
+<p>该变量定义了发送到registry连接请求的超时时间，默认值为10秒。可以这样设置超时：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> TF_REGISTRY_CLIENT_TIMEOUT=15</span><br></pre></td></tr></table></figure>
+
+<p><strong>TF_CLI_CONFIG_FILE</strong></p>
+<p>该变量设定了Terraform命令行配置文件的位置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> TF_CLI_CONFIG_FILE=<span class="string">"<span class="variable">$HOME</span>/.terraformrc-custom"</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="init"><a href="#init" class="headerlink" title="init"></a><strong>init</strong></h2><p>todo</p>
+<h2 id="plan"><a href="#plan" class="headerlink" title="plan"></a>plan</h2><h2 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h2><p>Terraform最重要的命令就是apply。apply命令被用来生成执行计划(可选)并执行之，使得基础设施资源状态符合代码的描述。</p>
+<p><strong>使用方式</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">terraform apply [options] [dir-or-plan]</span><br></pre></td></tr></table></figure>
+
+<p>默认情况下，apply会扫描当前目录下的代码文件，并执行相应的变更。然而，也可以通过参数指定其他代码文件目录。在设计自动化流水线时也可以显式分为创建执行计划、使用apply命令执行该执行计划两个独立步骤。</p>
+<p>如果没有显式指定变更计划文件，那么terraform apply会自动创建一个新的变更计划，并提示用户是否批准执行。如果生成的计划不包含任何变更，那么terraform apply会立即退出，不会提示用户输入。</p>
+<p>该命令有以下参数可以使用：</p>
+<ul>
+<li><p>-refresh-only：仅刷新，将本地状态文件与云端状态文件保持一直，前提是<code>terraform plan</code>显示<code>No changes.</code></p>
+</li>
+<li><p>-backup-path：保存备份文件的路径。默认等于-state-out参数后加上”.backup”后缀。设置为”-“可关闭</p>
+</li>
+<li><p>-lock=true：执行时是否先锁定状态文件</p>
+</li>
+<li><p>-input=true：在无法获取输入变量的值是是否提示用户输入</p>
+</li>
+</ul>
+<h2 id="output"><a href="#output" class="headerlink" title="output"></a>output</h2><p>todo</p>
+<h2 id="console"><a href="#console" class="headerlink" title="console"></a>console</h2><p>有时我们想要一个安全的调试工具来帮助我们确认某个表达式是否合法，或者表达式的值是否符合预期，这时我们可以使用terraform console启动一个交互式控制台。</p>
+<p><strong>用法</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">terraform console</span><br></pre></td></tr></table></figure>
+
+<p>除此之外，还可以在console界面进行当前状态的代码编辑</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost terraformcode]# terraform console</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> aws_iam_user.the-accounts</span></span><br><span class="line">&#123;</span><br><span class="line">  "Alice" = &#123;</span><br><span class="line">    "arn" = "arn:aws:iam::12345678:user/Alice"</span><br><span class="line">    "force_destroy" = false</span><br><span class="line">    "id" = "Alice"</span><br><span class="line">    "name" = "Alice"</span><br><span class="line">    "path" = "/"</span><br><span class="line">    "permissions_boundary" = tostring(null)</span><br><span class="line">    "tags" = tomap(&#123;&#125;)</span><br><span class="line">    "tags_all" = tomap(&#123;&#125;)</span><br><span class="line">    "unique_id" = "AIDA3HVUR612345Z6ASE"</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>指定状态文件位置</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">terraform console -state=path</span><br></pre></td></tr></table></figure>
+
+<h2 id="destroy"><a href="#destroy" class="headerlink" title="destroy"></a>destroy</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">terraform destroy</span><br></pre></td></tr></table></figure>
+
+<p><strong>参数</strong></p>
+<ul>
+<li><p>terraform destroy -auto-approve=true,不会征求用户确认直接销毁。</p>
+</li>
+<li><p>terraform destroy -target <Resource type>.<Local Name>只会删除部分资源，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">terraform destroy -target aws_security_group.allow_all</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="fmt"><a href="#fmt" class="headerlink" title="fmt"></a>fmt</h2><p>terraform fmt命令被用来格式化Terraform代码文件的格式和规范。该命令会对代码文件应用我们之前介绍过的代码风格规范中的一些规定，另外会针对可读性对代码做些微调整。</p>
+<p>没使用terraform fmt 之前，代码如下图所示</p>
+<p><img src="img/image-20220420142955327.png" alt="image-20220420142955327"></p>
+<p>使用<code>terraform fmt</code>之后</p>
+<p><img src="img/image-20220420143158569.png" alt="image-20220420143158569"></p>
+<p><strong>-list=false</strong></p>
+<p>不列出包含不一致风格的文件<img src="img/image-20220420143302521.png" alt="image-20220420143302521"></p>
+<p><strong>-diff：</strong>展示格式差异</p>
+<p><img src="img/image-20220420145547168.png" alt="image-20220420145547168"></p>
+<p><strong>-check：</strong></p>
+<p>检查输入是否合规。返回0则代表所有输入的代码风格都是合规，反之则不是0</p>
+<h1 id="graph"><a href="#graph" class="headerlink" title="graph"></a>graph</h1><p>terraform graph命令可以用来生成代码描述的基础设施或是执行计划的可视化图形。它的输出是DOT格式，可以使用<a href="http://www.graphviz.org/" target="_blank" rel="noopener">GraphViz</a>来生成图片，也有许多网络服务可以读取这种格式。</p>
+<p><strong>创建图片文件</strong></p>
+<p>terraform graph命令输出的是DOT格式的数据，可以轻松地使用GraphViz转换为图形文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">terraform graph | dot -Tsvg &gt; graph.svg</span><br></pre></td></tr></table></figure>
+
+<p>输出的图片大概是这样的：</p>
+<p><img src="https://raw.githubusercontent.com/lonegunmanb/introduction-to-terraform-pic/master/2020-11-25/1606272727693-image.png" alt="生成的依赖图"></p>
+<p><strong>如何安装GraphViz</strong> </p>
+<p>安装GraphViz也很简单，对于Ubuntu：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install graphviz</span><br></pre></td></tr></table></figure>
+
+<p>对于CentOS：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install graphviz</span><br></pre></td></tr></table></figure>
+
+<p>对于Windows，也可以使用choco：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; choco install graphviz</span><br></pre></td></tr></table></figure>
+
+<p>对于Mac用户：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew install graphviz</span><br></pre></td></tr></table></figure>
+
+<h2 id="import"><a href="#import" class="headerlink" title="import"></a>import</h2><p><strong>terraform import命令用来将已经存在的资源对象导入Terraform。</strong></p>
+<p>在使用terraform之前，已经存在基础设施。又或者云资源账户中私自被客户创建了新环境，那么在这种情况下。我们则需要手动将资源对象导入到terraform的状态文件中。</p>
+<p>todo</p>
+<h2 id="refresh"><a href="#refresh" class="headerlink" title="refresh"></a>refresh</h2><p>terraform refresh命令将实际存在的基础设施对象的状态同步到状态文件中记录的对象状态。它可以用来检测真实状态与记录状态之间的漂移并更新状态文件。</p>
+<blockquote>
+<p>警告！！！该命令已在最新版本 Terraform 中被废弃，因为该命令的默认行为在当前用户错误配置了使用的云平台令牌时会引发对状态文件错误的变更。</p>
+</blockquote>
+<p>该命令并不会修改基础设施对象，只修改状态文件。如果状态文件发生改变，将有可能在下次执行<code>plan</code>或<code>apply</code>时引发变更计划。</p>
+<p><strong>用法</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">terraform refresh</span><br></pre></td></tr></table></figure>
+
+<p>该命令本质上是以下命令的别名，具有完全相同的效果：</p>
+<blockquote>
+<p>terraform apply -refresh-only -auto-approve</p>
+</blockquote>
+<p>主动使用<code>refresh</code>是很危险的，因为如果当前用户错误配置了使用的 Provider 的令牌，那么 Terraform 会错误地以为当前状态文件中记录的所有资源都被删除了，随即从状态文件中无预警地删除所有相关记录。</p>
+<p>作为替代我们推荐使用如下命令来取得相同的效果，同时可以在修改状态文件之前预览即将对其作出的修改：</p>
+<blockquote>
+<p>terraform apply -refresh-only</p>
+</blockquote>
+<p>该命令将会在交互界面中提示用户检测到的变更，并提示用户确认执行。</p>
+<h2 id="show"><a href="#show" class="headerlink" title="show"></a>show</h2><p>terraform show命令从状态文件或是变更计划文件中打印人类可读的输出信息。这可以用来检查变更计划以确定所有操作都是预期的，或是审查当前的状态文件。</p>
+<p><strong>Json输出</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">terraform show -json</span><br></pre></td></tr></table></figure>
+
+<h2 id="state"><a href="#state" class="headerlink" title="state"></a>state</h2><p>terraform state命令可以用来进行复杂的状态管理操作。随着你对Terraform的使用越来越深入，有时候你需要对状态文件进行一些修改。</p>
 <h1 id="Aha——会心一击"><a href="#Aha——会心一击" class="headerlink" title="Aha——会心一击"></a>Aha——会心一击</h1><p>Terraform使用的是声明式而非命令式的语法，其本身并不是图灵完备的，所以在遇到某些场景时会显得力不从心。</p>
 <p>本章我们会介绍一些小技巧以及设计模式和特殊Provider，可以在必要的时候帮助你实现某些特殊的逻辑，起到“会心一击”的效果。</p>
 <p>todo</p>
@@ -648,7 +808,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#说明"><span class="nav-number">1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Terraform代码规范"><span class="nav-number">2.</span> <span class="nav-text">Terraform代码规范</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Terraform-基础概念"><span class="nav-number">3.</span> <span class="nav-text">Terraform 基础概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Provider"><span class="nav-number">3.1.</span> <span class="nav-text">Provider</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Provider的声明"><span class="nav-number">3.2.</span> <span class="nav-text">Provider的声明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多Provider实例"><span class="nav-number">3.3.</span> <span class="nav-text">多Provider实例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#状态管理"><span class="nav-number">4.</span> <span class="nav-text">状态管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Terraform-代码编程"><span class="nav-number">5.</span> <span class="nav-text">Terraform 代码编程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据类型"><span class="nav-number">5.1.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据结构"><span class="nav-number">5.2.</span> <span class="nav-text">数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语法结构"><span class="nav-number">5.3.</span> <span class="nav-text">语法结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Count—循环结构"><span class="nav-number">5.3.1.</span> <span class="nav-text">Count—循环结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for-each—循环结构"><span class="nav-number">5.3.2.</span> <span class="nav-text">for_each—循环结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置语法"><span class="nav-number">5.4.</span> <span class="nav-text">配置语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入变量"><span class="nav-number">5.5.</span> <span class="nav-text">输入变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对输入变量赋值"><span class="nav-number">5.5.1.</span> <span class="nav-text">对输入变量赋值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输出变量"><span class="nav-number">5.6.</span> <span class="nav-text">输出变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#局部值"><span class="nav-number">5.7.</span> <span class="nav-text">局部值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资源"><span class="nav-number">5.8.</span> <span class="nav-text">资源</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#元参数声明"><span class="nav-number">5.8.1.</span> <span class="nav-text">元参数声明:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#访问资源输出属性"><span class="nav-number">5.8.2.</span> <span class="nav-text">访问资源输出属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据源data"><span class="nav-number">5.9.</span> <span class="nav-text">数据源data</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用数据源"><span class="nav-number">5.9.1.</span> <span class="nav-text">使用数据源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#demo"><span class="nav-number">5.9.2.</span> <span class="nav-text">demo</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表达式"><span class="nav-number">5.10.</span> <span class="nav-text">表达式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#terraform-module"><span class="nav-number">6.</span> <span class="nav-text">terraform module</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#terraform-command"><span class="nav-number">7.</span> <span class="nav-text">terraform command</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Aha——会心一击"><span class="nav-number">8.</span> <span class="nav-text">Aha——会心一击</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">9.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#说明"><span class="nav-number">1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Terraform代码规范"><span class="nav-number">2.</span> <span class="nav-text">Terraform代码规范</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Terraform-基础概念"><span class="nav-number">3.</span> <span class="nav-text">Terraform 基础概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Provider"><span class="nav-number">3.1.</span> <span class="nav-text">Provider</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Provider的声明"><span class="nav-number">3.2.</span> <span class="nav-text">Provider的声明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多Provider实例"><span class="nav-number">3.3.</span> <span class="nav-text">多Provider实例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#状态管理"><span class="nav-number">4.</span> <span class="nav-text">状态管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Terraform-代码编程"><span class="nav-number">5.</span> <span class="nav-text">Terraform 代码编程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据类型"><span class="nav-number">5.1.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据结构"><span class="nav-number">5.2.</span> <span class="nav-text">数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语法结构"><span class="nav-number">5.3.</span> <span class="nav-text">语法结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Count—循环结构"><span class="nav-number">5.3.1.</span> <span class="nav-text">Count—循环结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for-each—循环结构"><span class="nav-number">5.3.2.</span> <span class="nav-text">for_each—循环结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置语法"><span class="nav-number">5.4.</span> <span class="nav-text">配置语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入变量"><span class="nav-number">5.5.</span> <span class="nav-text">输入变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对输入变量赋值"><span class="nav-number">5.5.1.</span> <span class="nav-text">对输入变量赋值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输出变量"><span class="nav-number">5.6.</span> <span class="nav-text">输出变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#局部值"><span class="nav-number">5.7.</span> <span class="nav-text">局部值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资源"><span class="nav-number">5.8.</span> <span class="nav-text">资源</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#元参数声明"><span class="nav-number">5.8.1.</span> <span class="nav-text">元参数声明:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#访问资源输出属性"><span class="nav-number">5.8.2.</span> <span class="nav-text">访问资源输出属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据源data"><span class="nav-number">5.9.</span> <span class="nav-text">数据源data</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用数据源"><span class="nav-number">5.9.1.</span> <span class="nav-text">使用数据源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#demo"><span class="nav-number">5.9.2.</span> <span class="nav-text">demo</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表达式"><span class="nav-number">5.10.</span> <span class="nav-text">表达式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#terraform-module"><span class="nav-number">6.</span> <span class="nav-text">terraform module</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#terraform-command"><span class="nav-number">7.</span> <span class="nav-text">terraform command</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境变量"><span class="nav-number">7.1.</span> <span class="nav-text">环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#init"><span class="nav-number">7.2.</span> <span class="nav-text">init</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#plan"><span class="nav-number">7.3.</span> <span class="nav-text">plan</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#apply"><span class="nav-number">7.4.</span> <span class="nav-text">apply</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#output"><span class="nav-number">7.5.</span> <span class="nav-text">output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#console"><span class="nav-number">7.6.</span> <span class="nav-text">console</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#destroy"><span class="nav-number">7.7.</span> <span class="nav-text">destroy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fmt"><span class="nav-number">7.8.</span> <span class="nav-text">fmt</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#graph"><span class="nav-number">8.</span> <span class="nav-text">graph</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#import"><span class="nav-number">8.1.</span> <span class="nav-text">import</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#refresh"><span class="nav-number">8.2.</span> <span class="nav-text">refresh</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#show"><span class="nav-number">8.3.</span> <span class="nav-text">show</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#state"><span class="nav-number">8.4.</span> <span class="nav-text">state</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Aha——会心一击"><span class="nav-number">9.</span> <span class="nav-text">Aha——会心一击</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">10.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -722,13 +882,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">103k</span>
+    <span title="站点总字数">108k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">2:52</span>
+    <span title="站点阅读时长">3:01</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动
   </div>
