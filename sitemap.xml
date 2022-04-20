@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>https://blog.wjzhe.ml/2022/04/20/installCloudwathagentbywjshuai/</loc>
+    <loc>https://blog.wjzhe.ml/2022/04/20/UseOpenVPN/</loc>
     
     <lastmod>2022-04-20</lastmod>
     
@@ -21,15 +21,6 @@
   
   <url>
     <loc>https://blog.wjzhe.ml/2022/04/20/ocrmarche/</loc>
-    
-    <lastmod>2022-04-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.wjzhe.ml/2022/04/20/UseOpenVPN/</loc>
     
     <lastmod>2022-04-20</lastmod>
     
@@ -84,6 +75,15 @@
   
   <url>
     <loc>https://blog.wjzhe.ml/2022/03/24/installCloudwathagent/</loc>
+    
+    <lastmod>2022-03-24</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.wjzhe.ml/2022/03/24/installCloudwathagentbywjshuai/</loc>
     
     <lastmod>2022-03-24</lastmod>
     
