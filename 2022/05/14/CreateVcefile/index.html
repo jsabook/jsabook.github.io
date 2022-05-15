@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico">
+  <link rel="mask-icon" href="/favicon.ico" color="#222">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://blog.wjzhe.ml').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"buttons","active":null,"storage":true,"lazyload":true,"nav":{"disqus":{"text":"Load Disqus","order":-1}}},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":false,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="背景备考SAP认证的时候，手中有一份word题库进行备考，纯文档刷题还是比较繁琐的，因此这里将word文档制作成了vce刷题文件来进行快速刷题。vce显示如下图所示： 显示答案  回答错误  题目中有图片  软件 vce player——刷题软件 vce designer——制作题库软件  如下图所示：  制作题库word文档要求word文档的每一道题目需要有标识，才能够被vce designer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="创建vce考试文件">
+<meta property="og:url" content="https://blog.wjzhe.ml/2022/05/14/CreateVcefile/index.html">
+<meta property="og:site_name" content="Qier&#39;s blog">
+<meta property="og:description" content="背景备考SAP认证的时候，手中有一份word题库进行备考，纯文档刷题还是比较繁琐的，因此这里将word文档制作成了vce刷题文件来进行快速刷题。vce显示如下图所示： 显示答案  回答错误  题目中有图片  软件 vce player——刷题软件 vce designer——制作题库软件  如下图所示：  制作题库word文档要求word文档的每一道题目需要有标识，才能够被vce designer">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220515214358419.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220515214510003.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220515214627011.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220515214954001.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220515215835722.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220515220000373.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220515220227478.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220515220419973.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220515220455971.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220515220520273.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220515220638872.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220515220705109.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220515220734314.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220515220752177.png">
+<meta property="og:image" content="https://blog.wjzhe.ml/2022/05/14/CreateVcefile/img/image-20220515220923288.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220515221059349.png">
+<meta property="og:image" content="https://blog.wjzhe.ml/2022/05/14/CreateVcefile/img/image-20220515221126193.png">
+<meta property="article:published_time" content="2022-05-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-05-14T16:00:00.000Z">
+<meta property="article:author" content="qier">
+<meta property="article:tag" content="Exam">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220515214358419.png">
+
+<link rel="canonical" href="https://blog.wjzhe.ml/2022/05/14/CreateVcefile/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>创建vce考试文件 | Qier's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Qier's blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Qier's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-desktop"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-friends">
+
+    <a href="/friends.html" rel="section"><i class="fa fa-fw fa-link"></i>Friends</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about.html" rel="section"><i class="fa fa-fw fa-user-circle-o"></i>About</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wjzhe.ml/2022/05/14/CreateVcefile/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/avatar.png">
+      <meta itemprop="name" content="qier">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Qier's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          创建vce考试文件
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-05-15 2022-05-15T00:00:00+08:00" itemprop="dateCreated datePublished" datetime="2022-05-15T00:00:00+08:00">2022-05-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Exam/" itemprop="url" rel="index">
+                    <span itemprop="name">Exam</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2022/05/14/CreateVcefile/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2022/05/14/CreateVcefile/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>427</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>备考SAP认证的时候，手中有一份word题库进行备考，纯文档刷题还是比较繁琐的，因此这里将word文档制作成了vce刷题文件来进行快速刷题。vce显示如下图所示：</p>
+<p><strong>显示答案</strong></p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220515214358419.png" alt="image-20220515214358419"></p>
+<p><strong>回答错误</strong></p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220515214510003.png" alt="image-20220515214510003"></p>
+<p><strong>题目中有图片</strong></p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220515214627011.png" alt="image-20220515214627011"></p>
+<h1 id="软件"><a href="#软件" class="headerlink" title="软件"></a>软件</h1><ul>
+<li>vce player——刷题软件</li>
+<li>vce designer——制作题库软件</li>
+</ul>
+<p>如下图所示：</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220515214954001.png" alt="image-20220515214954001"></p>
+<h1 id="制作题库"><a href="#制作题库" class="headerlink" title="制作题库"></a>制作题库</h1><h2 id="word文档要求"><a href="#word文档要求" class="headerlink" title="word文档要求"></a>word文档要求</h2><p>word文档的每一道题目需要有标识，才能够被vce designer所识别</p>
+<p>这里以一道例题为例，讲解格式</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220515215835722.png" alt="image-20220515215835722"></p>
+<p><strong>PS</strong>:值得注意的有几点：</p>
+<p>题目序号，与后面的vce designer相对应，一共支持四种，如下图所示：</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220515220000373.png" alt="image-20220515220000373"></p>
+<h2 id="另存为RTF文档"><a href="#另存为RTF文档" class="headerlink" title="另存为RTF文档"></a>另存为RTF文档</h2><p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220515220227478.png" alt="image-20220515220227478"></p>
+<h2 id="vce-design-制作题库"><a href="#vce-design-制作题库" class="headerlink" title="vce design 制作题库"></a>vce design 制作题库</h2><p><strong>打开File选项</strong></p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220515220419973.png" alt="image-20220515220419973"></p>
+<p><strong>下一步</strong></p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220515220455971.png" alt="image-20220515220455971"></p>
+<p>下一步，选择RTF文件</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220515220520273.png" alt="image-20220515220520273"></p>
+<p>下一步，打开文件</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220515220638872.png" alt="image-20220515220638872"></p>
+<p>下一步，选择序列号</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220515220705109.png" alt="image-20220515220705109"></p>
+<p>导入题库</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220515220734314.png" alt="image-20220515220734314"></p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220515220752177.png" alt="image-20220515220752177"></p>
+<p>进行编辑，例如设置<strong>Description</strong>，或者其他一些修改。</p>
+<p>最后另存为vce文件即可</p>
+<p><img src="img/image-20220515220923288.png" alt="image-20220515220923288"></p>
+<h1 id="刷题软件测试"><a href="#刷题软件测试" class="headerlink" title="刷题软件测试"></a>刷题软件测试</h1><p>打开vce player 进行测试导出的vce文件，成功。</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220515221059349.png" alt="image-20220515221059349"></p>
+<p><img src="img/image-20220515221126193.png" alt="image-20220515221126193"></p>
+<h1 id="附件"><a href="#附件" class="headerlink" title="附件"></a>附件</h1><p>这里附上这篇博客所使用的文档</p>
+<p><a href="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/saademo.docx" target="_blank" rel="noopener">docx文档</a></p>
+<p><a href="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/saa%E4%B8%AD%E8%8B%B1%E6%96%87%E9%A2%98%E5%BA%93.rtf" target="_blank" rel="noopener">生成的RTF文档</a></p>
+<p><a href="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/saa%E4%B8%AD%E8%8B%B1%E6%96%87%E9%A2%98%E5%BA%93.vce" target="_blank" rel="noopener">生成的Vce题库</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Exam/" rel="tag"><i class="fa fa-tag"></i> Exam</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/20/InspecUse/" rel="prev" title="InSpec使用">
+      <i class="fa fa-chevron-left"></i> InSpec使用
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/05/15/ocrmarche/" rel="next" title="ocrmarche">
+      ocrmarche <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+      <script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=h1V0Nw_4vLcQcUBJgbm3Xq8qyT69xb1vgP4PmR_sO0Q&cl=ffffff&w=a"></script>
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#软件"><span class="nav-number">2.</span> <span class="nav-text">软件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#制作题库"><span class="nav-number">3.</span> <span class="nav-text">制作题库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#word文档要求"><span class="nav-number">3.1.</span> <span class="nav-text">word文档要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#另存为RTF文档"><span class="nav-number">3.2.</span> <span class="nav-text">另存为RTF文档</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vce-design-制作题库"><span class="nav-number">3.3.</span> <span class="nav-text">vce design 制作题库</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#刷题软件测试"><span class="nav-number">4.</span> <span class="nav-text">刷题软件测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附件"><span class="nav-number">5.</span> <span class="nav-text">附件</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="qier"
+      src="/avatar.png">
+  <p class="site-author-name" itemprop="name">qier</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jsabook/" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jsabook&#x2F;" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wujiashuaizfq@gmail.com" title="E-Mail → mailto:wujiashuaizfq@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-fw fa-rss"></i>RSS</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qier</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">130k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">3:37</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://muzi.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: {page: {
+            url: "https://blog.wjzhe.ml/2022/05/14/CreateVcefile/",
+            identifier: "2022/05/14/CreateVcefile/",
+            title: "创建vce考试文件"
+          }
+        }
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://muzi.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
