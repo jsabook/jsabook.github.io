@@ -72,12 +72,27 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/ABUIABAEGAAgguTSkAYolLD1aDDSBzioBQ.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/ABUIABAEGAAgguTSkAYo-K69ywQw0gc48AE.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/ABUIABAEGAAgguTSkAYoxuXW_wQw0gc4vgE.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220523140754170.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/ABUIABAEGAAgguTSkAYoysPPoAcw0gc43gE.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/ABUIABAEGAAgguTSkAYo1J2HiAcwhAc4kAU.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/ABUIABAEGAAgguTSkAYoovKK4wIw0gc4gAQ.png.webp">
 <meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/ABUIABAEGAAgguTSkAYo0Oe_5QMw0gc42gM.png.webp">
 <meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/ABUIABAEGAAgguTSkAYo_LiQeTDSBzj8AQ.png.webp">
 <meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/ABUIABAEGAAgguTSkAYorozjxQMw0gc47AM.png.webp">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220523132738388.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220523132826243.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220523140920947.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220523132957909.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220523133015728.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220523133112133.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220523133520999.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220523135509293.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220523135645628.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220523135803874.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220523140237889.png">
+<meta property="og:image" content="https://blog.wjzhe.ml/2022/03/24/installCloudwathagent/img/image-20220614212824200.png">
+<meta property="og:image" content="https://blog.wjzhe.ml/2022/03/24/installCloudwathagent/img/image-20220614212802527.png">
+<meta property="og:image" content="https://blog.wjzhe.ml/2022/03/24/installCloudwathagent/img/image-20220614213209334.png">
 <meta property="article:published_time" content="2022-03-24T16:00:00.000Z">
 <meta property="article:modified_time" content="2022-03-24T16:00:00.000Z">
 <meta property="article:author" content="qier">
@@ -257,14 +272,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.4k</span>
+              <span>12k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
+              <span>20 分钟</span>
             </span>
 
         </div>
@@ -341,9 +356,11 @@
 <p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/ABUIABAEGAAgguTSkAYo-K69ywQw0gc48AE.png" alt=" "></p>
 <p><strong>9.输入以下命令，启动CloudWatchAgent</strong></p>
 <p><em>如下图 红圈处</em></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo &#x2F;opt&#x2F;aws&#x2F;amazon-cloudwatch-agent&#x2F;bin&#x2F;amazon-cloudwatch-agent-ctl-a fetch-config-m ec2-s-c file:&#x2F;opt&#x2F;aws&#x2F;amazon-cloudwatch-agent&#x2F;doc&#x2F;amazon-cloudwatch-agent-schema.json</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo &#x2F;opt&#x2F;aws&#x2F;amazon-cloudwatch-agent&#x2F;bin&#x2F;amazon-cloudwatch-agent-ctl -a fetch-config -m onPremise -s -c file:&#x2F;opt&#x2F;aws&#x2F;amazon-cloudwatch-agent&#x2F;doc&#x2F;amazon-cloudwatch-agent-schema.json</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/ABUIABAEGAAgguTSkAYoxuXW_wQw0gc4vgE.png" alt=" "></p>
+<p>ps：如果显示缺少什么文件，如下图所示</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220523140754170.png" alt="image-20220523140754170"></p>
 <p><strong>10.输入以下命令，检查是否启动成功</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo &#x2F;opt&#x2F;aws&#x2F;amazon-cloudwatch-agent&#x2F;bin&#x2F;amazon-cloudwatch-agent-ctl -m ec2 -a status</span><br></pre></td></tr></table></figure>
 
@@ -364,7 +381,191 @@
 <p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/ABUIABAEGAAgguTSkAYo_LiQeTDSBzj8AQ.png.webp" alt=" "></p>
 <p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/ABUIABAEGAAgguTSkAYorozjxQMw0gc47AM.png.webp" alt=" "></p>
 <p>可以看到服务了。</p>
-<p><strong>转载地址:<a href="https://www.ecloudrover.com/h-nd-180.html#_np=21_2595" target="_blank" rel="noopener">https://www.ecloudrover.com/h-nd-180.html#_np=21_2595</a></strong></p>
+<h1 id="在本地服务器收集指标"><a href="#在本地服务器收集指标" class="headerlink" title="在本地服务器收集指标"></a>在本地服务器收集指标</h1><p>流程：在创建所需的代理配置文件并创建 IAM 角色或 IAM 用户后，使用该配置执行以下步骤在服务器上安装和运行代理。首先，将 IAM 角色或 IAM 用户附加到将要运行代理的服务器上。然后，在该服务器上，下载代理软件包并使用您创建的代理配置文件启动它。这里以x86-64架构的centos7为例，进行说明</p>
+<h1 id="指定-IAM-凭证和-AWS-区域"><a href="#指定-IAM-凭证和-AWS-区域" class="headerlink" title="指定 IAM 凭证和 AWS 区域"></a>指定 IAM 凭证和 AWS 区域</h1><p>要使 CloudWatch 代理能够从本地部署服务器发送数据，您必须指定先前创建的 IAM 用户的访问密钥和私有密钥。有关创建此用户的更多信息，请参阅<a href="https://docs.aws.amazon.com/zh_cn/AmazonCloudWatch/latest/monitoring/create-iam-roles-for-cloudwatch-agent-commandline.html" target="_blank" rel="noopener">创建 IAM 角色和用户以用于 CloudWatch 代理</a>。</p>
+<p><strong>创建 CloudWatch 代理在本地部署服务器上运行所需的 IAM 用户</strong></p>
+<ol>
+<li><p>登录 AWS Management Console，然后通过以下网址打开 IAM 控制台：<a href="https://console.aws.amazon.com/iam/。" target="_blank" rel="noopener">https://console.aws.amazon.com/iam/。</a></p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220523132738388.png" alt="image-20220523132738388"></p>
+</li>
+<li><p>在左侧的导航窗格中，选择 <strong>Users</strong>（用户），然后选择 <strong>Add user</strong>（添加用户）。</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220523132826243.png" alt="image-20220523132826243"></p>
+</li>
+<li><p>为新用户输入用户名。这里设定为LocalCloudwatcher，选择 <strong>Access key - Programmatic access</strong>（访问密钥 - 编程访问），然后选择 <strong>Next: Permissions</strong>（下一步: 权限）。</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220523140920947.png" alt="image-20220523140920947"></p>
+</li>
+<li><p>选择 <strong>Attach existing policies directly</strong>（直接附上现有策略）。</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220523132957909.png" alt="image-20220523132957909"></p>
+</li>
+<li><p>在策略列表中，选中 <strong>CloudWatchAgentServerPolicy</strong> 旁边的复选框。如有必要，请使用搜索框查找该策略。</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220523133015728.png" alt="image-20220523133015728"></p>
+</li>
+<li><p>（可选）请选择<strong>下一步：标签</strong>。可以选择为新 IAM 用户创建标签，然后选择 <strong>Next: Review</strong>（下一步: 审核）。</p>
+</li>
+<li><p>确认列出了正确的策略，然后选择 <strong>Create user</strong>（创建用户）。</p>
+</li>
+<li><p>选择下载csv文件，这里的csv文件就是我们的新建用户的aksk。</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220523133112133.png" alt="image-20220523133112133"></p>
+</li>
+</ol>
+<h1 id="服务器安装AWS-CLI"><a href="#服务器安装AWS-CLI" class="headerlink" title="服务器安装AWS CLI"></a>服务器安装AWS CLI</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">rm -rf &#x2F;bin&#x2F;aws</span><br><span class="line">rm -rf &#x2F;bin&#x2F;aws*</span><br><span class="line">curl &quot;https:&#x2F;&#x2F;awscli.amazonaws.com&#x2F;awscli-exe-linux-x86_64.zip&quot; -o &quot;awscliv2.zip&quot;</span><br><span class="line">unzip awscliv2.zip</span><br><span class="line">sudo .&#x2F;aws&#x2F;install</span><br><span class="line">ln -s &#x2F;usr&#x2F;local&#x2F;bin&#x2F;aws &#x2F;bin&#x2F;aws</span><br></pre></td></tr></table></figure>
+
+<p>安装完毕之后，测试是否安装成功</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220523133520999.png" alt="image-20220523133520999"></p>
+<h2 id="指定IAM凭证与AWS区域"><a href="#指定IAM凭证与AWS区域" class="headerlink" title="指定IAM凭证与AWS区域"></a>指定IAM凭证与AWS区域</h2><p>您还必须使用 AWS 配置文件的 <code>[AmazonCloudWatchAgent]</code> 部分中的 <code>region</code> 字段指定要将指标发送到的 AWS 区域，如以下示例中所示。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[profile AmazonCloudWatchAgent]</span><br><span class="line"></span><br><span class="line">region &#x3D; us-west-1</span><br></pre></td></tr></table></figure>
+
+<p>下面是使用 <code>aws configure</code> 命令为 CloudWatch 代理创建命名配置文件的示例。该示例假设您使用默认配置文件名称 <code>AmazonCloudWatchAgent</code>。</p>
+<p><strong>为 CloudWatch 代理创建 AmazonCloudWatchAgent 配置文件</strong></p>
+<p>在 Linux 服务器上，输入以下命令并按照提示进行操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo aws configure --profile AmazonCloudWatchAgent</span><br></pre></td></tr></table></figure>
+
+<p>按照显示的顺序依次将之前下载的csv文件中的内容填入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">AWS Access Key ID [None]: &lt;access key&gt;</span><br><span class="line">AWS Secret Access Key [None]: &lt;secret key&gt;</span><br><span class="line">Default region name [None]: &lt;region&gt;</span><br><span class="line">Default output format [None]: json</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用-S3-下载链接下载-CloudWatch-代理软件包"><a href="#使用-S3-下载链接下载-CloudWatch-代理软件包" class="headerlink" title="使用 S3 下载链接下载 CloudWatch 代理软件包"></a>使用 S3 下载链接下载 CloudWatch 代理软件包</h2><p>您需要在将要运行代理的每个服务器上安装代理。</p>
+<p>不同系统的软件包链接如下表所示：<br>对于每个软件包下载链接，有一个常规链接以及每个区域的链接。</p>
+<table>
+<thead>
+<tr>
+<th align="center">架构</th>
+<th align="left">平台</th>
+<th align="left">下载链接</th>
+<th align="left">区域下载链接</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">x86-64</td>
+<td align="left">Amazon Linux 和 Amazon Linux 2</td>
+<td align="left"><a href="https://s3.amazonaws.com/amazoncloudwatch-agent/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm" target="_blank" rel="noopener">https://s3.amazonaws.com/amazoncloudwatch-agent/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm</a></td>
+<td align="left"><a href="https://s3.`region`.amazonaws.com/amazoncloudwatch-agent-`region`/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm" target="_blank" rel="noopener">https://s3.`region`.amazonaws.com/amazoncloudwatch-agent-`region`/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm</a></td>
+</tr>
+<tr>
+<td align="center">x86-64</td>
+<td align="left">Centos</td>
+<td align="left"><a href="https://s3.amazonaws.com/amazoncloudwatch-agent/centos/amd64/latest/amazon-cloudwatch-agent.rpm" target="_blank" rel="noopener">https://s3.amazonaws.com/amazoncloudwatch-agent/centos/amd64/latest/amazon-cloudwatch-agent.rpm</a></td>
+<td align="left"><a href="https://s3.`region`.amazonaws.com/amazoncloudwatch-agent-`region`/centos/amd64/latest/amazon-cloudwatch-agent.rpm" target="_blank" rel="noopener">https://s3.`region`.amazonaws.com/amazoncloudwatch-agent-`region`/centos/amd64/latest/amazon-cloudwatch-agent.rpm</a></td>
+</tr>
+<tr>
+<td align="center">x86-64</td>
+<td align="left">Redhat</td>
+<td align="left"><a href="https://s3.amazonaws.com/amazoncloudwatch-agent/redhat/amd64/latest/amazon-cloudwatch-agent.rpm" target="_blank" rel="noopener">https://s3.amazonaws.com/amazoncloudwatch-agent/redhat/amd64/latest/amazon-cloudwatch-agent.rpm</a></td>
+<td align="left"><a href="https://s3.`region`.amazonaws.com/amazoncloudwatch-agent-`region`/redhat/amd64/latest/amazon-cloudwatch-agent.rpm" target="_blank" rel="noopener">https://s3.`region`.amazonaws.com/amazoncloudwatch-agent-`region`/redhat/amd64/latest/amazon-cloudwatch-agent.rpm</a></td>
+</tr>
+<tr>
+<td align="center">x86-64</td>
+<td align="left">SUSE</td>
+<td align="left"><a href="https://s3.amazonaws.com/amazoncloudwatch-agent/suse/amd64/latest/amazon-cloudwatch-agent.rpm" target="_blank" rel="noopener">https://s3.amazonaws.com/amazoncloudwatch-agent/suse/amd64/latest/amazon-cloudwatch-agent.rpm</a></td>
+<td align="left"><a href="https://s3.`region`.amazonaws.com/amazoncloudwatch-agent-`region`/suse/amd64/latest/amazon-cloudwatch-agent.rpm" target="_blank" rel="noopener">https://s3.`region`.amazonaws.com/amazoncloudwatch-agent-`region`/suse/amd64/latest/amazon-cloudwatch-agent.rpm</a></td>
+</tr>
+<tr>
+<td align="center">x86-64</td>
+<td align="left">Debian</td>
+<td align="left"><a href="https://s3.amazonaws.com/amazoncloudwatch-agent/debian/amd64/latest/amazon-cloudwatch-agent.deb" target="_blank" rel="noopener">https://s3.amazonaws.com/amazoncloudwatch-agent/debian/amd64/latest/amazon-cloudwatch-agent.deb</a></td>
+<td align="left"><a href="https://s3.`region`.amazonaws.com/amazoncloudwatch-agent-`region`/debian/amd64/latest/amazon-cloudwatch-agent.deb" target="_blank" rel="noopener">https://s3.`region`.amazonaws.com/amazoncloudwatch-agent-`region`/debian/amd64/latest/amazon-cloudwatch-agent.deb</a></td>
+</tr>
+<tr>
+<td align="center">x86-64</td>
+<td align="left">Ubuntu</td>
+<td align="left"><a href="https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb" target="_blank" rel="noopener">https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb</a></td>
+<td align="left"><a href="https://s3.`region`.amazonaws.com/amazoncloudwatch-agent-`region`/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb" target="_blank" rel="noopener">https://s3.`region`.amazonaws.com/amazoncloudwatch-agent-`region`/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb</a></td>
+</tr>
+<tr>
+<td align="center">x86-64</td>
+<td align="left">Oracle</td>
+<td align="left"><a href="https://s3.amazonaws.com/amazoncloudwatch-agent/oracle_linux/amd64/latest/amazon-cloudwatch-agent.rpm" target="_blank" rel="noopener">https://s3.amazonaws.com/amazoncloudwatch-agent/oracle_linux/amd64/latest/amazon-cloudwatch-agent.rpm</a></td>
+<td align="left"><a href="https://s3.`region`.amazonaws.com/amazoncloudwatch-agent-`region`/oracle_linux/amd64/latest/amazon-cloudwatch-agent.rpm" target="_blank" rel="noopener">https://s3.`region`.amazonaws.com/amazoncloudwatch-agent-`region`/oracle_linux/amd64/latest/amazon-cloudwatch-agent.rpm</a></td>
+</tr>
+<tr>
+<td align="center">x86-64</td>
+<td align="left">macOS</td>
+<td align="left"><a href="https://s3.amazonaws.com/amazoncloudwatch-agent/darwin/amd64/latest/amazon-cloudwatch-agent.pkg" target="_blank" rel="noopener">https://s3.amazonaws.com/amazoncloudwatch-agent/darwin/amd64/latest/amazon-cloudwatch-agent.pkg</a></td>
+<td align="left"><a href="https://s3.`region`.amazonaws.com/amazoncloudwatch-agent-`region`/darwin/amd64/latest/amazon-cloudwatch-agent.pkg" target="_blank" rel="noopener">https://s3.`region`.amazonaws.com/amazoncloudwatch-agent-`region`/darwin/amd64/latest/amazon-cloudwatch-agent.pkg</a></td>
+</tr>
+<tr>
+<td align="center">x86-64</td>
+<td align="left">Windows</td>
+<td align="left"><a href="https://s3.amazonaws.com/amazoncloudwatch-agent/windows/amd64/latest/amazon-cloudwatch-agent.msi" target="_blank" rel="noopener">https://s3.amazonaws.com/amazoncloudwatch-agent/windows/amd64/latest/amazon-cloudwatch-agent.msi</a></td>
+<td align="left"><a href="https://s3.`region`.amazonaws.com/amazoncloudwatch-agent-`region`/windows/amd64/latest/amazon-cloudwatch-agent.msi" target="_blank" rel="noopener">https://s3.`region`.amazonaws.com/amazoncloudwatch-agent-`region`/windows/amd64/latest/amazon-cloudwatch-agent.msi</a></td>
+</tr>
+<tr>
+<td align="center">ARM64</td>
+<td align="left">Amazon Linux 2</td>
+<td align="left"><a href="https://s3.amazonaws.com/amazoncloudwatch-agent/amazon_linux/arm64/latest/amazon-cloudwatch-agent.rpm" target="_blank" rel="noopener">https://s3.amazonaws.com/amazoncloudwatch-agent/amazon_linux/arm64/latest/amazon-cloudwatch-agent.rpm</a></td>
+<td align="left"><a href="https://s3.`region`.amazonaws.com/amazoncloudwatch-agent-`region`/amazon_linux/arm64/latest/amazon-cloudwatch-agent.rpm" target="_blank" rel="noopener">https://s3.`region`.amazonaws.com/amazoncloudwatch-agent-`region`/amazon_linux/arm64/latest/amazon-cloudwatch-agent.rpm</a></td>
+</tr>
+<tr>
+<td align="center">ARM64</td>
+<td align="left">Redhat</td>
+<td align="left"><a href="https://s3.amazonaws.com/amazoncloudwatch-agent/redhat/arm64/latest/amazon-cloudwatch-agent.rpm" target="_blank" rel="noopener">https://s3.amazonaws.com/amazoncloudwatch-agent/redhat/arm64/latest/amazon-cloudwatch-agent.rpm</a></td>
+<td align="left"><a href="https://s3.`region`.amazonaws.com/amazoncloudwatch-agent-`region`/redhat/arm64/latest/amazon-cloudwatch-agent.rpm" target="_blank" rel="noopener">https://s3.`region`.amazonaws.com/amazoncloudwatch-agent-`region`/redhat/arm64/latest/amazon-cloudwatch-agent.rpm</a></td>
+</tr>
+<tr>
+<td align="center">ARM64</td>
+<td align="left">Ubuntu</td>
+<td align="left"><a href="https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/arm64/latest/amazon-cloudwatch-agent.deb" target="_blank" rel="noopener">https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/arm64/latest/amazon-cloudwatch-agent.deb</a></td>
+<td align="left"><a href="https://s3.`region`.amazonaws.com/amazoncloudwatch-agent-`region`/ubuntu/arm64/latest/amazon-cloudwatch-agent.deb" target="_blank" rel="noopener">https://s3.`region`.amazonaws.com/amazoncloudwatch-agent-`region`/ubuntu/arm64/latest/amazon-cloudwatch-agent.deb</a></td>
+</tr>
+<tr>
+<td align="center">ARM64</td>
+<td align="left">SUSE</td>
+<td align="left"><a href="https://s3.amazonaws.com/amazoncloudwatch-agent/suse/arm64/latest/amazon-cloudwatch-agent.rpm" target="_blank" rel="noopener">https://s3.amazonaws.com/amazoncloudwatch-agent/suse/arm64/latest/amazon-cloudwatch-agent.rpm</a></td>
+<td align="left"><a href="https://s3.`region`.amazonaws.com/amazoncloudwatch-agent-`region`/suse/arm64/latest/amazon-cloudwatch-agent.rpm" target="_blank" rel="noopener">https://s3.`region`.amazonaws.com/amazoncloudwatch-agent-`region`/suse/arm64/latest/amazon-cloudwatch-agent.rpm</a></td>
+</tr>
+</tbody></table>
+<p><strong>使用命令行在 Amazon EC2 实例上安装 CloudWatch 代理</strong></p>
+<p>下载 CloudWatch 代理。对于 Linux 服务器，请输入以下命令。对于 <code>download-link</code>，请使用上表中的相应下载链接。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# cd &#x2F;home&#x2F;</span><br><span class="line">[root@localhost home]# wget https:&#x2F;&#x2F;s3.amazonaws.com&#x2F;amazoncloudwatch-agent&#x2F;amazon_linux&#x2F;amd64&#x2F;latest&#x2F;amazon-cloudwatch-agent.rpm</span><br></pre></td></tr></table></figure>
+
+<p>安装 软件包。如果已在 Linux 服务器上下载 RPM 程序包，请更改为包含程序包的目录，并输入以下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost home]# sudo rpm -U .&#x2F;amazon-cloudwatch-agent.rpm</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用命令行启动-CloudWatch-代理"><a href="#使用命令行启动-CloudWatch-代理" class="headerlink" title="使用命令行启动 CloudWatch 代理"></a>使用命令行启动 CloudWatch 代理</h2><p>可以执行以下步骤以使用命令行在服务器上启动 CloudWatch 代理。</p>
+<p>首先设置Cloudwatch配置文件，这个配置文件的内容指定获取以下指标：disk、diskio、mem。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi &#x2F;opt&#x2F;aws&#x2F;amazon-cloudwatch-agent&#x2F;doc&#x2F;config.json</span><br></pre></td></tr></table></figure>
+
+<p>内容如附件</p>
+<p>启动代理软件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo &#x2F;opt&#x2F;aws&#x2F;amazon-cloudwatch-agent&#x2F;bin&#x2F;amazon-cloudwatch-agent-ctl -a fetch-config -m onPremise -s -c file:&#x2F;opt&#x2F;aws&#x2F;amazon-cloudwatch-agent&#x2F;doc&#x2F;cnfig.json</span><br></pre></td></tr></table></figure>
+
+<p>如果显示 由于缺少文件导致启动失败，则手动创建缺少的文件</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220523135509293.png" alt="image-20220523135509293"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# mkdir &#x2F;usr&#x2F;share&#x2F;collectd</span><br><span class="line">[root@localhost ~]# touch &#x2F;usr&#x2F;share&#x2F;collectd&#x2F;types.db</span><br></pre></td></tr></table></figure>
+
+<p>重新启动 ，启动成功。</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220523135645628.png" alt="image-20220523135645628"></p>
+<h2 id="查看指标"><a href="#查看指标" class="headerlink" title="查看指标"></a>查看指标</h2><p>等待一两分钟之后，查看cloudwatch的所有指标。</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220523135803874.png" alt="image-20220523135803874"></p>
+<p>可以看到Local/Centos已经有了。等待几分钟之后，查看指标，发现数据已经发送上来了。</p>
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220523140237889.png" alt="image-20220523140237889"></p>
+<h1 id="Windows-安装cloudwatch-Agent"><a href="#Windows-安装cloudwatch-Agent" class="headerlink" title="Windows 安装cloudwatch Agent"></a>Windows 安装cloudwatch Agent</h1><h1 id="Windows-安装代理"><a href="#Windows-安装代理" class="headerlink" title="Windows 安装代理"></a>Windows 安装代理</h1><p>前面介绍了如何在Linux上面安装代理，这里介绍如何在windows上安装代理</p>
+<p><strong>PS</strong>:以下操作全在具备管理员权限的Powershell脚本中运行</p>
+<p><img src="img/image-20220614212824200.png" alt="image-20220614212824200"></p>
+<h2 id="操作Aws-上的主机"><a href="#操作Aws-上的主机" class="headerlink" title="操作Aws 上的主机"></a>操作Aws 上的主机</h2><h3 id="创建Role"><a href="#创建Role" class="headerlink" title="创建Role"></a>创建Role</h3><p>如Linux Ec2 所示操作</p>
+<h3 id="将该角色附加到EC2-1"><a href="#将该角色附加到EC2-1" class="headerlink" title="将该角色附加到EC2"></a>将该角色附加到EC2</h3><p>如Linux Ec2所示操作</p>
+<h2 id="操作本地Windows-服务器"><a href="#操作本地Windows-服务器" class="headerlink" title="操作本地Windows 服务器"></a>操作本地Windows 服务器</h2><p>参考<strong>服务器安装AWS CLI</strong></p>
+<h2 id="在windows主机上下载Cloudwatch-Agent"><a href="#在windows主机上下载Cloudwatch-Agent" class="headerlink" title="在windows主机上下载Cloudwatch Agent"></a>在windows主机上下载Cloudwatch Agent</h2><p>下载链接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:&#x2F;&#x2F;s3.amazonaws.com&#x2F;amazoncloudwatch-agent&#x2F;windows&#x2F;amd64&#x2F;latest&#x2F;amazon-cloudwatch-agent.msi</span><br></pre></td></tr></table></figure>
+
+<p><strong>安装运行</strong>，可以直接通过命令行下载并安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Invoke-WebRequest -Uri https:&#x2F;&#x2F;s3.amazonaws.com&#x2F;amazoncloudwatch-agent&#x2F;windows&#x2F;amd64&#x2F;latest&#x2F;amazon-cloudwatch-agent.msi -OutFile $env:USERPROFILEDownloadsamazon-cloudwatch-agent.msi -UseBasicParsing</span><br><span class="line">Invoke-Item $env:USERPROFILEDownloadsamazon-cloudwatch-agent.msi</span><br></pre></td></tr></table></figure>
+
+<p><img src="img/image-20220614212802527.png" alt="image-20220614212802527"></p>
+<p>将配置文件复制进去,执行命令,需要注意的是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&amp; $env:ProgramFiles\Amazon\AmazonCloudWatchAgent\amazon-cloudwatch-agent-ctl.ps1 -a fetch-config -m ec2 -c file:&#x2F;path&#x2F;to&#x2F;config.json -s</span><br></pre></td></tr></table></figure>
+
+<p><strong>config.json</strong>内容，如附录Windows Config配置文件所示，需要修改的地方为namespace_name，修改为<code>Lianbio/DC</code>，或者其他命名空间。</p>
+<p><img src="img/image-20220614213209334.png" alt="image-20220614213209334"></p>
+<h1 id="附页"><a href="#附页" class="headerlink" title="附页"></a>附页</h1><p>Cloudwatch agent 可以采集的指标 <a href="https://docs.aws.amazon.com/zh_cn/AmazonCloudWatch/latest/monitoring/metrics-collected-by-CloudWatch-agent.html" target="_blank" rel="noopener">https://docs.aws.amazon.com/zh_cn/AmazonCloudWatch/latest/monitoring/metrics-collected-by-CloudWatch-agent.html</a></p>
+<p>为EC2安装CloudWatch Agent自定义监控指标 <strong><a href="https://www.ecloudrover.com/h-nd-180.html#_np=21_2595" target="_blank" rel="noopener">https://www.ecloudrover.com/h-nd-180.html#_np=21_2595</a></strong></p>
+<p><strong>Windows Config配置文件</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	&quot;metrics&quot;: &#123;</span><br><span class="line">		&quot;namespace&quot;: &quot;&lt;namespace_name&gt;&quot;,</span><br><span class="line">		&quot;aggregation_dimensions&quot;: [</span><br><span class="line">			[</span><br><span class="line">				&quot;InstanceId&quot;</span><br><span class="line">			]</span><br><span class="line">		],</span><br><span class="line">		&quot;append_dimensions&quot;: &#123;</span><br><span class="line">			&quot;AutoScalingGroupName&quot;: &quot;$&#123;aws:AutoScalingGroupName&#125;&quot;,</span><br><span class="line">			&quot;ImageId&quot;: &quot;$&#123;aws:ImageId&#125;&quot;,</span><br><span class="line">			&quot;InstanceId&quot;: &quot;$&#123;aws:InstanceId&#125;&quot;,</span><br><span class="line">			&quot;InstanceType&quot;: &quot;$&#123;aws:InstanceType&#125;&quot;</span><br><span class="line">		&#125;,</span><br><span class="line">		&quot;metrics_collected&quot;: &#123;</span><br><span class="line">			&quot;LogicalDisk&quot;: &#123;</span><br><span class="line">				&quot;measurement&quot;: [</span><br><span class="line">					&quot;% Free Space&quot;</span><br><span class="line">				],</span><br><span class="line">				&quot;metrics_collection_interval&quot;: 60,</span><br><span class="line">				&quot;resources&quot;: [</span><br><span class="line">					&quot;*&quot;</span><br><span class="line">				]</span><br><span class="line">			&#125;,</span><br><span class="line">			&quot;Memory&quot;: &#123;</span><br><span class="line">				&quot;measurement&quot;: [</span><br><span class="line">					&quot;% Committed Bytes In Use&quot;</span><br><span class="line">				],</span><br><span class="line">				&quot;metrics_collection_interval&quot;: 60</span><br><span class="line">			&#125;,</span><br><span class="line">			&quot;Paging File&quot;: &#123;</span><br><span class="line">				&quot;measurement&quot;: [</span><br><span class="line">					&quot;% Usage&quot;</span><br><span class="line">				],</span><br><span class="line">				&quot;metrics_collection_interval&quot;: 60,</span><br><span class="line">				&quot;resources&quot;: [</span><br><span class="line">					&quot;*&quot;</span><br><span class="line">				]</span><br><span class="line">			&#125;,</span><br><span class="line">			&quot;PhysicalDisk&quot;: &#123;</span><br><span class="line">				&quot;measurement&quot;: [</span><br><span class="line">					&quot;% Disk Time&quot;,</span><br><span class="line">					&quot;Disk Write Bytes&#x2F;sec&quot;,</span><br><span class="line">					&quot;Disk Read Bytes&#x2F;sec&quot;,</span><br><span class="line">					&quot;Disk Writes&#x2F;sec&quot;,</span><br><span class="line">					&quot;Disk Reads&#x2F;sec&quot;</span><br><span class="line">				],</span><br><span class="line">				&quot;metrics_collection_interval&quot;: 60,</span><br><span class="line">				&quot;resources&quot;: [</span><br><span class="line">					&quot;*&quot;</span><br><span class="line">				]</span><br><span class="line">			&#125;,</span><br><span class="line">			&quot;Processor&quot;: &#123;</span><br><span class="line">				&quot;measurement&quot;: [</span><br><span class="line">					&quot;% User Time&quot;,</span><br><span class="line">					&quot;% Idle Time&quot;,</span><br><span class="line">					&quot;% Interrupt Time&quot;</span><br><span class="line">				],</span><br><span class="line">				&quot;metrics_collection_interval&quot;: 60,</span><br><span class="line">				&quot;resources&quot;: [</span><br><span class="line">					&quot;_Total&quot;</span><br><span class="line">				]</span><br><span class="line">			&#125;,</span><br><span class="line">			&quot;TCPv4&quot;: &#123;</span><br><span class="line">				&quot;measurement&quot;: [</span><br><span class="line">					&quot;Connections Established&quot;</span><br><span class="line">				],</span><br><span class="line">				&quot;metrics_collection_interval&quot;: 60</span><br><span class="line">			&#125;,</span><br><span class="line">			&quot;TCPv6&quot;: &#123;</span><br><span class="line">				&quot;measurement&quot;: [</span><br><span class="line">					&quot;Connections Established&quot;</span><br><span class="line">				],</span><br><span class="line">				&quot;metrics_collection_interval&quot;: 60</span><br><span class="line">			&#125;,</span><br><span class="line">			&quot;statsd&quot;: &#123;</span><br><span class="line">				&quot;metrics_aggregation_interval&quot;: 60,</span><br><span class="line">				&quot;metrics_collection_interval&quot;: 10,</span><br><span class="line">				&quot;service_address&quot;: &quot;:8125&quot;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Linux Config 配置文件</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	&quot;agent&quot;: &#123;</span><br><span class="line">		&quot;metrics_collection_interval&quot;: 60,</span><br><span class="line">		&quot;run_as_user&quot;: &quot;root&quot;</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;metrics&quot;: &#123;</span><br><span class="line">		&quot;namespace&quot;: &quot;Local&#x2F;Centos&quot;,</span><br><span class="line">		&quot;metrics_collected&quot;: &#123;</span><br><span class="line">			&quot;collectd&quot;: &#123;</span><br><span class="line">				&quot;metrics_aggregation_interval&quot;: 60</span><br><span class="line">			&#125;,</span><br><span class="line">			&quot;disk&quot;: &#123;</span><br><span class="line">				&quot;drop_device&quot;: true,</span><br><span class="line">				&quot;ignore_file_system_types&quot;: [</span><br><span class="line">					&quot;sysfs&quot;,</span><br><span class="line">					&quot;tmpfs&quot;,</span><br><span class="line">					&quot;devtmpfs&quot;</span><br><span class="line">				],</span><br><span class="line">				&quot;measurement&quot;: [</span><br><span class="line">					&quot;free&quot;,</span><br><span class="line">					&quot;used_percent&quot;</span><br><span class="line">				],</span><br><span class="line">				&quot;metrics_collection_interval&quot;: 60,</span><br><span class="line">				&quot;resources&quot;: [</span><br><span class="line">					&quot;*&quot;</span><br><span class="line">				]</span><br><span class="line">			&#125;,</span><br><span class="line">			&quot;diskio&quot;: &#123;</span><br><span class="line">				&quot;measurement&quot;: [</span><br><span class="line">					&quot;read_bytes&quot;,</span><br><span class="line">					&quot;write_bytes&quot;</span><br><span class="line">				],</span><br><span class="line">				&quot;metrics_collection_interval&quot;: 60,</span><br><span class="line">				&quot;resources&quot;: [</span><br><span class="line">					&quot;*&quot;</span><br><span class="line">				]</span><br><span class="line">			&#125;,</span><br><span class="line">			&quot;mem&quot;: &#123;</span><br><span class="line">				&quot;measurement&quot;: [</span><br><span class="line">					&quot;mem_used_percent&quot;</span><br><span class="line">				],</span><br><span class="line">				&quot;metrics_collection_interval&quot;: 60,</span><br><span class="line">				&quot;resources&quot;: [</span><br><span class="line">					&quot;*&quot;</span><br><span class="line">				]</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
 
     </div>
 
@@ -459,7 +660,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前期准备"><span class="nav-number">1.</span> <span class="nav-text">前期准备</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验步骤"><span class="nav-number"></span> <span class="nav-text">实验步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#EC2附加具有相应策略的角色"><span class="nav-number">1.</span> <span class="nav-text">EC2附加具有相应策略的角色</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#登录到AWS-控制台-创建IAM角色"><span class="nav-number">1.1.</span> <span class="nav-text">登录到AWS 控制台 创建IAM角色</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将该角色附加到EC2"><span class="nav-number">2.</span> <span class="nav-text">将该角色附加到EC2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装CloudWatchAgent代理"><span class="nav-number">3.</span> <span class="nav-text">安装CloudWatchAgent代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看监控情况"><span class="nav-number">4.</span> <span class="nav-text">查看监控情况</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前期准备"><span class="nav-number">1.</span> <span class="nav-text">前期准备</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验步骤"><span class="nav-number"></span> <span class="nav-text">实验步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#EC2附加具有相应策略的角色"><span class="nav-number">1.</span> <span class="nav-text">EC2附加具有相应策略的角色</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#登录到AWS-控制台-创建IAM角色"><span class="nav-number">1.1.</span> <span class="nav-text">登录到AWS 控制台 创建IAM角色</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将该角色附加到EC2"><span class="nav-number">2.</span> <span class="nav-text">将该角色附加到EC2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装CloudWatchAgent代理"><span class="nav-number">3.</span> <span class="nav-text">安装CloudWatchAgent代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看监控情况"><span class="nav-number">4.</span> <span class="nav-text">查看监控情况</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在本地服务器收集指标"><span class="nav-number"></span> <span class="nav-text">在本地服务器收集指标</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#指定-IAM-凭证和-AWS-区域"><span class="nav-number"></span> <span class="nav-text">指定 IAM 凭证和 AWS 区域</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#服务器安装AWS-CLI"><span class="nav-number"></span> <span class="nav-text">服务器安装AWS CLI</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#指定IAM凭证与AWS区域"><span class="nav-number">1.</span> <span class="nav-text">指定IAM凭证与AWS区域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-S3-下载链接下载-CloudWatch-代理软件包"><span class="nav-number">2.</span> <span class="nav-text">使用 S3 下载链接下载 CloudWatch 代理软件包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用命令行启动-CloudWatch-代理"><span class="nav-number">3.</span> <span class="nav-text">使用命令行启动 CloudWatch 代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看指标"><span class="nav-number">4.</span> <span class="nav-text">查看指标</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Windows-安装cloudwatch-Agent"><span class="nav-number"></span> <span class="nav-text">Windows 安装cloudwatch Agent</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Windows-安装代理"><span class="nav-number"></span> <span class="nav-text">Windows 安装代理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#操作Aws-上的主机"><span class="nav-number">1.</span> <span class="nav-text">操作Aws 上的主机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建Role"><span class="nav-number">1.1.</span> <span class="nav-text">创建Role</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将该角色附加到EC2-1"><span class="nav-number">1.2.</span> <span class="nav-text">将该角色附加到EC2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作本地Windows-服务器"><span class="nav-number">2.</span> <span class="nav-text">操作本地Windows 服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在windows主机上下载Cloudwatch-Agent"><span class="nav-number">3.</span> <span class="nav-text">在windows主机上下载Cloudwatch Agent</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附页"><span class="nav-number"></span> <span class="nav-text">附页</span></a></div>
       </div>
       <!--/noindex-->
 
@@ -474,7 +675,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-count">48</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -483,7 +684,7 @@
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-count">36</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -533,13 +734,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">130k</span>
+    <span title="站点总字数">141k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">3:37</span>
+    <span title="站点阅读时长">3:55</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动
   </div>
