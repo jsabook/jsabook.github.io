@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico">
+  <link rel="mask-icon" href="/favicon.ico" color="#222">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://blog.wjzhe.ml').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"buttons","active":null,"storage":true,"lazyload":true,"nav":{"disqus":{"text":"Load Disqus","order":-1}}},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":false,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="数据同步服务AWS DataSync 是一项安全的在线服务，可自动化并加速本地存储和 AWS 存储服务之间的数据移动。DataSync 可以在网络文件系统（NFS）共享、服务器消息块（SMB）共享、Hadoop Distributed File System（HDFS）、自行管理的对象存储、AWS Snowcone、Amazon Simple Storage Service（Amazon S3）存">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据同步服务实验">
+<meta property="og:url" content="https://blog.wjzhe.ml/2022/05/24/DataSyncServer/index.html">
+<meta property="og:site_name" content="Qier&#39;s blog">
+<meta property="og:description" content="数据同步服务AWS DataSync 是一项安全的在线服务，可自动化并加速本地存储和 AWS 存储服务之间的数据移动。DataSync 可以在网络文件系统（NFS）共享、服务器消息块（SMB）共享、Hadoop Distributed File System（HDFS）、自行管理的对象存储、AWS Snowcone、Amazon Simple Storage Service（Amazon S3）存">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/case.53c1297e16befdbb5fde775c586d47f5770221bb.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625101754589.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625101913256.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625102000302.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625102243241.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625102703762.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625104254482.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625104606370.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625103347288.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625103441121.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625104941453.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625104915071.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625112243261.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625115826664.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625140127073.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625120131532.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625141649389.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625140405331.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625120553653.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625122038339.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625120831471.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625121102821.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625122222179.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625122245431.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625122704981.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625122948087.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625123040642.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625140521128.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625140905505.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625140939234.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625141041920.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625141949084.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625142226777.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625142505862.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625143234902.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625143309516.png">
+<meta property="article:published_time" content="2022-05-24T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-05-24T16:00:00.000Z">
+<meta property="article:author" content="qier">
+<meta property="article:tag" content="AWS">
+<meta property="article:tag" content="Data">
+<meta property="article:tag" content="sync">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/case.53c1297e16befdbb5fde775c586d47f5770221bb.png">
+
+<link rel="canonical" href="https://blog.wjzhe.ml/2022/05/24/DataSyncServer/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>数据同步服务实验 | Qier's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Qier's blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Qier's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-desktop"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-friends">
+
+    <a href="/friends.html" rel="section"><i class="fa fa-fw fa-link"></i>Friends</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about.html" rel="section"><i class="fa fa-fw fa-user-circle-o"></i>About</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wjzhe.ml/2022/05/24/DataSyncServer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/avatar.png">
+      <meta itemprop="name" content="qier">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Qier's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          数据同步服务实验
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-05-25 2022-05-25T00:00:00+08:00" itemprop="dateCreated datePublished" datetime="2022-05-25T00:00:00+08:00">2022-05-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1/" itemprop="url" rel="index">
+                    <span itemprop="name">存储服务</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2022/05/24/DataSyncServer/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2022/05/24/DataSyncServer/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="数据同步服务"><a href="#数据同步服务" class="headerlink" title="数据同步服务"></a>数据同步服务</h1><p>AWS DataSync 是一项安全的在线服务，可自动化并加速本地存储和 AWS 存储服务之间的数据移动。DataSync 可以在网络文件系统（NFS）共享、服务器消息块（SMB）共享、Hadoop Distributed File System（HDFS）、自行管理的对象存储、AWS Snowcone、Amazon Simple Storage Service（Amazon S3）存储桶、Amazon Elastic File System（Amazon EFS）文件系统、Amazon FSx for Windows File Server 文件系统、Amazon FSx for Lustre 文件系统与 Amazon FSz for OpenZFS 文件系统之间复制数据。</p>
+<p>AWS DataSync支持三种方式：</p>
+<ul>
+<li>在本地和AWS之间传输数据</li>
+<li>在AWS服务之间传输数据</li>
+<li>在AWS和其他公有云服务之间传输数据</li>
+</ul>
+<p>DataSync服务同步的主要是文件对象，以文件为基本服务。下面进行三种方式的实验.</p>
+<p>Aws DataSync可以实现下列功能：</p>
+<ul>
+<li>迁移数据：将文件和对象数据快速移动到 AWS。通过动态加密和端到端数据验证，您的数据是安全的。</li>
+<li>保护数据：将数据安全地复制到成本高效的 AWS 存储服务，包括任何 Amazon S3 存储类。</li>
+<li>将原始数据归档：通过将数据直接移动到 Amazon S3 Glacier 归档存储类来降低本地存储成本。</li>
+<li>管理混合数据工作流：在本地系统和 AWS 之间无缝移动数据，以加速关键混合工作流。</li>
+</ul>
+<p>AWS DataSync原理：</p>
+<p>通过task任务将指定位置的数据传输到AWS云端的存储位置（可以是S3、EFS或FSx）</p>
+<h1 id="在本地和AWS之间传输数据"><a href="#在本地和AWS之间传输数据" class="headerlink" title="在本地和AWS之间传输数据"></a>在本地和AWS之间传输数据</h1><p>架构</p>
+<p><span><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/case.53c1297e16befdbb5fde775c586d47f5770221bb.png" alt="case.53c1297e16befdbb5fde775c586d47f5770221bb"> </span></p>
+<h2 id="选择服务"><a href="#选择服务" class="headerlink" title="选择服务"></a>选择服务</h2><p><span><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625101754589.png" alt="image-20220625101754589"></span></p>
+<h2 id="使用服务"><a href="#使用服务" class="headerlink" title="使用服务"></a>使用服务</h2><p>选择本地到AWS云端,因此需要在本地先创建一个代理。</p>
+<p><span><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625101913256.png" alt="image-20220625101913256"></span></p>
+<h2 id="创建位置"><a href="#创建位置" class="headerlink" title="创建位置"></a>创建位置</h2><p>位置是AWS DataSync服务中存储点的位置，既可以是源位置（原始数据的存储位置），也可以是目标位置。一个任务需要设定两个位置，一个是存储位置一个是目标位置。AWS DataSync提供下列位置：</p>
+<ul>
+<li><a href="https://docs.aws.amazon.com/zh_cn/datasync/latest/userguide/create-nfs-location.html" target="_blank" rel="noopener">为 NFS 创建位置</a></li>
+<li><a href="https://docs.aws.amazon.com/zh_cn/datasync/latest/userguide/create-smb-location.html" target="_blank" rel="noopener">为 SMB 创建位置</a></li>
+<li><a href="https://docs.aws.amazon.com/zh_cn/datasync/latest/userguide/create-hdfs-location.html" target="_blank" rel="noopener">为 HDFS 创建位置</a></li>
+<li><a href="https://docs.aws.amazon.com/zh_cn/datasync/latest/userguide/create-object-location.html" target="_blank" rel="noopener">创建对象存储的位置</a></li>
+<li><a href="https://docs.aws.amazon.com/zh_cn/datasync/latest/userguide/create-efs-location.html" target="_blank" rel="noopener">创建 Amazon EFS 的位置</a></li>
+<li><a href="https://docs.aws.amazon.com/zh_cn/datasync/latest/userguide/create-fsx-location.html" target="_blank" rel="noopener">创建 FSx for Windows File Server 的位置</a></li>
+<li><a href="https://docs.aws.amazon.com/zh_cn/datasync/latest/userguide/create-lustre-location.html" target="_blank" rel="noopener">为 Lustre 创建 FSx 的位置</a></li>
+<li><a href="https://docs.aws.amazon.com/zh_cn/datasync/latest/userguide/create-openzfs-location.html" target="_blank" rel="noopener">为 OpenZFS 创建 FSx 的位置</a></li>
+<li><a href="https://docs.aws.amazon.com/zh_cn/datasync/latest/userguide/create-s3-location.html" target="_blank" rel="noopener">为 Amazon S3 创建位置</a></li>
+</ul>
+<p>在这次实验中，主要是测试两个同步任务：</p>
+<ul>
+<li>从本地的SMB服务位置同步数据到S3</li>
+<li>同S3同步数据到本地</li>
+</ul>
+<h2 id="创建本地代理"><a href="#创建本地代理" class="headerlink" title="创建本地代理"></a>创建本地代理</h2><p>这里，选择Vmware Workstation 安装本地代理，下载镜像</p>
+<p><span><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625102000302.png" alt="image-20220625102000302"></span></p>
+<p>下载压缩包之后，对压缩包进行解压获取一个OVA文件。</p>
+<p><span><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625102243241.png" alt="image-20220625102243241"></span></p>
+<p>将这个OVA文件导入到Vmware workstation中</p>
+<p><span><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625102703762.png" alt="image-20220625102703762"></p>
+</span>
+
+<p><span><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625104254482.png" alt="image-20220625104254482"></span></p>
+<p>开启虚拟机，进行下一步操作，登录，用户名：admin，密码：password。</p>
+<p><span><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625104606370.png" alt="image-20220625104606370"></span></p>
+<p>获取密钥</p>
+<p>获取密钥，打开powershell，将下列代码输入到终端，并运行函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function Get-ActivationKey &#123;</span><br><span class="line">  [CmdletBinding()]</span><br><span class="line">  Param(</span><br><span class="line">    [parameter(Mandatory&#x3D;$true)][string]$IpAddress, </span><br><span class="line">    [parameter(Mandatory&#x3D;$true)][string]$ActivationRegion</span><br><span class="line">  )</span><br><span class="line">  PROCESS &#123;</span><br><span class="line">    $request &#x3D; Invoke-WebRequest -UseBasicParsing -Uri &quot;http:&#x2F;&#x2F;$IpAddress&#x2F;?activationRegion&#x3D;$ActivationRegion&quot; -MaximumRedirection 0 -ErrorAction SilentlyContinue</span><br><span class="line">    if ($request) &#123;</span><br><span class="line">      $activationKeyParam &#x3D; $request.Headers.Location | Select-String -Pattern &quot;activationKey&#x3D;([A-Z0-9-]+)&quot;</span><br><span class="line">      $activationKeyParam.Matches.Value.Split(&quot;&#x3D;&quot;)[1]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>获取到密钥</p>
+<p><span><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625103347288.png" alt="image-20220625103347288"></span></p>
+<p>将激活密钥填入创建网关的第二步</p>
+<p><span><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625103441121.png" alt="image-20220625103441121"></span></p>
+<p>代理创建成功</p>
+<p><span><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625104941453.png" alt="image-20220625104941453"></span></p>
+<p>从这一步本地代理就创建好了，后面就开始使用AWS DataSync这个服务</p>
+<p><span><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625104915071.png" alt="image-20220625104915071"></span></p>
+<h2 id="创建同步任务——本地SMB到S3"><a href="#创建同步任务——本地SMB到S3" class="headerlink" title="创建同步任务——本地SMB到S3"></a>创建同步任务——本地SMB到S3</h2><p>本地有一个SMB服务，这个服务的信息</p>
+<ul>
+<li>用户名：shared </li>
+<li>密码：123456</li>
+<li>文件目录：/shared/source</li>
+</ul>
+<span>
+
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625112243261.png" alt="image-20220625112243261"></span></p>
+<p>值得注意的是SMB服务需要与AWS DataSync代理能够通信。</p>
+<h3 id="选择任务"><a href="#选择任务" class="headerlink" title="选择任务"></a>选择任务</h3><p>创建同步任务</p>
+<p><span><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625115826664.png" alt="image-20220625115826664"></span></p>
+<h3 id="选择源位置"><a href="#选择源位置" class="headerlink" title="选择源位置"></a>选择源位置</h3><p>这里的源位置就是你需要同步的SMB服务。配置源位置</p>
+<p><span><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625140127073.png" alt="image-20220625140127073"></span></p>
+<p>用户设置</p>
+<p><span><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625120131532.png" alt="image-20220625120131532"></span></p>
+<h3 id="选择目标位置"><a href="#选择目标位置" class="headerlink" title="选择目标位置"></a>选择目标位置</h3><p>这里选择s3作为目标端</p>
+<p><span><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625141649389.png" alt="image-20220625141649389"></span></p>
+<h3 id="配置设置"><a href="#配置设置" class="headerlink" title="配置设置"></a>配置设置</h3><p>设置任务名称</p>
+<span>
+
+<p><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625140405331.png" alt="image-20220625140405331"></span></p>
+<p>数据传输配置</p>
+<p><span><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625120553653.png" alt="image-20220625120553653"></span></p>
+<p>设置任务同步计划，这里设定每隔3分钟执行一次同步任务</p>
+<p><span><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625122038339.png" alt="image-20220625122038339"></span></p>
+<p>日志组设置</p>
+<p><span><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625120831471.png" alt="image-20220625120831471"></span></p>
+<p>创建同步任务成功</p>
+<p><span><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625121102821.png" alt="image-20220625121102821"></span></p>
+<h3 id="使用服务-1"><a href="#使用服务-1" class="headerlink" title="使用服务"></a>使用服务</h3><p>我们在之前的哪个smb服务文件夹中传入一些文件</p>
+<p><span><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625122222179.png" alt="image-20220625122222179"></span></p>
+<p>等待同步的时间</p>
+<p><span><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625122245431.png" alt="image-20220625122245431"></span></p>
+<p>到同步时间之后，就会有一个最新执行</p>
+<p><span><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625122704981.png" alt="image-20220625122704981"></span></p>
+<p>等待执行完毕</p>
+<p><span><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625122948087.png" alt="image-20220625122948087"></span></p>
+<p>查看S3存储桶，发现已经有了</p>
+<p><span><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625123040642.png" alt="image-20220625123040642"></span></p>
+<h2 id="创建同步任务——S3到本地SMB"><a href="#创建同步任务——S3到本地SMB" class="headerlink" title="创建同步任务——S3到本地SMB"></a>创建同步任务——S3到本地SMB</h2><p>创建位置</p>
+<p>这里的同步位置是从S3到本地的SMB服务，因此需要创建两个位置：</p>
+<ul>
+<li>本地SMB位置（目标位置）</li>
+<li>S3存储痛位置（原始位置）</li>
+</ul>
+<h3 id="本地目标SMB位置创建"><a href="#本地目标SMB位置创建" class="headerlink" title="本地目标SMB位置创建"></a>本地目标SMB位置创建</h3><p><span><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625140521128.png" alt="image-20220625140521128"></span></p>
+<p>创建本地位置</p>
+<p><span><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625140905505.png" alt="image-20220625140905505"></span></p>
+<p>创建成功</p>
+<p><span><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625140939234.png" alt="image-20220625140939234"></span></p>
+<h3 id="创建源S3位置"><a href="#创建源S3位置" class="headerlink" title="创建源S3位置"></a>创建源S3位置</h3><p><span><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625141041920.png" alt="image-20220625141041920"></span></p>
+<h3 id="位置查看"><a href="#位置查看" class="headerlink" title="位置查看"></a>位置查看</h3><p>通过上述两个步骤。已经将目标和源位置都创建完毕</p>
+<p><span><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625141949084.png" alt="image-20220625141949084"></span></p>
+<h3 id="创建任务"><a href="#创建任务" class="headerlink" title="创建任务"></a>创建任务</h3><p><span><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625142226777.png" alt="image-20220625142226777"></span></p>
+<h3 id="测试同步任务"><a href="#测试同步任务" class="headerlink" title="测试同步任务"></a>测试同步任务</h3><p>向datasyncsrc20220625这个从存储桶传输文件</p>
+<p><span><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625142505862.png" alt="image-20220625142505862"></span></p>
+<p>等待同步任务完成</p>
+<p><span><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625143234902.png" alt="image-20220625143234902"></span></p>
+<p>查看本地目标位置已经获取到数据了</p>
+<p><span><img src="https://raw.githubusercontent.com/jsabook/githubPic/main/myblog/image-20220625143309516.png" alt="image-20220625143309516"></span></p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>从这个实验可以得到，其实AWS DataSync使用方式就是创建任务，而一个任务需要有以下三个要素：</p>
+<ul>
+<li><p>存储源位置</p>
+<ul>
+<li>存储源位置如果直接支持公网访问，例如其他公有云的SMB服务，或者FSx这种公网可以访问的服务，那么就可以直接选择这个源位置；</li>
+<li>存储位置不支持公网直接访问，例如客户本地内网地址的SMB服务，NFS服务。那么我们就需要在这个本地存储服务可以访问的地方创建一个本地代理；在创建任务的时候直接选择这个代理即可。</li>
+</ul>
+</li>
+<li><p>目标位置</p>
+<ul>
+<li>目标位置如果直接支持公网访问，例如其他公有云的SMB服务，或者FSx这种公网可以访问的服务，那么就可以直接选择这个目标位置；</li>
+<li>目标位置不支持公网直接访问，例如客户本地内网地址的SMB服务，NFS服务。那么我们就需要在这个本地存储服务可以访问的地方创建一个本地代理；在创建任务的时候直接选择这个代理即可。</li>
+</ul>
+</li>
+<li><p>同步任务时间</p>
+<ul>
+<li>AWS DataSync要求任务同步时间间隔需要1小时</li>
+</ul>
+</li>
+</ul>
+<p>从这个实验可以看出AWS DataSync支持以下同步：</p>
+<ul>
+<li>AWS存储服务 =&gt; 本地存储服务</li>
+<li>AWS存储服务 =&gt; 其他公有云服务</li>
+<li>本地存储服务 =&gt; AWS存储服务</li>
+<li>其他公有云服务=&gt; AWS存储服务</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/AWS/" rel="tag"><i class="fa fa-tag"></i> AWS</a>
+              <a href="/tags/Data/" rel="tag"><i class="fa fa-tag"></i> Data</a>
+              <a href="/tags/sync/" rel="tag"><i class="fa fa-tag"></i> sync</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/05/23/StorageGateway/" rel="prev" title="文件网关存储实验">
+      <i class="fa fa-chevron-left"></i> 文件网关存储实验
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/06/25/ocrmarche/" rel="next" title="ocrmarche">
+      ocrmarche <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+      <script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=h1V0Nw_4vLcQcUBJgbm3Xq8qyT69xb1vgP4PmR_sO0Q&cl=ffffff&w=a"></script>
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据同步服务"><span class="nav-number">1.</span> <span class="nav-text">数据同步服务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在本地和AWS之间传输数据"><span class="nav-number">2.</span> <span class="nav-text">在本地和AWS之间传输数据</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#选择服务"><span class="nav-number">2.1.</span> <span class="nav-text">选择服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用服务"><span class="nav-number">2.2.</span> <span class="nav-text">使用服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建位置"><span class="nav-number">2.3.</span> <span class="nav-text">创建位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建本地代理"><span class="nav-number">2.4.</span> <span class="nav-text">创建本地代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建同步任务——本地SMB到S3"><span class="nav-number">2.5.</span> <span class="nav-text">创建同步任务——本地SMB到S3</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#选择任务"><span class="nav-number">2.5.1.</span> <span class="nav-text">选择任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择源位置"><span class="nav-number">2.5.2.</span> <span class="nav-text">选择源位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择目标位置"><span class="nav-number">2.5.3.</span> <span class="nav-text">选择目标位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置设置"><span class="nav-number">2.5.4.</span> <span class="nav-text">配置设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用服务-1"><span class="nav-number">2.5.5.</span> <span class="nav-text">使用服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建同步任务——S3到本地SMB"><span class="nav-number">2.6.</span> <span class="nav-text">创建同步任务——S3到本地SMB</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#本地目标SMB位置创建"><span class="nav-number">2.6.1.</span> <span class="nav-text">本地目标SMB位置创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建源S3位置"><span class="nav-number">2.6.2.</span> <span class="nav-text">创建源S3位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#位置查看"><span class="nav-number">2.6.3.</span> <span class="nav-text">位置查看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建任务"><span class="nav-number">2.6.4.</span> <span class="nav-text">创建任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试同步任务"><span class="nav-number">2.6.5.</span> <span class="nav-text">测试同步任务</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="qier"
+      src="/avatar.png">
+  <p class="site-author-name" itemprop="name">qier</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jsabook/" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jsabook&#x2F;" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wujiashuaizfq@gmail.com" title="E-Mail → mailto:wujiashuaizfq@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-fw fa-rss"></i>RSS</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qier</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">146k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">4:04</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://muzi.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: {page: {
+            url: "https://blog.wjzhe.ml/2022/05/24/DataSyncServer/",
+            identifier: "2022/05/24/DataSyncServer/",
+            title: "数据同步服务实验"
+          }
+        }
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://muzi.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
